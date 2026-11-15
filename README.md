@@ -7,7 +7,7 @@ Comprehensive, interactive digital study guides for **Linear Control Systems (LC
 
 ---
 
-## 🌐 Live Website (iPad, Mobile & Desktop)
+## 🌐 Live Website
 
 👉 **Access the Interactive Study Portal:** **[https://soumomo.github.io/mm_lcs/](https://soumomo.github.io/mm_lcs/)**
 
@@ -26,8 +26,7 @@ Comprehensive, interactive digital study guides for **Linear Control Systems (LC
 
 ## ✨ Features
 
-- **iPad & Tablet Friendly:** Zero install required. Opens directly in iPad Safari or Chrome with native smooth scrolling and responsive typography.
-- **Razor-Sharp Vector SVGs:** 57+ publication-grade SVG diagrams that never lose resolution on Retina / iPad displays.
+- **Razor-Sharp Vector SVGs:** 57+ publication-grade SVG diagrams that never lose resolution on high-DPI displays.
 - **Offline / Fast CDN Math:** Powered by KaTeX and Tailwind CSS for instant rendering.
 - **Dark & Light Mode:** Fully adaptive high-contrast color palette with instant theme switcher.
 - **JU Exam Bank (2017–2026):** Solved exam problems with mark distributions and step-by-step working.
