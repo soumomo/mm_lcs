@@ -161,94 +161,207 @@
                 <div class="question-prompt">
                     For a unity feedback control system with open-loop transfer function
                     $$G(s) = \frac{K(s + b)}{s(s + a)}, \quad |a| < |b| \quad (b > a > 0)$$
-                    using the Evans Angle Criterion, rigorously prove that the complex branches of the root locus form a circle centered at $(-b, 0)$ with radius $R = \sqrt{b^2 - ab}$. Further, derive the analytical expression for the minimum damping ratio $\zeta_{\min} = \sqrt{a/b}$.
+                    using the Evans Angle Criterion, rigorously prove that the complex branches of the root locus form a circle centered at $(-b, 0)$ with radius $R = \sqrt{b^2 - ab}$. Determine the exact coordinates of the breakaway and break-in points, verify them via $\frac{dK}{ds} = 0$, and derive the analytical expression for the minimum damping ratio $\zeta_{\min} = \sqrt{a/b}$.
                 </div>
 
                 <div class="solution-body">
+                    <!-- Step 1 -->
                     <div class="solution-step">
-                        <span class="step-label">Step 1: Application of Evans Angle Criterion</span>
+                        <span class="step-label">Step 1: Open-Loop Singularities &amp; Real-Axis Geometry</span>
                         <p>
-                            The closed-loop characteristic equation with unity feedback ($H(s) = 1$) is:
-                            $$1 + G(s) = 0 \implies 1 + \frac{K(s + b)}{s(s + a)} = 0$$
-                            For any point $s = \sigma + j\omega$ on the root locus ($K > 0$), Evans' Angle Criterion requires:
-                            $$\angle \left[\frac{s + b}{s(s + a)}\right] = -\pi \implies \angle(s + b) - \angle(s) - \angle(s + a) = -\pi$$
+                            We are given the open-loop transfer function with negative unity feedback ($H(s) = 1$):
+                            $$G(s) = \frac{K(s + b)}{s(s + a)}, \quad b > a > 0$$
+                            Let us identify all finite open-loop singularities:
+                        </p>
+                        <ul>
+                            <li><strong>Open-Loop Poles ($n = 2$):</strong> Setting the denominator $s(s + a) = 0$ yields two poles at $s = 0$ and $s = -a$.</li>
+                            <li><strong>Open-Loop Zero ($m = 1$):</strong> Setting the numerator $s + b = 0$ yields one finite zero at $s = -b$.</li>
+                        </ul>
+                        <p>
+                            Since $b > a > 0$, the numerical positions along the negative real axis from right to left are:
+                            $$\text{Origin } 0 > -a > -b$$
+                            Therefore, the zero at $-b$ lies strictly to the left of the pole at $-a$.
+                        </p>
+                        <p>
+                            <strong>Real-Axis Root Locus Criterion:</strong> A point on the real axis belongs to the root locus if and only if the total number of real poles and zeros lying to its right is <em>odd</em>.
+                        </p>
+                        <ul>
+                            <li>For segment $[-a, 0]$: 1 pole to the right ($s = 0$, odd) $\implies$ <strong>Locus exists on $[-a, 0]$</strong>.</li>
+                            <li>For segment $[-b, -a]$: 2 singularities to the right ($s = 0, -a$, even) $\implies$ <strong>No locus on $[-b, -a]$</strong>.</li>
+                            <li>For segment $(-\infty, -b]$: 3 singularities to the right ($s = 0, -a, -b$, odd) $\implies$ <strong>Locus exists on $(-\infty, -b]$</strong>.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="solution-step">
+                        <span class="step-label">Step 2: Characteristic Equation &amp; Evans Angle Criterion</span>
+                        <p>
+                            The closed-loop characteristic equation is:
+                            $$1 + G(s)H(s) = 0 \implies 1 + \frac{K(s + b)}{s(s + a)} = 0 \implies s(s + a) + K(s + b) = 0$$
+                            For any point $s$ in the complex plane to lie on the root locus for positive real gain ($K > 0$), it must satisfy Evans' Angle Criterion:
+                            $$\sum \angle(\text{zeros to } s) - \sum \angle(\text{poles to } s) = (2q + 1)180^\circ, \quad q \in \mathbb{Z}$$
+                            Substituting the one open-loop zero at $-b$ and the two open-loop poles at $0$ and $-a$, and selecting the principal odd multiple $-180^\circ$ ($-\pi\text{ rad}$):
+                            $$\angle(s + b) - \angle(s) - \angle(s + a) = -\pi$$
                         </p>
                     </div>
 
+                    <!-- Step 3 -->
                     <div class="solution-step">
-                        <span class="step-label">Step 2: Substitution of Rectangular Coordinates $s = \sigma + j\omega$</span>
+                        <span class="step-label">Step 3: Substitution of Rectangular Coordinates $s = \sigma + j\omega$</span>
                         <p>
-                            Substituting $s = \sigma + j\omega$ into each phasor term:
+                            Represent the complex eigenvalue in rectangular coordinates as $s = \sigma + j\omega$, where $\sigma$ is the real part (attenuation factor) and $\omega$ is the imaginary part (oscillation frequency):
+                        </p>
+                        <ul>
+                            <li>$s + b = (\sigma + b) + j\omega \implies \angle(s + b) = \tan^{-1}\left(\frac{\omega}{\sigma + b}\right)$</li>
+                            <li>$s = \sigma + j\omega \implies \angle(s) = \tan^{-1}\left(\frac{\omega}{\sigma}\right)$</li>
+                            <li>$s + a = (\sigma + a) + j\omega \implies \angle(s + a) = \tan^{-1}\left(\frac{\omega}{\sigma + a}\right)$</li>
+                        </ul>
+                        <p>
+                            Substituting these phase angles into the Evans Angle Criterion:
                             $$\tan^{-1}\left(\frac{\omega}{\sigma + b}\right) - \tan^{-1}\left(\frac{\omega}{\sigma}\right) - \tan^{-1}\left(\frac{\omega}{\sigma + a}\right) = -\pi$$
-                            Transposing the pole phase angles to the right-hand side:
+                            Transposing the two pole phase angles to the left-hand side and moving $\pi$ yields:
                             $$\tan^{-1}\left(\frac{\omega}{\sigma}\right) + \tan^{-1}\left(\frac{\omega}{\sigma + a}\right) = \pi + \tan^{-1}\left(\frac{\omega}{\sigma + b}\right)$$
                         </p>
                     </div>
 
+                    <!-- Step 4 -->
                     <div class="solution-step">
-                        <span class="step-label">Step 3: Evaluation via Tangent Addition Identity</span>
+                        <span class="step-label">Step 4: Application of the Tangent Addition Formula</span>
                         <p>
-                            Taking the tangent of both sides using $\tan(A + B) = \frac{\tan A + \tan B}{1 - \tan A \tan B}$:
-                            $$\text{LHS} = \tan\left[\tan^{-1}\left(\frac{\omega}{\sigma}\right) + \tan^{-1}\left(\frac{\omega}{\sigma + a}\right)\right] = \frac{\frac{\omega}{\sigma} + \frac{\omega}{\sigma + a}}{1 - \left(\frac{\omega}{\sigma}\right)\left(\frac{\omega}{\sigma + a}\right)}$$
-                            Multiplying numerator and denominator by $\sigma(\sigma + a)$:
-                            $$\text{LHS} = \frac{\omega(\sigma + a) + \omega\sigma}{\sigma(\sigma + a) - \omega^2} = \frac{\omega(2\sigma + a)}{\sigma^2 + a\sigma - \omega^2}$$
-                            Now evaluating the RHS using the periodicity identity $\tan(\pi + \phi) = \tan\phi$:
-                            $$\text{RHS} = \tan\left[\pi + \tan^{-1}\left(\frac{\omega}{\sigma + b}\right)\right] = \frac{\tan\pi + \frac{\omega}{\sigma + b}}{1 - \tan\pi \left(\frac{\omega}{\sigma + b}\right)} = \frac{0 + \frac{\omega}{\sigma + b}}{1 - 0} = \frac{\omega}{\sigma + b}$$
+                            Define the three component angles:
+                            $$A = \tan^{-1}\left(\frac{\omega}{\sigma}\right), \quad B = \tan^{-1}\left(\frac{\omega}{\sigma + a}\right), \quad C = \tan^{-1}\left(\frac{\omega}{\sigma + b}\right)$$
+                            The angle balance relation is:
+                            $$A + B = \pi + C$$
+                            Taking the tangent of both sides:
+                            $$\tan(A + B) = \tan(\pi + C)$$
+                            Since the tangent function has a fundamental period of $\pi$ radians ($\tan(\pi + C) = \tan C$), and applying the standard tangent addition formula $\tan(A + B) = \frac{\tan A + \tan B}{1 - \tan A \tan B}$:
+                            $$\frac{\frac{\omega}{\sigma} + \frac{\omega}{\sigma + a}}{1 - \left(\frac{\omega}{\sigma}\right)\left(\frac{\omega}{\sigma + a}\right)} = \frac{\omega}{\sigma + b}$$
+                            Simplifying the numerator on the LHS by finding a common denominator $\sigma(\sigma + a)$:
+                            $$\text{Numerator} = \frac{\omega(\sigma + a) + \omega\sigma}{\sigma(\sigma + a)} = \frac{\omega(2\sigma + a)}{\sigma(\sigma + a)}$$
+                            Simplifying the denominator on the LHS:
+                            $$\text{Denominator} = \frac{\sigma(\sigma + a) - \omega^2}{\sigma(\sigma + a)}$$
+                            Cancelling the identical common denominator $\sigma(\sigma + a)$:
+                            $$\frac{\omega(2\sigma + a)}{\sigma(\sigma + a) - \omega^2} = \frac{\omega}{\sigma + b}$$
                         </p>
                     </div>
 
+                    <!-- Step 5 -->
                     <div class="solution-step">
-                        <span class="step-label">Step 4: Equating and Isolating Non-Trivial Complex Branches ($\omega \neq 0$)</span>
+                        <span class="step-label">Step 5: Isolating Complex Branches ($\omega \neq 0$) &amp; Completing the Square</span>
                         <p>
-                            Equating LHS and RHS:
-                            $$\frac{\omega(2\sigma + a)}{\sigma^2 + a\sigma - \omega^2} = \frac{\omega}{\sigma + b}$$
-                            For complex roots off the real axis, $\omega \neq 0$. Dividing both sides by $\omega$:
-                            $$\frac{2\sigma + a}{\sigma^2 + a\sigma - \omega^2} = \frac{1}{\sigma + b}$$
-                            Cross-multiplying:
-                            $$(2\sigma + a)(\sigma + b) = \sigma^2 + a\sigma - \omega^2$$
+                            For the complex branches of the root locus that depart into the $s$-plane, $\omega \neq 0$. Dividing both sides of the equation by $\omega$:
+                            $$\frac{2\sigma + a}{\sigma(\sigma + a) - \omega^2} = \frac{1}{\sigma + b}$$
+                            Cross-multiplying both sides:
+                            $$(2\sigma + a)(\sigma + b) = \sigma(\sigma + a) - \omega^2$$
+                            Expanding both polynomial products:
                             $$2\sigma^2 + 2b\sigma + a\sigma + ab = \sigma^2 + a\sigma - \omega^2$$
                             Subtracting $\sigma^2 + a\sigma$ from both sides:
                             $$\sigma^2 + 2b\sigma + ab = -\omega^2 \implies \sigma^2 + 2b\sigma + \omega^2 = -ab$$
-                        </p>
-                    </div>
-
-                    <div class="solution-step">
-                        <span class="step-label">Step 5: Completing the Square — The Canonical Circle Equation</span>
-                        <p>
-                            Adding $b^2$ to both sides of the equation:
+                            To obtain the standard equation of a circle, we complete the square in $\sigma$ by adding $b^2$ to both sides:
                             $$\sigma^2 + 2b\sigma + b^2 + \omega^2 = b^2 - ab$$
-                            $$(\sigma + b)^2 + \omega^2 = b^2 - ab \tag{Proof Result 1}$$
+                            $$(\sigma + b)^2 + \omega^2 = b^2 - ab \tag{Circle Equation}$$
                             Comparing this directly with the standard Cartesian equation of a circle $(x - x_0)^2 + (y - y_0)^2 = R^2$:
                         </p>
                         <div class="metric-pill-row">
-                            <span class="metric-pill"><strong>Centre $C$:</strong> $(-b, 0)$ &bull; Exactly at the open-loop zero</span>
-                            <span class="metric-pill"><strong>Radius $R$:</strong> $\sqrt{b^2 - ab}$</span>
-                            <span class="metric-pill"><strong>Condition $b > a > 0$:</strong> Guarantees $R^2 = b(b-a) > 0$</span>
+                            <span class="metric-pill"><strong>Centre $C$:</strong> $(-b, 0)$ &bull; Exactly at the open-loop zero location</span>
+                            <span class="metric-pill"><strong>Radius $R$:</strong> $\sqrt{b^2 - ab} = \sqrt{b(b - a)}$</span>
+                            <span class="metric-pill"><strong>Existence Condition:</strong> Since $b > a > 0 \implies b(b - a) > 0$, radius $R$ is strictly real</span>
                         </div>
                     </div>
 
+                    <!-- Step 6 -->
                     <div class="solution-step">
-                        <span class="step-label">Step 6: Derivation of Minimum Damping Ratio $\zeta_{\min} = \sqrt{a/b}$</span>
+                        <span class="step-label">Step 6: Analytical Determination of Breakaway and Break-in Points</span>
+                        <p>
+                            A fundamental question in root locus construction is: <em>Where does this circular trajectory meet the real axis?</em>
+                        </p>
+                        <p>
+                            On the real axis, the imaginary component is strictly zero ($\omega = 0$). Substituting $\omega = 0$ directly into our proven circle equation:
+                            $$(\sigma + b)^2 + 0 = b^2 - ab \implies (\sigma + b)^2 = b^2 - ab$$
+                            Taking the square root on both sides:
+                            $$\sigma + b = \pm \sqrt{b^2 - ab} \implies \sigma = -b \pm \sqrt{b^2 - ab}$$
+                            This yields two distinct real-axis intersection points:
+                        </p>
+                        <ol>
+                            <li>
+                                <strong>Breakaway Point ($\sigma_{\text{breakaway}}$):</strong>
+                                $$\sigma_1 = -b + \sqrt{b^2 - ab}$$
+                                <em>Physical Trajectory:</em> Since $b > a > 0$, we have $0 < \sqrt{b(b-a)} < b$. Furthermore, $\sqrt{b^2 - ab} > b - a$, which guarantees:
+                                $$-a < \sigma_1 < 0$$
+                                $\sigma_1$ lies strictly on the active real-axis locus segment between open-loop poles $0$ and $-a$. The two branches originating at $s = 0$ and $s = -a$ move towards each other as gain $K$ increases, collide at $\sigma_1$, form a double root, and <strong>break away</strong> from the real axis at angles of $\pm 90^\circ$ into the complex plane to trace the circle.
+                            </li>
+                            <li style="margin-top: 12px;">
+                                <strong>Break-in Point ($\sigma_{\text{break-in}}$):</strong>
+                                $$\sigma_2 = -b - \sqrt{b^2 - ab}$$
+                                <em>Physical Trajectory:</em> Since $\sqrt{b^2 - ab} > 0$, we have $\sigma_2 < -b$.
+                                Therefore, $\sigma_2$ lies strictly to the left of the finite zero on the active real-axis segment $(-\infty, -b]$. The two complex conjugate circular branches traverse the upper and lower semicircles, return to the real axis as $K$ increases further, collide at $\sigma_2$, and <strong>break into</strong> the real axis at angles of $\pm 90^\circ$.
+                                <br><br>
+                                Upon breaking in at $\sigma_2$:
+                                <ul>
+                                    <li>One branch moves to the right along the real axis and terminates on the finite open-loop zero at $s = -b$ as $K \to \infty$.</li>
+                                    <li>The other branch moves to the left along the real axis toward $-\infty$ (the zero at infinity) as $K \to \infty$.</li>
+                                </ul>
+                            </li>
+                        </ol>
+                        <div class="examiner-note" style="margin-top: 16px;">
+                            <strong>Algebraic Cross-Verification via the $\frac{dK}{ds} = 0$ Criterion:</strong><br>
+                            From the closed-loop characteristic equation $s(s + a) + K(s + b) = 0$, isolate the gain $K$:
+                            $$K = -\frac{s(s + a)}{s + b} = -\frac{s^2 + as}{s + b}$$
+                            Differentiating with respect to $s$ via the quotient rule and setting $\frac{dK}{ds} = 0$:
+                            $$\frac{dK}{ds} = -\frac{(2s + a)(s + b) - (s^2 + as)(1)}{(s + b)^2} = 0$$
+                            $$(2s^2 + 2bs + as + ab) - (s^2 + as) = 0 \implies s^2 + 2bs + ab = 0$$
+                            Applying the quadratic formula to solve for $s$:
+                            $$s = \frac{-2b \pm \sqrt{(2b)^2 - 4(1)(ab)}}{2(1)} = \frac{-2b \pm \sqrt{4(b^2 - ab)}}{2} = -b \pm \sqrt{b^2 - ab}$$
+                            <strong>Conclusion:</strong> The roots of $\frac{dK}{ds} = 0$ match the circle's real-axis intercepts with 100% mathematical identity! This rigorously confirms that the breakaway and break-in points are the entry and exit gates of the circular locus.
+                        </div>
+                    </div>
+
+                    <!-- Step 7 -->
+                    <div class="solution-step">
+                        <span class="step-label">Step 7: Geometric Derivation of Minimum Damping Ratio $\zeta_{\min} = \sqrt{a/b}$</span>
                         <p>
                             For an underdamped complex conjugate pole pair $s = -\zeta\omega_n \pm j\omega_n\sqrt{1 - \zeta^2}$, the damping ratio is given geometrically by:
                             $$\zeta = \cos\theta$$
-                            where $\theta$ is the angle subtended between the negative real axis and the radial line from the origin $O(0,0)$ to the pole location $P$.
-                            To minimize the damping factor $\zeta$, the angle $\theta$ must be <strong>maximized</strong>. On a circle residing strictly in the left-half $s$-plane, the maximum angle $\theta_{\max}$ occurs precisely where the radial line from the origin is <strong>tangent to the circle at point $P$</strong>!
+                            where $\theta$ is the angle subtended between the negative real axis and the radial line connecting the origin $O(0,0)$ to the closed-loop pole location $P(\sigma, \omega)$.
+                        </p>
+                        <p>
+                            To find the <strong>minimum</strong> damping ratio $\zeta_{\min}$, the angle $\theta$ must be <strong>maximized</strong> ($\cos\theta$ is a strictly decreasing function of $\theta$ in the first quadrant $0 \le \theta \le 90^\circ$).
+                            On a circular path lying strictly in the left-half $s$-plane, the radial line from the origin reaches its maximum angle $\theta_{\max}$ when the line $OP$ is <strong>tangent to the circle at point $P$</strong>!
                         </p>
                         <p>
                             Consider the right-angled triangle $\triangle OCP$ formed by:
-                            <br>&bull; Origin $O(0, 0)$
-                            <br>&bull; Circle Centre $C(-b, 0)$ on the negative real axis (distance $OC = b$)
-                            <br>&bull; Point of tangency $P$ on the circle (radius $CP = R = \sqrt{b^2 - ab}$)
+                        </p>
+                        <ul>
+                            <li><strong>Origin $O(0, 0)$:</strong> Distance along the real axis to circle centre is $OC = b$.</li>
+                            <li><strong>Circle Centre $C(-b, 0)$:</strong> Located at the zero on the negative real axis.</li>
+                            <li><strong>Point of Tangency $P$:</strong> Lies on the circular locus, so radius $CP = R = \sqrt{b^2 - ab}$.</li>
+                        </ul>
+                        <p>
+                            <strong>Fundamental Geometric Theorem:</strong> The radius $CP$ drawn to the point of tangency is strictly perpendicular to the tangent line $OP$ ($CP \perp OP$). Therefore, triangle $\triangle OCP$ is a right-angled triangle with the right angle at $P$ ($\angle CPO = 90^\circ$).
                         </p>
                         <p>
-                            Because the radius $CP$ is perpendicular to the tangent $OP$, $\angle CPO = 90^\circ$. By Pythagoras' Theorem:
-                            $$OP^2 = OC^2 - CP^2 = b^2 - (b^2 - ab) = ab \implies OP = \sqrt{ab}$$
-                            In right triangle $\triangle OCP$, with $\angle COP = \theta$:
-                            $$\cos\theta = \frac{\text{Adjacent}}{\text{Hypotenuse}} = \frac{OP}{OC} = \frac{\sqrt{ab}}{b} = \sqrt{\frac{a}{b}}$$
-                            Therefore, the absolute minimum damping ratio of the system along the circular locus is:
-                            $$\zeta_{\min} = \sqrt{\frac{a}{b}} \tag{Proof Result 2}$$
+                            Applying the Pythagorean Theorem to right-angled triangle $\triangle OCP$:
+                            $$OC^2 = OP^2 + CP^2 \implies b^2 = OP^2 + (b^2 - ab)$$
+                            $$OP^2 = b^2 - (b^2 - ab) = ab \implies OP = \sqrt{ab}$$
+                            In the right-angled triangle $\triangle OCP$, the angle $\angle COP$ between the negative real axis (segment $OC$) and the tangent line $OP$ is $\theta$:
+                            $$\cos\theta = \frac{\text{Adjacent}}{\text{Hypotenuse}} = \frac{OP}{OC}$$
+                            Substituting $OP = \sqrt{ab}$ and $OC = b$:
+                            $$\zeta_{\min} = \frac{\sqrt{ab}}{b} = \sqrt{\frac{ab}{b^2}} = \sqrt{\frac{a}{b}} \tag{Minimum Damping Ratio}$$
                         </p>
+                    </div>
+
+                    <!-- Step 8 -->
+                    <div class="solution-step">
+                        <span class="step-label">Step 8: Master Examination Summary</span>
+                        <div class="metric-pill-row" style="margin-top: 12px;">
+                            <span class="metric-pill"><strong>Circle Equation:</strong> $(\sigma + b)^2 + \omega^2 = b^2 - ab$</span>
+                            <span class="metric-pill"><strong>Centre:</strong> $(-b, 0)$</span>
+                            <span class="metric-pill"><strong>Radius:</strong> $R = \sqrt{b^2 - ab}$</span>
+                            <span class="metric-pill"><strong>Breakaway Point:</strong> $\sigma_1 = -b + \sqrt{b^2 - ab} \in (-a, 0)$</span>
+                            <span class="metric-pill"><strong>Break-in Point:</strong> $\sigma_2 = -b - \sqrt{b^2 - ab} \in (-\infty, -b)$</span>
+                            <span class="metric-pill"><strong>Tangent Length:</strong> $OP = \sqrt{ab}$</span>
+                            <span class="metric-pill"><strong>Minimum Damping Ratio:</strong> $\zeta_{\min} = \sqrt{a/b}$</span>
+                        </div>
                     </div>
 
                     <!-- Figure 7.4 SVG -->
