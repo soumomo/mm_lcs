@@ -507,7 +507,7 @@
                             <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Complete trigonometric &amp; algebraic derivation of circle equation and $\zeta_{\min}$ formula (Part-I, Pages 5–6)</p>
                         </div>
                     </div>
-                    <span class="text-xs font-mono px-2.5 py-1 rounded-full bg-indigo-100 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 font-bold">Classic JU Exam Proof</span>
+                    <span class="text-xs font-mono px-3 py-1 rounded-lg bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-500/30 font-bold">JU CT 2025-26 &bull; Q3a [8 Marks]</span>
                 </div>
 
                 <div class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed space-y-4">
@@ -2083,6 +2083,182 @@
                             </div>
                         </div>
                     </div>
+                
+                    <!-- JU Class Test 2024-25 Q3 -->
+                    <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-850 border border-slate-200 dark:border-slate-800 space-y-4">
+                        <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 pb-3 flex-wrap gap-2">
+                            <div class="flex items-center gap-2">
+                                <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-500/30">Class Test 2024-25 &bull; Q3</span>
+                                <span class="text-xs font-semibold text-slate-500">[6 Marks &bull; 23-10-2024 &bull; CO4, K3]</span>
+                            </div>
+                            <span class="text-xs font-mono font-bold text-amber-600 dark:text-amber-400">Authentic JU CT Problem</span>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs text-slate-800 dark:text-slate-200 space-y-2">
+                            <div class="font-bold text-amber-700 dark:text-amber-300 uppercase tracking-wider text-[11px] font-mono">Exam Question Statement:</div>
+                            <p class="italic leading-relaxed font-serif text-sm">
+                                "Consider the following unity feedback system with:
+                                64124G(s)H(s) = rac{K}{s(s+3)(s^2 + 2s + 2)}64124
+                                Determine the breakaway point or points. Justify your answer. [06 Marks]"
+                            </p>
+                        </div>
+
+                        <div class="p-5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-4 text-xs sm:text-sm">
+                            <div>
+                                <span class="font-bold text-slate-800 dark:text-slate-200 block text-xs uppercase text-brand-600 dark:text-brand-400">Step 1: Open-Loop Singularities &amp; Real-Axis Segment</span>
+                                <p class="text-slate-600 dark:text-slate-300 mt-1">
+                                    The open-loop poles are obtained from the denominator factors:
+                                    64124s = 0, \quad s = -3, \quad s^2 + 2s + 2 = 0 \implies s = -1 \pm j164124
+                                    There are no finite zeros ( = 0$). By Evans' Rule 3, a point on the real axis lies on the root locus if and only if the total number of real poles and zeros to its right is odd.
+                                    Complex conjugate poles $ contribute a net angle of ^\circ$ (effectively zero) at any point on the real axis.<br>
+                                    Therefore, the root locus exists on the real axis <strong>strictly along the segment 0$</strong>.
+                                </p>
+                            </div>
+
+                            <div>
+                                <span class="font-bold text-slate-800 dark:text-slate-200 block text-xs uppercase text-brand-600 dark:text-brand-400">Step 2: Express Gain $ as an Explicit Function of $</span>
+                                <p class="text-slate-600 dark:text-slate-300 mt-1">
+                                    The closed-loop characteristic equation with unity feedback is:
+                                    641241 + G(s)H(s) = 0 \implies 1 + rac{K}{s(s+3)(s^2 + 2s + 2)} = 064124
+                                    64124K = -s(s+3)(s^2 + 2s + 2) = -(s^2 + 3s)(s^2 + 2s + 2)64124
+                                    64124K(s) = -(s^4 + 5s^3 + 8s^2 + 6s)64124
+                                </p>
+                            </div>
+
+                            <div>
+                                <span class="font-bold text-slate-800 dark:text-slate-200 block text-xs uppercase text-brand-600 dark:text-brand-400">Step 3: Apply the Breakaway Derivative Condition $rac{dK}{ds} = 0$</span>
+                                <div class="font-mono text-center py-2 bg-slate-50 dark:bg-slate-800/60 rounded-xl my-2">
+                                    64124rac{dK}{ds} = -rac{d}{ds}\left(s^4 + 5s^3 + 8s^2 + 6sight) = -(4s^3 + 15s^2 + 16s + 6) = 064124
+                                    64124\mathbf{4s^3 + 15s^2 + 16s + 6 = 0}64124
+                                </div>
+                                <p class="text-slate-600 dark:text-slate-300">
+                                    Solving this cubic polynomial yields three roots:
+                                    64124egin{cases}
+                                    s_1 = -2.2886 pprox \mathbf{-2.29} \
+                                    s_{2,3} = -0.7307 \pm j0.3486 pprox \mathbf{-0.73 \pm j0.35}
+                                    \end{cases}64124
+                                </p>
+                            </div>
+
+                            <div>
+                                <span class="font-bold text-slate-800 dark:text-slate-200 block text-xs uppercase text-brand-600 dark:text-brand-400">Step 4: Rigorous Justification (Filter for Physical vs. Extraneous Roots)</span>
+                                <div class="space-y-3 mt-2 text-slate-700 dark:text-slate-300">
+                                    <div class="p-3.5 rounded-xl bg-emerald-50/80 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 space-y-1">
+                                        <div class="font-bold text-emerald-800 dark:text-emerald-300 flex items-center gap-1.5">
+                                            <span>&#10003;</span> Validation of Real Root  = -2.29$:
+                                        </div>
+                                        <p class="text-xs">
+                                            <strong>1. Segment Verification:</strong> 569X3 < -2.2886 < 0$. The root lies directly inside the valid real-axis root locus segment 0$.<br>
+                                            <strong>2. Gain Positivity Verification:</strong>
+                                            64124K(-2.2886) = -(-2.2886)(-2.2886 + 3)\left((-2.2886)^2 + 2(-2.2886) + 2ight) = \mathbf{+4.3316 > 0}64124
+                                            Because $ belongs to the root locus and corresponds to a strictly positive, real controller gain  > 0$, <strong> = -2.29$ is a genuine physical breakaway point</strong>.
+                                        </p>
+                                    </div>
+
+                                    <div class="p-3.5 rounded-xl bg-rose-50/80 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-800 space-y-1">
+                                        <div class="font-bold text-rose-800 dark:text-rose-300 flex items-center gap-1.5">
+                                            <span>&#10007;</span> Rejection of Complex Roots {2,3} = -0.73 \pm j0.35$:
+                                        </div>
+                                        <p class="text-xs">
+                                            <strong>1. Non-Real Gain:</strong> Substituting  = -0.7307 + j0.3486$ into (s)$ produces:
+                                            64124K = 1.7932 - j0.1759 
+otin \mathbb{R}64124
+                                            On any valid branch of the Evans root locus, the gain parameter $ is physical and must be strictly real ( \in \mathbb{R}^+$).<br>
+                                            <strong>2. Angle Condition Violation:</strong> At these coordinates, $ngle G(s)H(s) 
+e \pm 180^\circ$.<br>
+                                            Therefore, the complex roots are purely extraneous mathematical artifacts arising from polynomial differentiation and <strong>do not correspond to physical breakaway points</strong>.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="p-3.5 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/60 font-semibold text-amber-900 dark:text-amber-200">
+                                <strong>Final Conclusion:</strong> There is <strong>exactly one valid breakaway point</strong> on the root locus at $\mathbf{s = -2.29}$, occurring at critical gain $\mathbf{K = 4.33}$.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- JU Class Test 2025-26 Q3b -->
+                    <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-850 border border-slate-200 dark:border-slate-800 space-y-4">
+                        <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 pb-3 flex-wrap gap-2">
+                            <div class="flex items-center gap-2">
+                                <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-indigo-500/20 text-indigo-700 dark:text-indigo-300 border border-indigo-500/30">Class Test 2025-26 &bull; Q3b</span>
+                                <span class="text-xs font-semibold text-slate-500">[6 Marks &bull; 15-10-2025 &bull; CO4]</span>
+                            </div>
+                            <span class="text-xs font-mono font-bold text-indigo-600 dark:text-indigo-400">Core Theoretical Foundation</span>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs text-slate-800 dark:text-slate-200 space-y-2">
+                            <div class="font-bold text-indigo-700 dark:text-indigo-300 uppercase tracking-wider text-[11px] font-mono">Exam Question Statement:</div>
+                            <p class="italic leading-relaxed font-serif text-sm">
+                                "Explain the significance of the equation $rac{dK}{ds} = 0$ on the real axis. [06 Marks]"
+                            </p>
+                        </div>
+
+                        <div class="p-5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-4 text-xs sm:text-sm">
+                            <div>
+                                <span class="font-bold text-slate-800 dark:text-slate-200 block text-xs uppercase text-brand-600 dark:text-brand-400">1. Mathematical Significance: Condition for Multiple (Repeated) Closed-Loop Roots</span>
+                                <p class="text-slate-600 dark:text-slate-300 mt-1">
+                                    Let the open-loop transfer function be (s)H(s) = rac{A(s)}{B(s)}$, where (s)$ and (s)$ are polynomials in $. The closed-loop characteristic equation is:
+                                    64124F(s, K) = B(s) + K A(s) = 0 \implies K(s) = -rac{B(s)}{A(s)}64124
+                                    Differentiating with respect to $ using the quotient rule:
+                                    64124rac{dK}{ds} = -rac{B'(s)A(s) - B(s)A'(s)}{[A(s)]^2} = 0 \iff B'(s)A(s) - B(s)A'(s) = 064124
+                                    Now, consider the condition for a polynomial (s)$ to have a repeated (multiple) root of multiplicity $\ge 2$: both the function and its first derivative must vanish simultaneously, i.e., (s) = 0$ and $rac{\partial F}{\partial s} = 0$:
+                                    64124rac{\partial F}{\partial s} = B'(s) + K A'(s) = 0 \implies K = -rac{B'(s)}{A'(s)}64124
+                                    Equating the two expressions for $ gives precisely:
+                                    64124-rac{B(s)}{A(s)} = -rac{B'(s)}{A'(s)} \implies B'(s)A(s) - B(s)A'(s) = 064124
+                                    <strong>Conclusion:</strong> The equation $rac{dK}{ds} = 0$ is the exact analytical condition for the closed-loop system to have <strong>coincident (multiple) roots</strong> in the complex 569Xplane.
+                                </p>
+                            </div>
+
+                            <div>
+                                <span class="font-bold text-slate-800 dark:text-slate-200 block text-xs uppercase text-brand-600 dark:text-brand-400">2. Physical &amp; Geometric Meaning on the Real Axis</span>
+                                <p class="text-slate-600 dark:text-slate-300 mt-1">
+                                    When restricted to the real axis ( = \sigma$), the equation (\sigma) = -rac{B(\sigma)}{A(\sigma)}$ defines a real scalar profile. The extrema ($rac{dK}{d\sigma} = 0$) represent two distinct physical phenomena:
+                                </p>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-2">
+                                    <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
+                                        <span class="font-bold text-amber-600 dark:text-amber-400 block text-xs uppercase">Breakaway Point (Local Maximum)</span>
+                                        <p class="text-xs text-slate-600 dark:text-slate-300 mt-1">
+                                            Occurs on a real-axis segment bounded by two open-loop poles. As gain $ increases from zsh$, two real roots travel towards each other. At $rac{dK}{d\sigma} = 0$ with $rac{d^2K}{d\sigma^2} < 0$, gain $ achieves its <strong>local maximum</strong> on that segment. For  > K_{\max}$, the roots cannot remain on the real axis; they collide and break away into the complex plane as complex conjugate pairs.
+                                        </p>
+                                    </div>
+                                    <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
+                                        <span class="font-bold text-indigo-600 dark:text-indigo-400 block text-xs uppercase">Break-in Point (Local Minimum)</span>
+                                        <p class="text-xs text-slate-600 dark:text-slate-300 mt-1">
+                                            Occurs on a real-axis segment bounded by two open-loop zeros (or a zero and 569X\infty$). Two complex branches travel toward the real axis. At $rac{dK}{d\sigma} = 0$ with $rac{d^2K}{d\sigma^2} > 0$, gain $ reaches its <strong>local minimum</strong>. For higher gains, the branches enter the real axis and split into two distinct real roots moving toward the zeros.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <span class="font-bold text-slate-800 dark:text-slate-200 block text-xs uppercase text-brand-600 dark:text-brand-400">3. Root Sensitivity Significance</span>
+                                <p class="text-slate-600 dark:text-slate-300 mt-1">
+                                    The sensitivity of a closed-loop root location $ with respect to gain $ is defined by:
+                                    64124S_K^s = rac{ds}{dK} = rac{1}{rac{dK}{ds}}64124
+                                    At any point where $rac{dK}{ds} = 0$, the root sensitivity becomes infinite:
+                                    64124\lim_{rac{dK}{ds} 	o 0} \left|rac{ds}{dK}ight| = \infty64124
+                                    <strong>Geometric consequence:</strong> An infinitesimal increment in gain $\Delta K$ produces an infinitely rapid rate of displacement of the roots, causing the locus branches to diverge abruptly at perpendicular angles ($\pm 90^\circ$ for two colliding branches, or $\pm rac{180^\circ}{n}$ for $ branches).
+                                </p>
+                            </div>
+
+                            <div>
+                                <span class="font-bold text-slate-800 dark:text-slate-200 block text-xs uppercase text-brand-600 dark:text-brand-400">4. Necessary vs. Sufficient Criterion (The Examiner Trap)</span>
+                                <p class="text-slate-600 dark:text-slate-300 mt-1">
+                                    $rac{dK}{ds} = 0$ is a <strong>necessary</strong> mathematical condition, but <strong>not sufficient</strong> by itself. A real root $\sigma$ of $rac{dK}{ds} = 0$ corresponds to a true physical breakaway/break-in point if and only if it satisfies both tests:
+                                </p>
+                                <ul class="list-disc list-inside mt-1 text-xs text-slate-700 dark:text-slate-300 space-y-1">
+                                    <li><strong>Locus Segment Test:</strong> $\sigma$ must lie on an allowed real-axis segment of the root locus (odd number of real poles and zeros to its right).</li>
+                                    <li><strong>Gain Positivity Test:</strong> The gain evaluated at that coordinate must be strictly positive: (\sigma) = -rac{B(\sigma)}{A(\sigma)} > 0$.</li>
+                                </ul>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 italic">
+                                    Roots failing either condition are extraneous algebraic artifacts and must be rejected.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </section>
 
