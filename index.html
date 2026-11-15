@@ -1,271 +1,334 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Linear Control Systems | Interactive Study Guides (Prof. MM Notes)</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Immediate Dark Mode Init (prevents flash) -->
-    <script>
-        if (localStorage.getItem("theme") === "dark" || (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
-            document.documentElement.classList.add("dark");
-        } else {
-            document.documentElement.classList.remove("dark");
+    <title>Linear Control Systems — Jadavpur University EE (3rd Year 1st Sem)</title>
+    <link rel="stylesheet" href="paper.css">
+    <script src="theme.js"></script>
+    <style>
+        /* Landing page custom editorial layout */
+        .masthead h1 {
+            font-size: clamp(48px, 9vw, 110px);
+            line-height: 0.95;
+            letter-spacing: -0.035em;
+            margin-bottom: 20px;
         }
-    </script>
-    <script>
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ["Inter", "sans-serif"],
-                        mono: ["JetBrains Mono", "monospace"],
-                    },
-                    colors: {
-                        brand: {
-                            50: "#eef2ff",
-                            100: "#e0e7ff",
-                            200: "#c7d2fe",
-                            300: "#a5b4fc",
-                            400: "#818cf8",
-                            500: "#6366f1",
-                            600: "#4f46e5",
-                            700: "#4338ca",
-                            800: "#3730a3",
-                            900: "#312e81",
-                            950: "#1e1b4b",
-                        },
-                        slate: {
-                            850: "#172033",
-                            950: "#0a0f1d",
-                        }
-                    }
-                }
+        .masthead h1 span {
+            color: var(--accent);
+        }
+        .masthead-meta {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 16px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--rule);
+        }
+        .intro-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+            padding: 40px 0;
+            border-bottom: 1px solid var(--rule);
+        }
+        @media (min-width: 768px) {
+            .intro-grid {
+                grid-template-columns: 240px 1fr;
+                gap: 48px;
             }
         }
-    </script>
+        .intro-lead {
+            font-family: var(--serif);
+            font-size: clamp(26px, 3.2vw, 38px);
+            line-height: 1.2;
+            color: var(--ink);
+            margin-bottom: 16px;
+        }
+        .intro-lead em {
+            color: var(--accent);
+            font-style: italic;
+        }
+        .intro-body {
+            font-size: 16px;
+            color: var(--muted);
+            max-width: 640px;
+            line-height: 1.7;
+        }
+        .archive-list {
+            list-style: none;
+            margin: 32px 0 48px;
+        }
+        .archive-item {
+            border-top: 1px solid var(--rule);
+            transition: background-color 0.15s ease;
+        }
+        .archive-item:last-child {
+            border-bottom: 1px solid var(--rule);
+        }
+        .archive-link {
+            display: grid;
+            grid-template-columns: 36px 1fr 24px;
+            gap: 16px;
+            align-items: baseline;
+            text-decoration: none;
+            padding: 24px 0;
+        }
+        @media (min-width: 640px) {
+            .archive-link {
+                grid-template-columns: 48px 1fr 180px 24px;
+                gap: 24px;
+            }
+        }
+        .chapter-num {
+            font-family: var(--serif);
+            font-size: 26px;
+            font-style: italic;
+            color: var(--accent);
+            line-height: 1;
+        }
+        .chapter-name {
+            font-family: var(--serif);
+            font-size: 24px;
+            line-height: 1.25;
+            color: var(--ink);
+            margin-bottom: 6px;
+        }
+        .archive-item:hover .chapter-name {
+            color: var(--accent);
+        }
+        .chapter-desc {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.5;
+            font-family: var(--body);
+        }
+        .archive-meta {
+            font-family: var(--mono);
+            font-size: 11px;
+            color: var(--muted);
+            text-align: right;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: none;
+        }
+        @media (min-width: 640px) {
+            .archive-meta {
+                display: block;
+            }
+        }
+        .arrow-indicator {
+            font-family: var(--mono);
+            color: var(--muted);
+            transition: transform 0.15s ease, color 0.15s ease;
+        }
+        .archive-item:hover .arrow-indicator {
+            transform: translateX(4px);
+            color: var(--accent);
+        }
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: var(--mono);
+            font-size: 12px;
+            margin: 24px 0;
+        }
+        .spec-table th {
+            border-bottom: 2px solid var(--ink);
+            text-align: left;
+            padding: 8px 10px;
+            color: var(--ink);
+            font-weight: 600;
+        }
+        .spec-table td {
+            border-bottom: 1px solid var(--rule);
+            padding: 8px 10px;
+            color: var(--ink);
+        }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 font-sans antialiased selection:bg-brand-500 selection:text-white transition-colors duration-200 min-h-screen flex flex-col">
-
-    <!-- Sticky Sleek Header -->
-    <header class="sticky top-0 z-50 backdrop-blur-md bg-white/90 dark:bg-slate-950/90 border-b border-slate-200 dark:border-slate-800 transition-colors">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between gap-3">
-            <div class="flex items-center gap-2.5 shrink-0">
-                <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-brand-600 via-indigo-600 to-purple-600 flex items-center justify-center text-white font-black text-sm shadow-sm">
-                    LCS
-                </div>
-                <div class="flex items-baseline gap-2">
-                    <span class="font-bold text-sm tracking-tight text-slate-900 dark:text-white whitespace-nowrap">Linear Control Systems</span>
-                    <span class="hidden sm:inline text-[11px] font-medium text-slate-500 dark:text-slate-400 whitespace-nowrap">&bull; Prof. Madhubanti Maitra (JU EE)</span>
-                </div>
-            </div>
-
-            <div class="flex items-center gap-2 shrink-0">
-                <a href="https://github.com/soumomo/mm_lcs" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-all">
-                    <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-                    <span>GitHub</span>
-                </a>
-                <button id="themeToggle" aria-label="Toggle Dark Mode" class="w-8 h-8 rounded-lg border border-slate-200 dark:border-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-                    <svg id="themeIconSun" class="w-4 h-4 hidden dark:block text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                    </svg>
-                    <svg id="themeIconMoon" class="w-4 h-4 block dark:hidden text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                    </svg>
+<body>
+    <div class="page-container">
+        <!-- Site Header -->
+        <header class="site-header">
+            <a href="index.html" class="site-signature">
+                <span class="signature-mark">s.</span>
+                <span class="signature-copy">academic research notebook<br>jadavpur university &bull; bee 3rd year</span>
+            </a>
+            <div class="site-nav">
+                <a href="#modules">Chapters</a>
+                <a href="#curriculum">Curriculum</a>
+                <button class="theme-toggle-btn" onclick="toggleTheme()" type="button" aria-label="Toggle dark/light mode">
+                    ☽ Dark
                 </button>
             </div>
-        </div>
-    </header>
+        </header>
 
-    <!-- Hero Section -->
-    <section class="border-b border-slate-200 dark:border-slate-800/80 bg-white dark:bg-slate-900/60 py-10 sm:py-14">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="max-w-3xl">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-600 dark:text-brand-400 font-mono text-xs font-bold mb-3">
-                    <span>⚡ Jadavpur University &bull; EE 3rd Year 1st Sem &bull; Linear Control Systems</span>
-                </div>
-                <h1 class="text-3xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
-                    Interactive Study Guides &amp; Exam Bank
-                </h1>
-                <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 mt-3 leading-relaxed">
-                    Meticulously grounded in the curriculum and official lecture notes of <strong>Prof. Madhubanti Maitra (MM)</strong>, integrated with the standard textbook Nagrath &amp; Gopal, and fully verified against JU Semester Examination Papers (2017&ndash;2026).
-                </p>
-                <div class="flex flex-wrap items-center gap-3 mt-6 text-xs font-semibold text-slate-500 dark:text-slate-400">
-                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
-                        <span class="w-2 h-2 rounded-full bg-emerald-500"></span> 4 Complete Chapters
-                    </span>
-                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
-                        <span class="w-2 h-2 rounded-full bg-indigo-500"></span> 57+ Vector SVG Plots
-                    </span>
-                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
-                        <span class="w-2 h-2 rounded-full bg-purple-500"></span> Interactive Simulation Workbenches
-                    </span>
-
+        <!-- Main Masthead -->
+        <main id="main-content">
+            <div class="chapter-masthead masthead">
+                <span class="meta-label">Department of Electrical Engineering &bull; E/EE/PC/B/T/313</span>
+                <h1>linear control systems<span>.</span></h1>
+                <div class="masthead-meta">
+                    <p class="meta-label">Pure Question-and-Answer Compendium &bull; Prof. Madhubanti Maitra (MM) Notes</p>
+                    <p class="meta-label">Exhaustive University Series (2017&ndash;2026) &bull; Class Tests (2024 &bull; 2025)</p>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Chapter Grid Section -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-grow">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-            <!-- Card 1: Chapter 1 -->
-            <a href="chapter1_concept_of_stability_routh_hurwitz.html" class="group block p-6 sm:p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 hover:border-brand-500 dark:hover:border-brand-500 shadow-sm hover:shadow-xl transition-all duration-200 flex flex-col justify-between">
-                <div class="space-y-4">
-                    <div class="flex items-center justify-between">
-                        <div class="w-12 h-12 rounded-2xl bg-indigo-100 dark:bg-indigo-950/80 border border-indigo-200 dark:border-indigo-800 flex items-center justify-center text-indigo-600 dark:text-indigo-400 font-black text-lg">
-                            01
-                        </div>
-                        <span class="text-xs font-mono px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 font-bold border border-indigo-200 dark:border-indigo-900/50">
-                            Stability &amp; R-H
-                        </span>
-                    </div>
-                    <div>
-                        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
-                            Chapter 1: Concept of Stability &amp; Routh-Hurwitz Criterion
-                        </h2>
-                        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
-                            BIBO and asymptotic stability, physical pole-zero dynamics, Hurwitz determinants, complete Routh array construction, special cases (all-zero row and first-element zero), feedback gain K parameter tuning, and full solved exam bank.
-                        </p>
-                    </div>
-                    <div class="flex flex-wrap gap-1.5 pt-2 text-[11px] font-semibold text-slate-600 dark:text-slate-300">
-                        <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">Interactive Routh Calculator</span>
-                        <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">Hurwitz vs. Routh</span>
-                        <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">60-Sec Cheat Sheet</span>
-                    </div>
+            <!-- Editorial Intro -->
+            <section class="intro-grid" aria-label="Introduction">
+                <div class="section-label">01 / Educational Philosophy</div>
+                <div>
+                    <h2 class="intro-lead">Grounded strictly in <em>authentic university problems</em>, zero detached filler.</h2>
+                    <p class="intro-body">
+                        This digital notebook replaces generic textbooks and unstructured slides with an exam-focused, question-by-question academic architecture. Every topic is taught directly through the lens of Jadavpur University Semester Examination Papers (2017&ndash;2026) and official Class Tests.
+                    </p>
+                    <p class="intro-body" style="margin-top: 12px;">
+                        Each solution incorporates four-decimal analytical precision, rigorous Nagrath &amp; Gopal notation, step-by-step mathematical working, and high-resolution vector diagrams.
+                    </p>
                 </div>
-                <div class="pt-6 flex items-center justify-between border-t border-slate-100 dark:border-slate-800/80 mt-6 text-xs font-bold text-brand-600 dark:text-brand-400 group-hover:translate-x-1 transition-transform">
-                    <span>Open Interactive Study Guide</span>
-                    <span>&rarr;</span>
+            </section>
+
+            <!-- Chapter Modules Archive -->
+            <section id="modules" style="padding-top: 40px;" aria-label="Chapters">
+                <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px;">
+                    <span class="section-label">02 / Examination Modules</span>
+                    <span class="meta-label">4 Chapters &bull; 100% Solved</span>
                 </div>
-            </a>
 
-            <!-- Card 2: Chapter 2 -->
-            <a href="chapter2_root_locus_technique.html" class="group block p-6 sm:p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 hover:border-brand-500 dark:hover:border-brand-500 shadow-sm hover:shadow-xl transition-all duration-200 flex flex-col justify-between">
-                <div class="space-y-4">
-                    <div class="flex items-center justify-between">
-                        <div class="w-12 h-12 rounded-2xl bg-brand-100 dark:bg-brand-950/80 border border-brand-200 dark:border-brand-800 flex items-center justify-center text-brand-600 dark:text-brand-400 font-black text-lg">
-                            02
-                        </div>
-                        <span class="text-xs font-mono px-3 py-1 rounded-full bg-brand-50 dark:bg-brand-950/60 text-brand-700 dark:text-brand-300 font-bold border border-brand-200 dark:border-brand-900/50">
-                            Root Locus
-                        </span>
-                    </div>
-                    <div>
-                        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
-                            Chapter 2: The Root Locus Technique
-                        </h2>
-                        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
-                            Evans angle &amp; magnitude criteria, prototype 2nd-order root loci, trigonometric and algebraic proof of circular root loci (&zeta;<sub>min</sub> = &radic;(a/b)), the 10 master construction rules with proofs, real and complex breakaway analysis, and 2017&ndash;2026 JU problems.
-                        </p>
-                    </div>
-                    <div class="flex flex-wrap gap-1.5 pt-2 text-[11px] font-semibold text-slate-600 dark:text-slate-300">
-                        <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">Interactive Root Locus Workbench</span>
-                        <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">10 Master Rules</span>
-                        <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">Circular Locus Proof</span>
-                    </div>
+                <ul class="archive-list">
+                    <!-- Chapter 1 -->
+                    <li class="archive-item">
+                        <a href="chapter1_concept_of_stability_routh_hurwitz.html" class="archive-link">
+                            <span class="chapter-num">01</span>
+                            <div>
+                                <h3 class="chapter-name">Concept of Stability &amp; Routh-Hurwitz Criterion</h3>
+                                <p class="chapter-desc">Necessary vs. sufficient conditions, Hurwitz determinants, parameter tuning ($K, b$) for sustained oscillations, all-zero auxiliary equations, and relative stability.</p>
+                            </div>
+                            <span class="archive-meta">CT 2024&ndash;2025<br>JU 2017&ndash;2024</span>
+                            <span class="arrow-indicator">&rarr;</span>
+                        </a>
+                    </li>
+
+                    <!-- Chapter 2 -->
+                    <li class="archive-item">
+                        <a href="chapter2_root_locus_technique.html" class="archive-link">
+                            <span class="chapter-num">02</span>
+                            <div>
+                                <h3 class="chapter-name">The Root Locus Technique</h3>
+                                <p class="chapter-desc">Evans angle &amp; magnitude criteria, exact proof of circular root loci ($\zeta_{\min} = \sqrt{a/b}$), significance of $dK/ds = 0$, breakaway verification, and the 10 master construction rules.</p>
+                            </div>
+                            <span class="archive-meta">CT 2024&ndash;2025<br>JU 2017&ndash;2026</span>
+                            <span class="arrow-indicator">&rarr;</span>
+                        </a>
+                    </li>
+
+                    <!-- Chapter 3 -->
+                    <li class="archive-item">
+                        <a href="chapter3_nyquist_stability_criterion.html" class="archive-link">
+                            <span class="chapter-num">03</span>
+                            <div>
+                                <h3 class="chapter-name">Nyquist Stability Criterion &amp; Margins</h3>
+                                <p class="chapter-desc">Cauchy's principle of argument ($N = P - Z$), non-minimum phase plants with RHP poles, origin indentation mapping ($\varepsilon \to 0, R \to \infty$), double pole at origin, and Gain/Phase Margins.</p>
+                            </div>
+                            <span class="archive-meta">CT 2024 &bull; 12 Marks<br>JU 2017&ndash;2024</span>
+                            <span class="arrow-indicator">&rarr;</span>
+                        </a>
+                    </li>
+
+                    <!-- Chapter 4 -->
+                    <li class="archive-item">
+                        <a href="chapter4_block_diagram_algebra.html" class="archive-link">
+                            <span class="chapter-num">04</span>
+                            <div>
+                                <h3 class="chapter-name">Block Diagram Algebra &amp; Signal Flow Graphs</h3>
+                                <p class="chapter-desc">Direct BD-to-SFG conversions, rigorous proofs of block reduction rules, Mason's Gain Formula with multi-loop non-touching paths, disturbance rejection, and liquid-level physical modeling.</p>
+                            </div>
+                            <span class="archive-meta">JU 2017&ndash;2024<br>Mason's Formula</span>
+                            <span class="arrow-indicator">&rarr;</span>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Examination Mapping Guide -->
+            <section id="curriculum" style="padding-top: 32px;" aria-label="Examination Mapping">
+                <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px;">
+                    <span class="section-label">03 / Quick Examination Question Index</span>
+                    <span class="meta-label">BEE III (Part-II) Syllabus</span>
                 </div>
-                <div class="pt-6 flex items-center justify-between border-t border-slate-100 dark:border-slate-800/80 mt-6 text-xs font-bold text-brand-600 dark:text-brand-400 group-hover:translate-x-1 transition-transform">
-                    <span>Open Interactive Study Guide</span>
-                    <span>&rarr;</span>
+
+                <div style="overflow-x: auto;">
+                    <table class="spec-table">
+                        <thead>
+                            <tr>
+                                <th>Exam &bull; Marks</th>
+                                <th>Topic &bull; Problem Statement</th>
+                                <th>Chapter Module</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>CT 2025-26 &bull; Q1 [06 M]</strong><br><span style="color:var(--muted)">15-10-2025</span></td>
+                                <td>Necessary conditions for stability; factored characteristic polynomial; sufficiency vs non-sufficiency.</td>
+                                <td><a href="chapter1_concept_of_stability_routh_hurwitz.html">Chapter 1 &rarr;</a></td>
+                            </tr>
+                            <tr>
+                                <td><strong>CT 2025-26 &bull; Q2 [10 M]</strong><br><span style="color:var(--muted)">15-10-2025</span></td>
+                                <td>Two-parameter tuning: Find $K$ and $b$ for $G(s)=\frac{K(s+1)}{s^3+bs^2+3s+1}$ oscillating at $\omega=2\text{ rad/s}$. ($K=1, b=0.5$).</td>
+                                <td><a href="chapter1_concept_of_stability_routh_hurwitz.html">Chapter 1 &rarr;</a></td>
+                            </tr>
+                            <tr>
+                                <td><strong>CT 2025-26 &bull; Q3a [08 M]</strong><br><span style="color:var(--muted)">15-10-2025</span></td>
+                                <td>Circular root locus proof via angle criterion for $G(s)=\frac{K(s+b)}{s(s+a)}$. Centre $(-b,0)$, Radius $R=\sqrt{b^2-ab}$, $\zeta_{\min}=\sqrt{a/b}$.</td>
+                                <td><a href="chapter2_root_locus_technique.html">Chapter 2 &rarr;</a></td>
+                            </tr>
+                            <tr>
+                                <td><strong>CT 2025-26 &bull; Q3b [06 M]</strong><br><span style="color:var(--muted)">15-10-2025</span></td>
+                                <td>Significance of $\frac{dK}{ds}=0$ on real axis: multiple roots, breakaway/break-in extrema, sensitivity, and root validity.</td>
+                                <td><a href="chapter2_root_locus_technique.html">Chapter 2 &rarr;</a></td>
+                            </tr>
+                            <tr>
+                                <td><strong>CT 2024-25 &bull; Q2 [07 M]</strong><br><span style="color:var(--muted)">23-10-2024</span></td>
+                                <td>Routh stability of $s^4 + 2s^3 + s^2 + 4s + 2 = 0$. First column $(1, 2, -1, 8, 2)$, 2 RHP roots $\implies$ Unstable.</td>
+                                <td><a href="chapter1_concept_of_stability_routh_hurwitz.html">Chapter 1 &rarr;</a></td>
+                            </tr>
+                            <tr>
+                                <td><strong>CT 2024-25 &bull; Q3 [06 M]</strong><br><span style="color:var(--muted)">23-10-2024</span></td>
+                                <td>Breakaway points for $G(s)H(s)=\frac{K}{s(s+3)(s^2+2s+2)}$. Valid real root $s_1 \approx -2.29$ ($K=4.33$), discard extraneous complex roots.</td>
+                                <td><a href="chapter2_root_locus_technique.html">Chapter 2 &rarr;</a></td>
+                            </tr>
+                            <tr>
+                                <td><strong>CT 2024-25 &bull; Q4 [12 M]</strong><br><span style="color:var(--muted)">23-10-2024</span></td>
+                                <td>Nyquist stability of open-loop unstable plant $G(s)H(s)=\frac{K(s+3)}{s(s-1)}$ ($P=1$). Stable for $K > 1$.</td>
+                                <td><a href="chapter3_nyquist_stability_criterion.html">Chapter 3 &rarr;</a></td>
+                            </tr>
+                            <tr>
+                                <td><strong>JU 2026 &bull; Q3 [12 M]</strong><br><span style="color:var(--muted)">Latest Semester</span></td>
+                                <td>Complete root locus construction for $q(s)=s^4+3s^3+12s^2+(K-16)s+K=0$. Asymptotes, centroid, imaginary axis crossings.</td>
+                                <td><a href="chapter2_root_locus_technique.html">Chapter 2 &rarr;</a></td>
+                            </tr>
+                            <tr>
+                                <td><strong>JU 2024 &bull; Q2 [12 M]</strong><br><span style="color:var(--muted)">Semester Final</span></td>
+                                <td>Block Diagram to SFG conversion and overall transfer function via Mason's Gain Formula.</td>
+                                <td><a href="chapter4_block_diagram_algebra.html">Chapter 4 &rarr;</a></td>
+                            </tr>
+                            <tr>
+                                <td><strong>JU 2024 Supp &bull; Q3 [16 M]</strong><br><span style="color:var(--muted)">Semester Final</span></td>
+                                <td>Cauchy's Principle of Argument rigorous proof ($N=P-Z$) and complete Nyquist mapping.</td>
+                                <td><a href="chapter3_nyquist_stability_criterion.html">Chapter 3 &rarr;</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-            </a>
+            </section>
+        </main>
 
-            <!-- Card 3: Chapter 3 -->
-            <a href="chapter3_nyquist_stability_criterion.html" class="group block p-6 sm:p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 hover:border-brand-500 dark:hover:border-brand-500 shadow-sm hover:shadow-xl transition-all duration-200 flex flex-col justify-between">
-                <div class="space-y-4">
-                    <div class="flex items-center justify-between">
-                        <div class="w-12 h-12 rounded-2xl bg-purple-100 dark:bg-purple-950/80 border border-purple-200 dark:border-purple-800 flex items-center justify-center text-purple-600 dark:text-purple-400 font-black text-lg">
-                            03
-                        </div>
-                        <span class="text-xs font-mono px-3 py-1 rounded-full bg-purple-50 dark:bg-purple-950/60 text-purple-700 dark:text-purple-300 font-bold border border-purple-200 dark:border-purple-900/50">
-                            Nyquist Criterion
-                        </span>
-                    </div>
-                    <div>
-                        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
-                            Chapter 3: Nyquist Stability Criterion
-                        </h2>
-                        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
-                            Cauchy's principle of argument, conformal mapping (s &rarr; F(s) &rarr; 1+GH), canonical &Gamma;<sub>s</sub> contour with origin indentation (R &rarr; &infin;, &epsilon; &rarr; 0), Nyquist encirclement equation (N = P &minus; Z), Gain &amp; Phase Margins, and standard archetypes (Types 0, 1, 2).
-                        </p>
-                    </div>
-                    <div class="flex flex-wrap gap-1.5 pt-2 text-[11px] font-semibold text-slate-600 dark:text-slate-300">
-                        <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">Interactive Nyquist Workbench</span>
-                        <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">Cauchy Proofs</span>
-                        <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">JU 2024 Supp Q3 Solution</span>
-                    </div>
-                </div>
-                <div class="pt-6 flex items-center justify-between border-t border-slate-100 dark:border-slate-800/80 mt-6 text-xs font-bold text-brand-600 dark:text-brand-400 group-hover:translate-x-1 transition-transform">
-                    <span>Open Interactive Study Guide</span>
-                    <span>&rarr;</span>
-                </div>
-            </a>
-
-            <!-- Card 4: Chapter 4 -->
-            <a href="chapter4_block_diagram_algebra.html" class="group block p-6 sm:p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 hover:border-brand-500 dark:hover:border-brand-500 shadow-sm hover:shadow-xl transition-all duration-200 flex flex-col justify-between">
-                <div class="space-y-4">
-                    <div class="flex items-center justify-between">
-                        <div class="w-12 h-12 rounded-2xl bg-emerald-100 dark:bg-emerald-950/80 border border-emerald-200 dark:border-emerald-800 flex items-center justify-center text-emerald-600 dark:text-emerald-400 font-black text-lg">
-                            04
-                        </div>
-                        <span class="text-xs font-mono px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 font-bold border border-emerald-200 dark:border-emerald-900/50">
-                            Block Diagram &amp; SFG
-                        </span>
-                    </div>
-                    <div>
-                        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
-                            Chapter 4: Block Diagram Algebra &amp; Signal Flow Graphs
-                        </h2>
-                        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
-                            Canonical feedback concepts, exhaustive mathematical proofs of all 10 block transformation rules, liquid-level two-tank physical modeling, disturbance rejection analysis, Mason's Gain Formula, side-by-side BD-to-SFG conversions, and JU exam solutions.
-                        </p>
-                    </div>
-                    <div class="flex flex-wrap gap-1.5 pt-2 text-[11px] font-semibold text-slate-600 dark:text-slate-300">
-                        <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">All 10 Transformation Proofs</span>
-                        <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">Liquid-Level Tank Modeling</span>
-                        <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">Mason's Gain Formula</span>
-                    </div>
-                </div>
-                <div class="pt-6 flex items-center justify-between border-t border-slate-100 dark:border-slate-800/80 mt-6 text-xs font-bold text-brand-600 dark:text-brand-400 group-hover:translate-x-1 transition-transform">
-                    <span>Open Interactive Study Guide</span>
-                    <span>&rarr;</span>
-                </div>
-            </a>
-
-        </div>
-
-
-    </main>
-
-    <!-- Footer -->
-    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 py-8 transition-colors mt-auto">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-400">
-            <div class="flex items-center gap-2">
-                <span class="font-bold text-slate-900 dark:text-white">LCS Interactive Study Series</span>
-                <span>&bull;</span>
-                <span>Department of Electrical Engineering, Jadavpur University</span>
-            </div>
-            <div>
-                <span>Based on Prof. Madhubanti Maitra (MM) Courseware &bull; Nagrath &amp; Gopal Reference</span>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Dark Mode Toggle Script -->
-    <script>
-        const themeToggleBtn = document.getElementById("themeToggle");
-        themeToggleBtn.addEventListener("click", () => {
-            document.documentElement.classList.toggle("dark");
-            localStorage.setItem("theme", document.documentElement.classList.contains("dark") ? "dark" : "light");
-        });
-    </script>
+        <!-- Footer -->
+        <footer class="site-footer">
+            <span class="meta-label">Jadavpur University &bull; Department of Electrical Engineering</span>
+            <span class="meta-label">Curriculum: Prof. Madhubanti Maitra (MM) &bull; Standard Text: Nagrath &amp; Gopal</span>
+        </footer>
+    </div>
 </body>
 </html>
