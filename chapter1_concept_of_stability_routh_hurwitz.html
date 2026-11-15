@@ -8,13 +8,40 @@
     <!-- Unified Academic Paper Design System -->
     <link rel="stylesheet" href="paper.css">
     
+    <!-- Immediate Theme Initialization (prevents flash) -->
+    <script src="theme.js"></script>
+    
     <!-- KaTeX for High-Fidelity Mathematical Typography -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}], throwOnError: false});"></script>
     
-    <!-- Theme Manager -->
-    <script src="theme.js"></script>
+    <style>
+        .solution-step {
+            margin-bottom: 28px;
+        }
+        .step-label {
+            margin-top: 14px;
+            margin-bottom: 6px;
+        }
+        .metric-pill-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 16px 0;
+            font-family: var(--mono);
+            font-size: 12px;
+        }
+        .metric-pill {
+            padding: 4px 10px;
+            border: 1px solid var(--rule);
+            background: var(--code-bg);
+            border-radius: 4px;
+        }
+        .metric-pill strong {
+            color: var(--accent);
+        }
+    </style>
 </head>
 <body>
     <div class="page-container">
@@ -31,23 +58,25 @@
                 <a href="#problem-4">Hurwitz</a>
                 <a href="#problem-6">Routh Special Cases</a>
                 <a href="#problem-7">Relative Stability</a>
-                <button class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Toggle Theme">☽ Dark</button>
+                <button class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Toggle visual theme">☽ Dark</button>
             </nav>
         </header>
 
         <!-- Chapter Masthead -->
-        <section class="chapter-masthead">
+        <header class="chapter-masthead">
             <span class="chapter-number">Chapter 01</span>
             <h1 class="chapter-title">Concept of Stability &amp; Routh-Hurwitz Stability Criterion</h1>
-            <p class="chapter-subtitle">Linear Control Systems &bull; Prof. Madhubanti Maitra &bull; Department of Electrical Engineering, Jadavpur University</p>
-        </section>
+            <div class="chapter-subtitle">
+                Linear Control Systems &bull; Prof. Madhubanti Maitra &bull; Department of Electrical Engineering, Jadavpur University &bull; Master Exam Bank (2017&ndash;2026)
+            </div>
+        </header>
 
         <!-- Main Problem Collection -->
         <main>
             <!-- ========================================== -->
             <!-- PROBLEM 1: NECESSARY CONDITIONS FOR STABILITY -->
             <!-- ========================================== -->
-            <article class="problem-entry" id="problem-1">
+            <div class="problem-entry" id="problem-1">
                 <div class="problem-header">
                     <div class="problem-tag">
                         <span class="exam-badge">Class Test 2025–26 (Q1) &amp; 2024–25 (Q1)</span>
@@ -103,7 +132,7 @@
                         </p>
                         $$a_i > 0 \quad \forall i \in \{0, 1, \dots, n\}$$
                         <p>
-                            Thus, all coefficients must exist and share the same sign. $\blacksquare$
+                            Thus, all coefficients must exist and share the same positive sign. $\blacksquare$
                         </p>
                     </div>
 
@@ -162,12 +191,12 @@
                         In Jadavpur University class tests, students frequently write that positive coefficients ensure stability for 3rd-order systems. Always point out that for a third-order polynomial $s^3 + a_1 s^2 + a_2 s + a_3 = 0$, the necessary and sufficient condition for stability is $a_1 a_2 > a_3$. In this counterexample, $a_1 a_2 = 1 \times 2 = 2 < a_3 = 8$, which immediately signals instability without factoring.
                     </div>
                 </div>
-            </article>
+            </div>
 
             <!-- ========================================== -->
             <!-- PROBLEM 2: TWO-PARAMETER TUNING (CT 2025-26 Q2) -->
             <!-- ========================================== -->
-            <article class="problem-entry" id="problem-2">
+            <div class="problem-entry" id="problem-2">
                 <div class="problem-header">
                     <div class="problem-tag">
                         <span class="exam-badge">Class Test 2025–26 &bull; Q2</span>
@@ -296,12 +325,12 @@
                         This two-line frequency-domain calculation confirms the Routh result with 100% precision!
                     </div>
                 </div>
-            </article>
+            </div>
 
             <!-- ========================================== -->
             <!-- PROBLEM 3: ROUTH STABILITY 4TH ORDER (CT 2024-25 Q2) -->
             <!-- ========================================== -->
-            <article class="problem-entry" id="problem-3">
+            <div class="problem-entry" id="problem-3">
                 <div class="problem-header">
                     <div class="problem-tag">
                         <span class="exam-badge">Class Test 2024–25 &bull; Q2</span>
@@ -417,12 +446,12 @@
                         The first column becomes $[1, 1, -1, 4, 2]$. Notice that while numerical magnitudes differ, the signs ($+, +, -, +, +$) and sign change count (2) remain completely identical!
                     </div>
                 </div>
-            </article>
+            </div>
 
             <!-- ========================================== -->
             <!-- PROBLEM 4: HURWITZ STABILITY CRITERION (JU 2024 & 2017) -->
             <!-- ========================================== -->
-            <article class="problem-entry" id="problem-4">
+            <div class="problem-entry" id="problem-4">
                 <div class="problem-header">
                     <div class="problem-tag">
                         <span class="exam-badge">JU 2024 Regular Q1(b) Option 1 &amp; 2017 Q6(a)</span>
@@ -540,12 +569,12 @@
                         To secure full 8/8 marks on JU 2017 Q6(a), examiners mandate showing the algebraic substitution for $c_1$: explicitly proving that the numerator $\frac{\Delta_2}{\Delta_1} a_3 - a_1 a_4$ multiplies out to $a_3 \Delta_2 - a_1^2 a_4$, which matches the Laplace expansion of $\Delta_3$.
                     </div>
                 </div>
-            </article>
+            </div>
 
             <!-- ========================================== -->
             <!-- PROBLEM 5: PARAMETER STABILITY RANGE (JU 2024 & 2023) -->
             <!-- ========================================== -->
-            <article class="problem-entry" id="problem-5">
+            <div class="problem-entry" id="problem-5">
                 <div class="problem-header">
                     <div class="problem-tag">
                         <span class="exam-badge">JU 2024 Regular Q1(b) Option 2 &amp; 2023 Option 2</span>
@@ -669,12 +698,12 @@
                         Then $\omega_{\text{osc}}^2 = K_{\text{mar}} + 2 = 0.5275 + 2 = 2.5275 \implies \omega_{\text{osc}} = 1.5898\text{ rad/s}$. Flawless match!
                     </div>
                 </div>
-            </article>
+            </div>
 
             <!-- ========================================== -->
             <!-- PROBLEM 6: ROW OF ALL ZEROS & AUXILIARY EQN (JU 2023 & 2017) -->
             <!-- ========================================== -->
-            <article class="problem-entry" id="problem-6">
+            <div class="problem-entry" id="problem-6">
                 <div class="problem-header">
                     <div class="problem-tag">
                         <span class="exam-badge">JU 2023 Regular Q1b Option 1 &amp; 2017 Q6(b)</span>
@@ -845,12 +874,12 @@
                         If the auxiliary equation had yielded repeated roots on the $j\omega$-axis (for instance, $(s^2 + 4)^2 = s^4 + 8s^2 + 16 = 0$), the inverse Laplace transform would contain terms of the form $\mathcal{L}^{-1}\{\frac{1}{(s^2+4)^2}\} \propto t \sin(2t)$. The factor of $t$ causes the response amplitude to grow linearly toward infinity as $t \to \infty$, making the system <strong>UNSTABLE</strong> despite zero sign changes in the Routh array! Always emphasize this condition in university examinations.
                     </div>
                 </div>
-            </article>
+            </div>
 
             <!-- ========================================== -->
             <!-- PROBLEM 7: RELATIVE STABILITY & AXIS SHIFTING (JU 2024 & 2019) -->
             <!-- ========================================== -->
-            <article class="problem-entry" id="problem-7">
+            <div class="problem-entry" id="problem-7">
                 <div class="problem-header">
                     <div class="problem-tag">
                         <span class="exam-badge">JU 2024 Supplementary Q1(b) &amp; 2019 Q8</span>
@@ -990,12 +1019,12 @@
                         The bottom-up remainders $[1, 4, 3, 0]$ immediately give the coefficients of $\hat{q}(z) = z^3 + 4z^2 + 3z$. This saves 5 minutes in exam conditions!
                     </div>
                 </div>
-            </article>
+            </div>
 
             <!-- ========================================== -->
             <!-- PROBLEM 8: BIBO VS ASYMPTOTIC STABILITY (JU 2017 Q6b) -->
             <!-- ========================================== -->
-            <article class="problem-entry" id="problem-8">
+            <div class="problem-entry" id="problem-8">
                 <div class="problem-header">
                     <div class="problem-tag">
                         <span class="exam-badge">JU 2017 Q6(b)</span>
@@ -1117,7 +1146,7 @@
                         <strong>Answer: NEVER in physical hardware!</strong> In real life, exact cancellation is impossible due to component tolerances and thermal drift ($s - 0.999 \neq s - 1.000$). The closed-loop system retains an unobservable or uncontrollable unstable pole in the right-half plane. Although the output $y(t)$ may look bounded initially, the internal controller output explodes, driving actuators into violent saturation, tripping circuit breakers, or destroying power transistors!
                     </div>
                 </div>
-            </article>
+            </div>
         </main>
 
         <!-- Academic Footer -->
@@ -1134,18 +1163,5 @@
             </div>
         </footer>
     </div>
-
-    <!-- KaTeX Auto-Render Initialization -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            renderMathInElement(document.body, {
-                delimiters: [
-                    {left: "$$", right: "$$", display: true},
-                    {left: "$", right: "$", display: false}
-                ],
-                throwOnError: false
-            });
-        });
-    </script>
 </body>
 </html>
