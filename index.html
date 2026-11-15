@@ -157,7 +157,6 @@
             </a>
             <div class="site-nav">
                 <a href="#modules">Chapters</a>
-                <a href="#curriculum">Curriculum</a>
                 <button class="theme-toggle-btn" onclick="toggleTheme()" type="button" aria-label="Toggle dark/light mode">
                     ☽ Dark
                 </button>
@@ -178,7 +177,7 @@
             <!-- Chapter Modules Archive -->
             <section id="modules" style="padding-top: 32px;" aria-label="Chapters">
                 <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px;">
-                    <span class="section-label">01 / Examination Modules</span>
+                    <span class="section-label">Examination Modules</span>
                     <span class="meta-label">4 Chapters &bull; 100% Solved</span>
                 </div>
 
@@ -235,78 +234,6 @@
                         </a>
                     </li>
                 </ul>
-            </section>
-
-            <!-- Examination Mapping Guide -->
-            <section id="curriculum" style="padding-top: 32px;" aria-label="Examination Mapping">
-                <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px;">
-                    <span class="section-label">02 / Examination Question Index</span>
-                    <span class="meta-label">BEE III (Part-II) Syllabus</span>
-                </div>
-
-                <div style="overflow-x: auto;">
-                    <table class="spec-table">
-                        <thead>
-                            <tr>
-                                <th>Exam &bull; Marks</th>
-                                <th>Topic &bull; Problem Statement</th>
-                                <th>Chapter Module</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>CT 2025-26 &bull; Q1 [06 M]</strong><br><span style="color:var(--muted)">15-10-2025</span></td>
-                                <td>Necessary conditions for stability; factored characteristic polynomial; sufficiency vs non-sufficiency.</td>
-                                <td><a href="chapter1_concept_of_stability_routh_hurwitz.html">Chapter 1 &rarr;</a></td>
-                            </tr>
-                            <tr>
-                                <td><strong>CT 2025-26 &bull; Q2 [10 M]</strong><br><span style="color:var(--muted)">15-10-2025</span></td>
-                                <td>Two-parameter tuning: Find $K$ and $b$ for $G(s)=\frac{K(s+1)}{s^3+bs^2+3s+1}$ oscillating at $\omega=2\text{ rad/s}$. ($K=1, b=0.5$).</td>
-                                <td><a href="chapter1_concept_of_stability_routh_hurwitz.html">Chapter 1 &rarr;</a></td>
-                            </tr>
-                            <tr>
-                                <td><strong>CT 2025-26 &bull; Q3a [08 M]</strong><br><span style="color:var(--muted)">15-10-2025</span></td>
-                                <td>Circular root locus proof via angle criterion for $G(s)=\frac{K(s+b)}{s(s+a)}$. Centre $(-b,0)$, Radius $R=\sqrt{b^2-ab}$, $\zeta_{\min}=\sqrt{a/b}$.</td>
-                                <td><a href="chapter2_root_locus_technique.html">Chapter 2 &rarr;</a></td>
-                            </tr>
-                            <tr>
-                                <td><strong>CT 2025-26 &bull; Q3b [06 M]</strong><br><span style="color:var(--muted)">15-10-2025</span></td>
-                                <td>Significance of $\frac{dK}{ds}=0$ on real axis: multiple roots, breakaway/break-in extrema, sensitivity, and root validity.</td>
-                                <td><a href="chapter2_root_locus_technique.html">Chapter 2 &rarr;</a></td>
-                            </tr>
-                            <tr>
-                                <td><strong>CT 2024-25 &bull; Q2 [07 M]</strong><br><span style="color:var(--muted)">23-10-2024</span></td>
-                                <td>Routh stability of $s^4 + 2s^3 + s^2 + 4s + 2 = 0$. First column $(1, 2, -1, 8, 2)$, 2 RHP roots $\implies$ Unstable.</td>
-                                <td><a href="chapter1_concept_of_stability_routh_hurwitz.html">Chapter 1 &rarr;</a></td>
-                            </tr>
-                            <tr>
-                                <td><strong>CT 2024-25 &bull; Q3 [06 M]</strong><br><span style="color:var(--muted)">23-10-2024</span></td>
-                                <td>Breakaway points for $G(s)H(s)=\frac{K}{s(s+3)(s^2+2s+2)}$. Valid real root $s_1 \approx -2.29$ ($K=4.33$), discard extraneous complex roots.</td>
-                                <td><a href="chapter2_root_locus_technique.html">Chapter 2 &rarr;</a></td>
-                            </tr>
-                            <tr>
-                                <td><strong>CT 2024-25 &bull; Q4 [12 M]</strong><br><span style="color:var(--muted)">23-10-2024</span></td>
-                                <td>Nyquist stability of open-loop unstable plant $G(s)H(s)=\frac{K(s+3)}{s(s-1)}$ ($P=1$). Stable for $K > 1$.</td>
-                                <td><a href="chapter3_nyquist_stability_criterion.html">Chapter 3 &rarr;</a></td>
-                            </tr>
-                            <tr>
-                                <td><strong>JU 2026 &bull; Q3 [12 M]</strong><br><span style="color:var(--muted)">Latest Semester</span></td>
-                                <td>Complete root locus construction for $q(s)=s^4+3s^3+12s^2+(K-16)s+K=0$. Asymptotes, centroid, imaginary axis crossings.</td>
-                                <td><a href="chapter2_root_locus_technique.html">Chapter 2 &rarr;</a></td>
-                            </tr>
-                            <tr>
-                                <td><strong>JU 2024 &bull; Q2 [12 M]</strong><br><span style="color:var(--muted)">Semester Final</span></td>
-                                <td>Block Diagram to SFG conversion and overall transfer function via Mason's Gain Formula.</td>
-                                <td><a href="chapter4_block_diagram_algebra.html">Chapter 4 &rarr;</a></td>
-                            </tr>
-                            <tr>
-                                <td><strong>JU 2024 Supp &bull; Q3 [16 M]</strong><br><span style="color:var(--muted)">Semester Final</span></td>
-                                <td>Cauchy's Principle of Argument rigorous proof ($N=P-Z$) and complete Nyquist mapping.</td>
-                                <td><a href="chapter3_nyquist_stability_criterion.html">Chapter 3 &rarr;</a></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
             </section>
         </main>
 
