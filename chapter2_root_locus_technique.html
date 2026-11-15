@@ -6,10 +6,26 @@
     <title>Chapter 2: Root Locus Technique — Linear Control Systems | Jadavpur University</title>
     <link rel="stylesheet" href="paper.css">
     <script src="theme.js"></script>
-    <!-- KaTeX CSS & JS -->
+    <!-- KaTeX for High-Fidelity Mathematical Typography -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMath();"></script>
+    <script>
+        function renderMath() {
+            if (typeof renderMathInElement === 'function') {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false},
+                        {left: '\\(', right: '\\)', display: false},
+                        {left: '\\[', right: '\\]', display: true}
+                    ],
+                    throwOnError: false
+                });
+            }
+        }
+        document.addEventListener('DOMContentLoaded', renderMath);
+    </script>
     <style>
         .svg-diagram-wrapper svg {
             display: block;

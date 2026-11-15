@@ -5,10 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chapter 4: Block Diagram Algebra &amp; Signal Flow Graphs — Academic Study Guide | Jadavpur University LCS</title>
     <link rel="stylesheet" href="paper.css">
-    <!-- KaTeX CSS & JS -->
+    <!-- KaTeX for High-Fidelity Mathematical Typography -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMath();"></script>
+    <script>
+        function renderMath() {
+            if (typeof renderMathInElement === 'function') {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false},
+                        {left: '\\(', right: '\\)', display: false},
+                        {left: '\\[', right: '\\]', display: true}
+                    ],
+                    throwOnError: false
+                });
+            }
+        }
+        document.addEventListener('DOMContentLoaded', renderMath);
+    </script>
     <script src="theme.js"></script>
     <style>
         /* Diagram SVG Styles using CSS variables for automatic light/dark theme adaptation */
@@ -1378,20 +1394,5 @@
             <span class="meta-label">Curriculum: Prof. Madhubanti Maitra (MM) Notes &bull; Text: Nagrath &amp; Gopal</span>
         </footer>
     </div>
-
-    <!-- KaTeX Auto-Render Initializer -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            if (typeof renderMathInElement === "function") {
-                renderMathInElement(document.body, {
-                    delimiters: [
-                        {left: "$$", right: "$$", display: true},
-                        {left: "$", right: "$", display: false}
-                    ],
-                    throwOnError: false
-                });
-            }
-        });
-    </script>
 </body>
 </html>
