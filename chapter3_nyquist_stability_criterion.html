@@ -432,12 +432,15 @@
                         <marker id="arrow-s-contour" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                             <path d="M 0 1 L 10 5 L 0 9 z" fill="#4f46e5" />
                         </marker>
+                        <marker id="arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                            <path d="M 0 1 L 10 5 L 0 9 z" fill="#ef4444" />
+                        </marker>
                         <marker id="arrow-axis" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                             <path d="M 0 1 L 10 5 L 0 9 z" fill="#64748b" />
                         </marker>
                         <linearGradient id="rhpShading" x1="0%" y1="0%" x2="100%" y2="0%">
                             <stop offset="0%" stop-color="#6366f1" stop-opacity="0.15" />
-                            <stop offset="100%" stop-color="#818cf8" stop-opacity="0.02" />
+                            <stop offset="100%" stop-color="#818cf8" stop-opacity="0.03" />
                         </linearGradient>
                     </defs>
 
@@ -452,7 +455,10 @@
 
                     <!-- Shaded RHP Region -->
                     <path d="M 300 60 A 150 150 0 0 1 300 360 L 300 230 A 20 20 0 0 0 300 190 Z" fill="url(#rhpShading)" />
-                    <text x="420" y="215" class="fill-brand-600 dark:fill-brand-400 font-mono font-black text-sm tracking-widest opacity-40">ENCLOSED RIGHT HALF PLANE (RHP)</text>
+                    
+                    <!-- Clean Watermark inside lower RHP lobe -->
+                    <text x="355" y="325" text-anchor="middle" class="fill-brand-600 dark:fill-brand-400 font-mono font-bold text-xs tracking-wider opacity-25">ENCLOSED RHP</text>
+                    <text x="355" y="340" text-anchor="middle" class="fill-slate-400 dark:fill-slate-500 font-mono text-[9.5px] tracking-wide opacity-35">Entire Right-Half Plane (Re[s] &gt; 0)</text>
 
                     <!-- Path C1: Positive jw axis (w: 0+ to +inf) -->
                     <line x1="300" y1="190" x2="300" y2="60" stroke="#4f46e5" stroke-width="3" />
@@ -475,12 +481,21 @@
 
                     <!-- Path C4: Infinitesimal Semicircle around Origin (eps -> 0) -->
                     <path d="M 300 230 A 20 20 0 0 0 300 190" fill="none" stroke="#ef4444" stroke-width="2.5" />
-                    <path d="M 320 210 L 320 213" stroke="#ef4444" stroke-width="2.5" marker-end="url(#arrow-s-contour)" />
+                    <path d="M 320 214 L 320 206" stroke="#ef4444" stroke-width="2.5" marker-end="url(#arrow-red)" />
                     <circle cx="300" cy="210" r="3.5" fill="#ef4444" />
-                    <text x="328" y="206" class="fill-rose-600 dark:fill-rose-400 font-mono font-bold" font-size="11.5">C<tspan baseline-shift="sub" font-size="70%">4</tspan>: s = &#949;e<tspan baseline-shift="super" font-size="70%">j&#952;</tspan> (&#949; &#8594; 0)</text>
-                    <text x="328" y="222" class="fill-slate-500 font-sans" font-size="10">&#952; sweeps &#8722;90&#176; &#8594; 0&#176; &#8594; +90&#176; (CW)</text>
+                    
+                    <!-- Compact inline label for C4 at origin -->
+                    <text x="326" y="198" class="fill-rose-600 dark:fill-rose-400 font-mono font-bold" font-size="12">C<tspan baseline-shift="sub" font-size="70%">4</tspan></text>
+                    
+                    <!-- Leader line pointing from C4 to detailed description -->
+                    <line x1="322" y1="214" x2="455" y2="250" stroke="#ef4444" stroke-width="1.2" stroke-dasharray="3,3" opacity="0.75" />
+                    <circle cx="322" cy="214" r="2.5" fill="#ef4444" />
+                    <circle cx="455" cy="250" r="2.5" fill="#ef4444" />
 
-
+                    <!-- Detailed C4 description aligned in bottom-right quadrant -->
+                    <text x="465" y="246" class="fill-rose-600 dark:fill-rose-400 font-mono font-bold" font-size="12">C<tspan baseline-shift="sub" font-size="70%">4</tspan>: s = &#949;e<tspan baseline-shift="super" font-size="70%">j&#952;</tspan> (&#949; &#8594; 0)</text>
+                    <text x="465" y="264" class="fill-slate-500 font-sans" font-size="10.5">&#952; sweeps: &#8722;90&#176; &#8594; 0&#176; &#8594; +90&#176; (CW)</text>
+                    <text x="465" y="281" class="fill-rose-600 dark:fill-rose-400 font-sans font-semibold" font-size="10.5">Origin Indentation (Detour around pole at s = 0)</text>
                 </svg>
             </div>
 
