@@ -110,8 +110,9 @@
             <nav class="hidden lg:flex items-center gap-1 text-xs font-semibold text-slate-600 dark:text-slate-300">
                 <a href="#intro" class="px-2 py-1 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors whitespace-nowrap">2.1 Intro</a>
                 <a href="#concepts" class="px-2 py-1 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors whitespace-nowrap">2.2 Concepts</a>
-                <a href="#circle-locus" class="px-2 py-1 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors whitespace-nowrap">2.3 Circle</a>
-                <a href="#rules" class="px-2 py-1 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors whitespace-nowrap">2.4 Rules</a>
+                <a href="#evans-criteria" class="px-2 py-1 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors whitespace-nowrap">2.3 Criteria</a>
+                <a href="#circle-locus" class="px-2 py-1 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors whitespace-nowrap">2.4 Circle</a>
+                <a href="#rules" class="px-2 py-1 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors whitespace-nowrap">2.5 Rules</a>
                 <a href="#breakaway" class="px-2 py-1 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors whitespace-nowrap">2.5 Breakaway</a>
                 <a href="#ju-pyqs" class="px-2 py-1 rounded-md text-brand-600 dark:text-brand-400 font-bold hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors whitespace-nowrap">JU PYQs</a>
                 <a href="#interactive-workbench" class="px-2 py-1 rounded-md text-indigo-600 dark:text-indigo-400 font-bold hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors whitespace-nowrap">Workbench</a>
@@ -160,8 +161,9 @@
                 <!-- Quick Navigation Pills -->
                 <div class="flex flex-wrap items-center gap-1.5 shrink-0 text-xs font-medium">
                     <a href="#concepts" class="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-brand-50 hover:text-brand-600 dark:hover:bg-brand-950/60 dark:hover:text-brand-300 transition-colors">2.2 Concepts</a>
-                    <a href="#circle-locus" class="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-brand-50 hover:text-brand-600 dark:hover:bg-brand-950/60 dark:hover:text-brand-300 transition-colors">2.3 Circle</a>
-                    <a href="#rules" class="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-brand-50 hover:text-brand-600 dark:hover:bg-brand-950/60 dark:hover:text-brand-300 transition-colors">2.4 Rules</a>
+                    <a href="#evans-criteria" class="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-brand-50 hover:text-brand-600 dark:hover:bg-brand-950/60 dark:hover:text-brand-300 transition-colors">2.3 Criteria</a>
+                    <a href="#circle-locus" class="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-brand-50 hover:text-brand-600 dark:hover:bg-brand-950/60 dark:hover:text-brand-300 transition-colors">2.4 Circle</a>
+                    <a href="#rules" class="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-brand-50 hover:text-brand-600 dark:hover:bg-brand-950/60 dark:hover:text-brand-300 transition-colors">2.5 Rules</a>
                     <a href="#breakaway" class="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-brand-50 hover:text-brand-600 dark:hover:bg-brand-950/60 dark:hover:text-brand-300 transition-colors">2.5 Breakaway</a>
                     <a href="#ju-pyqs" class="px-2.5 py-1 rounded-lg bg-brand-50 dark:bg-brand-950/60 text-brand-700 dark:text-brand-300 font-bold hover:bg-brand-100 transition-colors">JU PYQs</a>
                     <a href="#interactive-workbench" class="px-2.5 py-1 rounded-lg bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 font-bold hover:bg-indigo-100 transition-colors">Workbench</a>
@@ -497,11 +499,165 @@
                 </div>
             </section>
 
-            <!-- SECTION 03: 2.3 CIRCULAR ROOT LOCI & MINIMUM DAMPING -->
-            <section id="circle-locus" class="scroll-mt-24 p-6 sm:p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm space-y-6">
+            <!-- SECTION 03: 2.3 EVANS CONDITIONS -->
+            <section id="evans-criteria" class="scroll-mt-24 p-6 sm:p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm space-y-6">
                 <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-4">
                     <div class="flex items-center gap-3">
                         <span class="w-8 h-8 rounded-xl bg-brand-100 dark:bg-brand-900/50 text-brand-600 dark:text-brand-400 font-mono font-bold flex items-center justify-center text-sm">2.3</span>
+                        <div>
+                            <h2 class="text-xl font-bold text-slate-900 dark:text-white tracking-tight">The Evans Angle &amp; Magnitude Criteria</h2>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Factored transfer function representations and phasor testing (Part-I, Pages 5, 7–8)</p>
+                        </div>
+                    </div>
+                    <span class="text-xs font-mono px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Core Engine</span>
+                </div>
+
+                <div class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed space-y-4">
+                    <p>
+                        The general closed-loop characteristic equation of any linear feedback control system can be expressed as:
+                    </p>
+                    <div class="overflow-x-auto py-1">
+                        $$1 + G(s)H(s) = 0 \iff G(s)H(s) = -1 \tag{7.6}$$
+                    </div>
+                    <p>
+                        Since $s = \sigma + j\omega$ is a complex variable, the single complex equation (7.6) is equivalent to <strong>two simultaneous real conditions</strong>, known as the <strong>Evans Conditions</strong>:
+                    </p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
+                        <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2">
+                            <span class="text-xs font-mono font-bold text-indigo-600 dark:text-indigo-400 block uppercase tracking-wider">Condition 1: Angle Criterion</span>
+                            <div class="font-mono text-sm font-bold text-slate-900 dark:text-slate-100">
+                                $$\angle G(s)H(s) = \pm 180^\circ (2q + 1), \quad q = 0, 1, 2, \dots \tag{7.8}$$
+                            </div>
+                            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                                <strong>Determines Geometry:</strong> A point $s_0$ in the complex $s$-plane belongs to the root locus <em>if and only if</em> the total angle of $G(s_0)H(s_0)$ is an odd multiple of $\pm 180^\circ$. This criterion defines the entire locus shape independently of the value of gain $K$.
+                            </p>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2">
+                            <span class="text-xs font-mono font-bold text-indigo-600 dark:text-indigo-400 block uppercase tracking-wider">Condition 2: Magnitude Criterion</span>
+                            <div class="font-mono text-sm font-bold text-slate-900 dark:text-slate-100">
+                                $$|G(s)H(s)| = 1 \tag{7.7}$$
+                            </div>
+                            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                                <strong>Determines Gain Calibration:</strong> Once a point $s_0$ is confirmed to lie on the locus by satisfying the angle criterion, the magnitude criterion is used to calculate the exact numerical value of the open-loop gain $K$ required to place the closed-loop pole at $s_0$.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Factored Forms Presentation -->
+                    <div class="space-y-3 pt-2">
+                        <h3 class="text-base font-bold text-slate-900 dark:text-white">Transfer Function Factored Forms</h3>
+                        <p class="text-xs text-slate-600 dark:text-slate-400">
+                            The open-loop transfer function $G(s)H(s)$ is modeled in two standard forms:
+                        </p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                            <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 font-mono">
+                                <span class="font-sans font-bold text-slate-500 dark:text-slate-400 block mb-1">Time-Constant (Bode) Form:</span>
+                                $$G(s)H(s) = \frac{K' \prod_{i=1}^m (\tau_{zi} s + 1)}{\prod_{j=1}^n (\tau_{pj} s + 1)} \tag{7.13}$$
+                            </div>
+                            <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 font-mono">
+                                <span class="font-sans font-bold text-slate-500 dark:text-slate-400 block mb-1">Pole-Zero (Evans Root-Locus) Form:</span>
+                                $$G(s)H(s) = \frac{K \prod_{i=1}^m (s + z_i)}{\prod_{j=1}^n (s + p_j)} \tag{7.14}$$
+                            </div>
+                        </div>
+                        <div class="p-3 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs">
+                            <span class="font-bold text-slate-700 dark:text-slate-300">Interrelation between Bode Gain $K'$ and Root Locus Gain $K$:</span>
+                            $$K = K' \frac{\prod_{j=1}^n p_j}{\prod_{i=1}^m z_i}$$
+                            <em>Note:</em> For all physically realizable systems, $n \ge m$ (the number of poles $n$ is greater than or equal to the number of zeros $m$).
+                        </div>
+                    </div>
+
+                    <!-- Figure 7.5: Graphical Phasor Test SVG -->
+                    <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-850 border border-slate-200 dark:border-slate-800 diagram-container">
+                        <div class="text-xs font-mono font-bold text-slate-500 dark:text-slate-400 mb-2 text-center ">Figure 7.5: Determining a Point on Root Locus via Phasors (Verbatim MM Notes)</div>
+                        
+                        <!-- Sleek HTML Criterion Cards -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3 text-xs">
+                            <div class="p-3 rounded-xl bg-indigo-50/80 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800/60">
+                                <span class="font-bold text-indigo-700 dark:text-indigo-300 block mb-1">&#128293; Angle Criterion Check:</span>
+                                <div class="font-mono text-slate-800 dark:text-slate-200 font-semibold text-xs">
+                                    $\theta_{z1} - (\theta_{p1} + \theta_{p2} + \theta_{p3}) = \pm 180^\circ(2q + 1)$
+                                </div>
+                            </div>
+                            <div class="p-3 rounded-xl bg-emerald-50/80 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/60">
+                                <span class="font-bold text-emerald-700 dark:text-emerald-300 block mb-1">&#9878;&#65039; Gain Calibration ($K$):</span>
+                                <div class="font-mono text-slate-800 dark:text-slate-200 font-semibold text-xs">
+                                    $K = \frac{|s_0 + p_1| \cdot |s_0 + p_2| \cdot |s_0 + p_3|}{|s_0 + z_1|}$
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-center">
+                            <svg viewBox="0 0 660 250" class="w-full max-w-2xl text-xs font-sans">
+                                <!-- Axes: Origin at (520, 190) -->
+                                <line x1="30" y1="190" x2="630" y2="190" stroke="currentColor" stroke-width="1.5" class="text-slate-600 dark:text-slate-400" />
+                                <text x="635" y="194" fill="currentColor" class="font-mono text-xs">σ</text>
+
+                                <line x1="520" y1="250" x2="520" y2="20" stroke="currentColor" stroke-width="1.5" class="text-slate-600 dark:text-slate-400" />
+                                <text x="525" y="28" fill="currentColor" class="font-mono text-xs">jω</text>
+
+                                <!-- Test Point s0: at (320, 75) -->
+                                <circle cx="320" cy="75" r="5.5" fill="#4f46e5" />
+                                <text x="320" y="58" text-anchor="middle" fill="currentColor" class="text-brand-600 dark:text-brand-300 font-bold font-mono text-sm">s<tspan baseline-shift="sub" font-size="70%">0</tspan></text>
+
+                                <!-- Open-loop Singularities on Real Axis (y = 190) -->
+                                <!-- Pole -p1 at (480, 190) -->
+                                <line x1="474" y1="184" x2="486" y2="196" stroke="#ef4444" stroke-width="2.5" />
+                                <line x1="486" y1="184" x2="474" y2="196" stroke="#ef4444" stroke-width="2.5" />
+                                <text x="480" y="215" text-anchor="middle" fill="currentColor" class="text-rose-600 dark:text-rose-400 font-bold font-mono">-p<tspan baseline-shift="sub" font-size="70%">1</tspan></text>
+
+                                <!-- Zero -z1 at (380, 190) -->
+                                <circle cx="380" cy="190" r="5" fill="none" stroke="#6366f1" stroke-width="2.5" />
+                                <text x="380" y="215" text-anchor="middle" fill="currentColor" class="text-indigo-600 dark:text-indigo-400 font-bold font-mono">-z<tspan baseline-shift="sub" font-size="70%">1</tspan></text>
+
+                                <!-- Pole -p2 at (280, 190) -->
+                                <line x1="274" y1="184" x2="286" y2="196" stroke="#ef4444" stroke-width="2.5" />
+                                <line x1="286" y1="184" x2="274" y2="196" stroke="#ef4444" stroke-width="2.5" />
+                                <text x="280" y="215" text-anchor="middle" fill="currentColor" class="text-rose-600 dark:text-rose-400 font-bold font-mono">-p<tspan baseline-shift="sub" font-size="70%">2</tspan></text>
+
+                                <!-- Pole -p3 at (150, 190) -->
+                                <line x1="144" y1="184" x2="156" y2="196" stroke="#ef4444" stroke-width="2.5" />
+                                <line x1="156" y1="184" x2="144" y2="196" stroke="#ef4444" stroke-width="2.5" />
+                                <text x="150" y="215" text-anchor="middle" fill="currentColor" class="text-rose-600 dark:text-rose-400 font-bold font-mono">-p<tspan baseline-shift="sub" font-size="70%">3</tspan></text>
+
+                                <!-- Phasors from poles/zeros to s0 -->
+                                <!-- From -p1 (480, 190) to s0 (320, 75) -->
+                                <line x1="480" y1="190" x2="320" y2="75" stroke="#ef4444" stroke-width="1.8" marker-end="url(#arrow)" />
+                                <text x="430" y="105" text-anchor="middle" fill="currentColor" class="text-rose-600 dark:text-rose-400 font-mono text-xs font-bold">(s<tspan baseline-shift="sub" font-size="70%">0</tspan> + p<tspan baseline-shift="sub" font-size="70%">1</tspan>)</text>
+                                <path d="M 450 190 A 30 30 0 0 1 458 175" fill="none" stroke="#dc2626" stroke-width="1.5" />
+                                <text x="438" y="182" text-anchor="end" fill="currentColor" class="text-rose-600 dark:text-rose-400 font-bold text-[11px]">θ<tspan baseline-shift="sub" font-size="70%">p1</tspan></text>
+
+                                <!-- From -z1 (380, 190) to s0 (320, 75) -->
+                                <line x1="380" y1="190" x2="320" y2="75" stroke="#6366f1" stroke-width="1.8" marker-end="url(#arrow)" />
+                                <text x="345" y="130" text-anchor="middle" fill="currentColor" class="text-indigo-600 dark:text-indigo-300 font-mono text-xs font-bold">(s<tspan baseline-shift="sub" font-size="70%">0</tspan> + z<tspan baseline-shift="sub" font-size="70%">1</tspan>)</text>
+                                <path d="M 360 190 A 20 20 0 0 1 364 175" fill="none" stroke="#4f46e5" stroke-width="1.5" />
+                                <text x="348" y="180" text-anchor="end" fill="#4f46e5" class="font-bold text-[11px]">θ<tspan baseline-shift="sub" font-size="70%">z1</tspan></text>
+
+                                <!-- From -p2 (280, 190) to s0 (320, 75) -->
+                                <line x1="280" y1="190" x2="320" y2="75" stroke="#ef4444" stroke-width="1.8" marker-end="url(#arrow)" />
+                                <text x="270" y="145" text-anchor="end" fill="currentColor" class="text-rose-600 dark:text-rose-400 font-mono text-xs font-bold">(s<tspan baseline-shift="sub" font-size="70%">0</tspan> + p<tspan baseline-shift="sub" font-size="70%">2</tspan>)</text>
+                                <path d="M 300 190 A 25 25 0 0 1 292 168" fill="none" stroke="#dc2626" stroke-width="1.5" />
+                                <text x="306" y="178" text-anchor="start" fill="currentColor" class="text-rose-600 dark:text-rose-400 font-bold text-[11px]">θ<tspan baseline-shift="sub" font-size="70%">p2</tspan></text>
+
+                                <!-- From -p3 (150, 190) to s0 (320, 75) -->
+                                <line x1="150" y1="190" x2="320" y2="75" stroke="#ef4444" stroke-width="1.8" marker-end="url(#arrow)" />
+                                <text x="210" y="105" text-anchor="middle" fill="currentColor" class="text-rose-600 dark:text-rose-400 font-mono text-xs font-bold">(s<tspan baseline-shift="sub" font-size="70%">0</tspan> + p<tspan baseline-shift="sub" font-size="70%">3</tspan>)</text>
+                                <path d="M 180 190 A 30 30 0 0 1 172 172" fill="none" stroke="#dc2626" stroke-width="1.5" />
+                                <text x="186" y="182" text-anchor="start" fill="currentColor" class="text-rose-600 dark:text-rose-400 font-bold text-[11px]">θ<tspan baseline-shift="sub" font-size="70%">p3</tspan></text>
+
+
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 04: 2.4 CIRCULAR ROOT LOCI & MINIMUM DAMPING -->
+            <section id="circle-locus" class="scroll-mt-24 p-6 sm:p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm space-y-6">
+                <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-4">
+                    <div class="flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-xl bg-brand-100 dark:bg-brand-900/50 text-brand-600 dark:text-brand-400 font-mono font-bold flex items-center justify-center text-sm">2.4</span>
                         <div>
                             <h2 class="text-xl font-bold text-slate-900 dark:text-white tracking-tight">Second-Order System with a Zero: Exact Circular Root Locus Proof</h2>
                             <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Complete trigonometric &amp; algebraic derivation of circle equation and $\zeta_{\min}$ formula (Part-I, Pages 5–6)</p>
@@ -512,7 +668,7 @@
 
                 <div class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed space-y-4">
                     <p>
-                        Consider a single-loop feedback system with an open-loop zero and two open-loop poles:
+                        Having established the foundational Evans Angle and Magnitude Criteria in Section 2.3, let us now examine how Evans' angle criterion is applied analytically to determine exact root locus trajectories. Consider a single-loop feedback system with an open-loop zero and two open-loop poles:
                     </p>
                     <div class="overflow-x-auto py-1">
                         $$G(s) = K \frac{s + b}{s(s + a)}, \quad H(s) = 1 \quad (b > a > 0) \tag{7.9}$$
@@ -690,160 +846,6 @@
                             $$\zeta_{\min} = \cos \theta = \frac{\text{Adjacent}}{\text{Hypotenuse}} = \frac{OP}{OC} = \frac{\sqrt{ab}}{b} = \sqrt{\frac{a}{b}}$$
                             This elegant formula is a frequent question in Jadavpur University semester examinations and viva-voce!
                         </p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- SECTION 04: 2.4 EVANS CONDITIONS -->
-            <section id="evans-criteria" class="scroll-mt-24 p-6 sm:p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm space-y-6">
-                <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-4">
-                    <div class="flex items-center gap-3">
-                        <span class="w-8 h-8 rounded-xl bg-brand-100 dark:bg-brand-900/50 text-brand-600 dark:text-brand-400 font-mono font-bold flex items-center justify-center text-sm">2.4</span>
-                        <div>
-                            <h2 class="text-xl font-bold text-slate-900 dark:text-white tracking-tight">The Evans Angle &amp; Magnitude Criteria</h2>
-                            <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Factored transfer function representations and phasor testing (Part-I, Pages 5, 7–8)</p>
-                        </div>
-                    </div>
-                    <span class="text-xs font-mono px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Core Engine</span>
-                </div>
-
-                <div class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed space-y-4">
-                    <p>
-                        The general closed-loop characteristic equation of any linear feedback control system can be expressed as:
-                    </p>
-                    <div class="overflow-x-auto py-1">
-                        $$1 + G(s)H(s) = 0 \iff G(s)H(s) = -1 \tag{7.6}$$
-                    </div>
-                    <p>
-                        Since $s = \sigma + j\omega$ is a complex variable, the single complex equation (7.6) is equivalent to <strong>two simultaneous real conditions</strong>, known as the <strong>Evans Conditions</strong>:
-                    </p>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
-                        <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2">
-                            <span class="text-xs font-mono font-bold text-indigo-600 dark:text-indigo-400 block uppercase tracking-wider">Condition 1: Angle Criterion</span>
-                            <div class="font-mono text-sm font-bold text-slate-900 dark:text-slate-100">
-                                $$\angle G(s)H(s) = \pm 180^\circ (2q + 1), \quad q = 0, 1, 2, \dots \tag{7.8}$$
-                            </div>
-                            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-                                <strong>Determines Geometry:</strong> A point $s_0$ in the complex $s$-plane belongs to the root locus <em>if and only if</em> the total angle of $G(s_0)H(s_0)$ is an odd multiple of $\pm 180^\circ$. This criterion defines the entire locus shape independently of the value of gain $K$.
-                            </p>
-                        </div>
-
-                        <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2">
-                            <span class="text-xs font-mono font-bold text-indigo-600 dark:text-indigo-400 block uppercase tracking-wider">Condition 2: Magnitude Criterion</span>
-                            <div class="font-mono text-sm font-bold text-slate-900 dark:text-slate-100">
-                                $$|G(s)H(s)| = 1 \tag{7.7}$$
-                            </div>
-                            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-                                <strong>Determines Gain Calibration:</strong> Once a point $s_0$ is confirmed to lie on the locus by satisfying the angle criterion, the magnitude criterion is used to calculate the exact numerical value of the open-loop gain $K$ required to place the closed-loop pole at $s_0$.
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Factored Forms Presentation -->
-                    <div class="space-y-3 pt-2">
-                        <h3 class="text-base font-bold text-slate-900 dark:text-white">Transfer Function Factored Forms</h3>
-                        <p class="text-xs text-slate-600 dark:text-slate-400">
-                            The open-loop transfer function $G(s)H(s)$ is modeled in two standard forms:
-                        </p>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
-                            <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 font-mono">
-                                <span class="font-sans font-bold text-slate-500 dark:text-slate-400 block mb-1">Time-Constant (Bode) Form:</span>
-                                $$G(s)H(s) = \frac{K' \prod_{i=1}^m (\tau_{zi} s + 1)}{\prod_{j=1}^n (\tau_{pj} s + 1)} \tag{7.13}$$
-                            </div>
-                            <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 font-mono">
-                                <span class="font-sans font-bold text-slate-500 dark:text-slate-400 block mb-1">Pole-Zero (Evans Root-Locus) Form:</span>
-                                $$G(s)H(s) = \frac{K \prod_{i=1}^m (s + z_i)}{\prod_{j=1}^n (s + p_j)} \tag{7.14}$$
-                            </div>
-                        </div>
-                        <div class="p-3 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs">
-                            <span class="font-bold text-slate-700 dark:text-slate-300">Interrelation between Bode Gain $K'$ and Root Locus Gain $K$:</span>
-                            $$K = K' \frac{\prod_{j=1}^n p_j}{\prod_{i=1}^m z_i}$$
-                            <em>Note:</em> For all physically realizable systems, $n \ge m$ (the number of poles $n$ is greater than or equal to the number of zeros $m$).
-                        </div>
-                    </div>
-
-                    <!-- Figure 7.5: Graphical Phasor Test SVG -->
-                    <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-850 border border-slate-200 dark:border-slate-800 diagram-container">
-                        <div class="text-xs font-mono font-bold text-slate-500 dark:text-slate-400 mb-2 text-center ">Figure 7.5: Determining a Point on Root Locus via Phasors (Verbatim MM Notes)</div>
-                        
-                        <!-- Sleek HTML Criterion Cards -->
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3 text-xs">
-                            <div class="p-3 rounded-xl bg-indigo-50/80 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800/60">
-                                <span class="font-bold text-indigo-700 dark:text-indigo-300 block mb-1">&#128293; Angle Criterion Check:</span>
-                                <div class="font-mono text-slate-800 dark:text-slate-200 font-semibold text-xs">
-                                    $\theta_{z1} - (\theta_{p1} + \theta_{p2} + \theta_{p3}) = \pm 180^\circ(2q + 1)$
-                                </div>
-                            </div>
-                            <div class="p-3 rounded-xl bg-emerald-50/80 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/60">
-                                <span class="font-bold text-emerald-700 dark:text-emerald-300 block mb-1">&#9878;&#65039; Gain Calibration ($K$):</span>
-                                <div class="font-mono text-slate-800 dark:text-slate-200 font-semibold text-xs">
-                                    $K = \frac{|s_0 + p_1| \cdot |s_0 + p_2| \cdot |s_0 + p_3|}{|s_0 + z_1|}$
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="flex justify-center">
-                            <svg viewBox="0 0 660 250" class="w-full max-w-2xl text-xs font-sans">
-                                <!-- Axes: Origin at (520, 190) -->
-                                <line x1="30" y1="190" x2="630" y2="190" stroke="currentColor" stroke-width="1.5" class="text-slate-600 dark:text-slate-400" />
-                                <text x="635" y="194" fill="currentColor" class="font-mono text-xs">σ</text>
-
-                                <line x1="520" y1="250" x2="520" y2="20" stroke="currentColor" stroke-width="1.5" class="text-slate-600 dark:text-slate-400" />
-                                <text x="525" y="28" fill="currentColor" class="font-mono text-xs">jω</text>
-
-                                <!-- Test Point s0: at (320, 75) -->
-                                <circle cx="320" cy="75" r="5.5" fill="#4f46e5" />
-                                <text x="320" y="58" text-anchor="middle" fill="currentColor" class="text-brand-600 dark:text-brand-300 font-bold font-mono text-sm">s<tspan baseline-shift="sub" font-size="70%">0</tspan></text>
-
-                                <!-- Open-loop Singularities on Real Axis (y = 190) -->
-                                <!-- Pole -p1 at (480, 190) -->
-                                <line x1="474" y1="184" x2="486" y2="196" stroke="#ef4444" stroke-width="2.5" />
-                                <line x1="486" y1="184" x2="474" y2="196" stroke="#ef4444" stroke-width="2.5" />
-                                <text x="480" y="215" text-anchor="middle" fill="currentColor" class="text-rose-600 dark:text-rose-400 font-bold font-mono">-p<tspan baseline-shift="sub" font-size="70%">1</tspan></text>
-
-                                <!-- Zero -z1 at (380, 190) -->
-                                <circle cx="380" cy="190" r="5" fill="none" stroke="#6366f1" stroke-width="2.5" />
-                                <text x="380" y="215" text-anchor="middle" fill="currentColor" class="text-indigo-600 dark:text-indigo-400 font-bold font-mono">-z<tspan baseline-shift="sub" font-size="70%">1</tspan></text>
-
-                                <!-- Pole -p2 at (280, 190) -->
-                                <line x1="274" y1="184" x2="286" y2="196" stroke="#ef4444" stroke-width="2.5" />
-                                <line x1="286" y1="184" x2="274" y2="196" stroke="#ef4444" stroke-width="2.5" />
-                                <text x="280" y="215" text-anchor="middle" fill="currentColor" class="text-rose-600 dark:text-rose-400 font-bold font-mono">-p<tspan baseline-shift="sub" font-size="70%">2</tspan></text>
-
-                                <!-- Pole -p3 at (150, 190) -->
-                                <line x1="144" y1="184" x2="156" y2="196" stroke="#ef4444" stroke-width="2.5" />
-                                <line x1="156" y1="184" x2="144" y2="196" stroke="#ef4444" stroke-width="2.5" />
-                                <text x="150" y="215" text-anchor="middle" fill="currentColor" class="text-rose-600 dark:text-rose-400 font-bold font-mono">-p<tspan baseline-shift="sub" font-size="70%">3</tspan></text>
-
-                                <!-- Phasors from poles/zeros to s0 -->
-                                <!-- From -p1 (480, 190) to s0 (320, 75) -->
-                                <line x1="480" y1="190" x2="320" y2="75" stroke="#ef4444" stroke-width="1.8" marker-end="url(#arrow)" />
-                                <text x="430" y="105" text-anchor="middle" fill="currentColor" class="text-rose-600 dark:text-rose-400 font-mono text-xs font-bold">(s<tspan baseline-shift="sub" font-size="70%">0</tspan> + p<tspan baseline-shift="sub" font-size="70%">1</tspan>)</text>
-                                <path d="M 450 190 A 30 30 0 0 1 458 175" fill="none" stroke="#dc2626" stroke-width="1.5" />
-                                <text x="438" y="182" text-anchor="end" fill="currentColor" class="text-rose-600 dark:text-rose-400 font-bold text-[11px]">θ<tspan baseline-shift="sub" font-size="70%">p1</tspan></text>
-
-                                <!-- From -z1 (380, 190) to s0 (320, 75) -->
-                                <line x1="380" y1="190" x2="320" y2="75" stroke="#6366f1" stroke-width="1.8" marker-end="url(#arrow)" />
-                                <text x="345" y="130" text-anchor="middle" fill="currentColor" class="text-indigo-600 dark:text-indigo-300 font-mono text-xs font-bold">(s<tspan baseline-shift="sub" font-size="70%">0</tspan> + z<tspan baseline-shift="sub" font-size="70%">1</tspan>)</text>
-                                <path d="M 360 190 A 20 20 0 0 1 364 175" fill="none" stroke="#4f46e5" stroke-width="1.5" />
-                                <text x="348" y="180" text-anchor="end" fill="#4f46e5" class="font-bold text-[11px]">θ<tspan baseline-shift="sub" font-size="70%">z1</tspan></text>
-
-                                <!-- From -p2 (280, 190) to s0 (320, 75) -->
-                                <line x1="280" y1="190" x2="320" y2="75" stroke="#ef4444" stroke-width="1.8" marker-end="url(#arrow)" />
-                                <text x="270" y="145" text-anchor="end" fill="currentColor" class="text-rose-600 dark:text-rose-400 font-mono text-xs font-bold">(s<tspan baseline-shift="sub" font-size="70%">0</tspan> + p<tspan baseline-shift="sub" font-size="70%">2</tspan>)</text>
-                                <path d="M 300 190 A 25 25 0 0 1 292 168" fill="none" stroke="#dc2626" stroke-width="1.5" />
-                                <text x="306" y="178" text-anchor="start" fill="currentColor" class="text-rose-600 dark:text-rose-400 font-bold text-[11px]">θ<tspan baseline-shift="sub" font-size="70%">p2</tspan></text>
-
-                                <!-- From -p3 (150, 190) to s0 (320, 75) -->
-                                <line x1="150" y1="190" x2="320" y2="75" stroke="#ef4444" stroke-width="1.8" marker-end="url(#arrow)" />
-                                <text x="210" y="105" text-anchor="middle" fill="currentColor" class="text-rose-600 dark:text-rose-400 font-mono text-xs font-bold">(s<tspan baseline-shift="sub" font-size="70%">0</tspan> + p<tspan baseline-shift="sub" font-size="70%">3</tspan>)</text>
-                                <path d="M 180 190 A 30 30 0 0 1 172 172" fill="none" stroke="#dc2626" stroke-width="1.5" />
-                                <text x="186" y="182" text-anchor="start" fill="currentColor" class="text-rose-600 dark:text-rose-400 font-bold text-[11px]">θ<tspan baseline-shift="sub" font-size="70%">p3</tspan></text>
-
-
-                            </svg>
-                        </div>
                     </div>
                 </div>
             </section>
@@ -2128,7 +2130,8 @@
                             <div>
                                 <span class="font-bold text-slate-800 dark:text-slate-200 block text-xs uppercase text-brand-600 dark:text-brand-400">Step 3: Apply the Breakaway Derivative Condition $rac{dK}{ds} = 0$</span>
                                 <div class="font-mono text-center py-2 bg-slate-50 dark:bg-slate-800/60 rounded-xl my-2">
-                                    64124rac{dK}{ds} = -rac{d}{ds}\left(s^4 + 5s^3 + 8s^2 + 6sight) = -(4s^3 + 15s^2 + 16s + 6) = 064124
+                                    64124rac{dK}{ds} = -rac{d}{ds}\left(s^4 + 5s^3 + 8s^2 + 6s
+ight) = -(4s^3 + 15s^2 + 16s + 6) = 064124
                                     64124\mathbf{4s^3 + 15s^2 + 16s + 6 = 0}64124
                                 </div>
                                 <p class="text-slate-600 dark:text-slate-300">
@@ -2150,7 +2153,8 @@
                                         <p class="text-xs">
                                             <strong>1. Segment Verification:</strong> 569X3 < -2.2886 < 0$. The root lies directly inside the valid real-axis root locus segment 0$.<br>
                                             <strong>2. Gain Positivity Verification:</strong>
-                                            64124K(-2.2886) = -(-2.2886)(-2.2886 + 3)\left((-2.2886)^2 + 2(-2.2886) + 2ight) = \mathbf{+4.3316 > 0}64124
+                                            64124K(-2.2886) = -(-2.2886)(-2.2886 + 3)\left((-2.2886)^2 + 2(-2.2886) + 2
+ight) = \mathbf{+4.3316 > 0}64124
                                             Because $ belongs to the root locus and corresponds to a strictly positive, real controller gain  > 0$, <strong> = -2.29$ is a genuine physical breakaway point</strong>.
                                         </p>
                                     </div>
@@ -2238,7 +2242,8 @@ e \pm 180^\circ$.<br>
                                     The sensitivity of a closed-loop root location $ with respect to gain $ is defined by:
                                     64124S_K^s = rac{ds}{dK} = rac{1}{rac{dK}{ds}}64124
                                     At any point where $rac{dK}{ds} = 0$, the root sensitivity becomes infinite:
-                                    64124\lim_{rac{dK}{ds} 	o 0} \left|rac{ds}{dK}ight| = \infty64124
+                                    64124\lim_{rac{dK}{ds} 	o 0} \left|rac{ds}{dK}
+ight| = \infty64124
                                     <strong>Geometric consequence:</strong> An infinitesimal increment in gain $\Delta K$ produces an infinitely rapid rate of displacement of the roots, causing the locus branches to diverge abruptly at perpendicular angles ($\pm 90^\circ$ for two colliding branches, or $\pm rac{180^\circ}{n}$ for $ branches).
                                 </p>
                             </div>
