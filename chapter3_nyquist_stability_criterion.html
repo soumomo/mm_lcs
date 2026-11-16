@@ -58,7 +58,7 @@
             <nav class="site-nav">
                 <a href="index.html">&larr; Portal</a>
                 <a href="#prob-ct">CT Problems</a>
-                <a href="#prob-cauchy">Cauchy Foundation</a>
+                <a href="#prob-cauchy">Open-Loop Unstable (JU 2024)</a>
                 <a href="#prob-type1">Type 1 Benchmark</a>
                 <a href="#prob-type2">Type 2 Pole at Origin</a>
                 <a href="#prob-margins">Margins (GM/PM)</a>
@@ -371,250 +371,224 @@
             </article>
 
             <!-- PROBLEM 2: MATHEMATICAL FOUNDATIONS - CAUCHY'S PRINCIPLE OF ARGUMENT -->
-            <article id="prob-cauchy" class="problem-entry">
+                        <article id="prob-cauchy" class="problem-entry">
                 <div class="problem-header">
                     <div class="problem-tag">
-                        <span class="exam-badge">JU 2024 Supplementary Q3 &bull; JU 2017 Q7</span>
+                        <span class="exam-badge">JU 2024 Supplementary Q3</span>
                         <span class="marks-badge">[16 Marks]</span>
                     </div>
-                    <span class="meta-label">Theory &bull; Complex Variable Foundation of Nyquist Criterion</span>
+                    <span class="meta-label">Open-Loop Unstable Plant &bull; Cauchy's Principle &bull; Complete Nyquist Stability</span>
                 </div>
 
-                <h2 class="problem-title">Cauchy's Principle of Argument &amp; Derivation of $N_{\text{ccw}} = P - Z$</h2>
+                <h2 class="problem-title">Stability Analysis of Open-Loop Unstable System: $G(s)H(s) = \frac{s+2}{(s+1)(s-1)}$</h2>
 
                 <div class="question-prompt">
-                    &ldquo;State and derive Cauchy's Principle of Argument using complex integration. Explain why an enclosed zero contributes $-2\pi$ radians of net angle while an enclosed pole contributes $+2\pi$ radians when traversed clockwise. Show clearly how this principle establishes the Nyquist Stability Criterion, and explain why the critical point is $(-1+j0)$ rather than the origin.&rdquo;
+                    &ldquo;By use of Nyquist criterion, determine whether the closed-loop system having the following open-loop transfer function is stable or not. If not, how many closed-loop poles lie in the right half $s$-plane?
+                    $$G(s)H(s) = \frac{s+2}{(s+1)(s-1)}$$&rdquo;
                 </div>
 
                 <div class="solution-body">
                     <div class="solution-step">
-                        <span class="step-label">Step 1: Statement of Cauchy's Principle of Argument</span>
+                        <span class="step-label">Step 1: Cauchy's Principle of Argument &amp; The Nyquist Stability Criterion</span>
                         <p>
-                            Let $F(s)$ be a single-valued meromorphic function that is analytic inside and on a closed contour $\Gamma_s$ in the complex $s$-plane, except at a finite number of isolated poles. Assume that no zeros or poles of $F(s)$ lie directly on $\Gamma_s$.
+                            The Nyquist Stability Criterion is based on <strong>Cauchy's Principle of Argument</strong>: when a closed contour $\Gamma_s$ in the $s$-plane (enclosing the entire open right-half plane, $\text{Re}(s) > 0$) is mapped into the $G(s)H(s)$-plane, the number of counter-clockwise (CCW) encirclements $N_{\text{ccw}}$ of the critical point $(-1 + j0)$ satisfies:
                         </p>
+                        $$\mathbf{N_{\text{ccw}} = P - Z \iff Z = P - N_{\text{ccw}}}$$
+                        <p>where:</p>
+                        <ul class="academic-list">
+                            <li><strong>$P$:</strong> Number of open-loop poles lying in the open right-half $s$-plane ($\text{Re}(s) > 0$).</li>
+                            <li><strong>$Z$:</strong> Number of closed-loop poles lying in the open right-half $s$-plane ($\text{Re}(s) > 0$).</li>
+                            <li><strong>$N_{\text{ccw}}$:</strong> Number of net counter-clockwise encirclements of the critical point $(-1 + j0)$ by the complete closed Nyquist plot.</li>
+                        </ul>
                         <p>
-                            As a point $s$ traverses the contour $\Gamma_s$ once in the <strong>clockwise (CW)</strong> direction, the mapped locus $\Gamma_F$ in the $F(s)$-plane encircles the origin $N_{\text{cw}}$ times in the clockwise direction, given by:
-                        </p>
-                        $$N_{\text{cw}} = Z - P \iff N_{\text{ccw}} = P - Z$$
-                        <p>
-                            where $Z$ is the total number of zeros of $F(s)$ enclosed inside $\Gamma_s$, and $P$ is the total number of poles of $F(s)$ enclosed inside $\Gamma_s$ (counting multiplicities).
+                            <strong>Stability Condition:</strong> For closed-loop stability, there must be no closed-loop poles in the right-half plane:
+                            $$\mathbf{Z = 0 \iff N_{\text{ccw}} = P}$$
                         </p>
                     </div>
 
                     <div class="solution-step">
-                        <span class="step-label">Step 2: Analytical Derivation via Complex Logarithmic Integration</span>
+                        <span class="step-label">Step 2: Identify Open-Loop Singularities &amp; Open-Loop Unstable Poles ($P$)</span>
                         <p>
-                            Express $F(s)$ in factored pole-zero form:
+                            The open-loop transfer function is:
+                            $$G(s)H(s) = \frac{s+2}{(s+1)(s-1)}$$
                         </p>
-                        $$F(s) = K_0 \frac{\prod_{i=1}^Z (s - z_i)}{\prod_{k=1}^P (s - p_k)}$$
+                        <ul class="academic-list">
+                            <li><strong>Open-loop Zero:</strong> $s = -2$ (located in the stable left-half $s$-plane).</li>
+                            <li><strong>Open-loop Poles:</strong> Roots of $(s+1)(s-1) = 0 \implies s_1 = -1$ (LHP) and $s_2 = +1$ (RHP).</li>
+                        </ul>
                         <p>
-                            Taking the complex natural logarithm of both sides:
+                            Because the pole at $s = +1$ has $\text{Re}(s) = +1 > 0$, it is located in the right-half $s$-plane. Thus:
+                            $$\mathbf{P = 1}$$
+                            <em>The open-loop system is inherently UNSTABLE.</em>
                         </p>
-                        $$\ln F(s) = \ln K_0 + \sum_{i=1}^Z \ln(s - z_i) - \sum_{k=1}^P \ln(s - p_k)$$
-                        <p>
-                            Differentiating with respect to the complex variable $s$:
-                        </p>
-                        $$\frac{F'(s)}{F(s)} = \sum_{i=1}^Z \frac{1}{s - z_i} - \sum_{k=1}^P \frac{1}{s - p_k}$$
-                        <p>
-                            Now integrate both sides along the closed contour $\Gamma_s$ in the clockwise direction:
-                        </p>
-                        $$\oint_{\Gamma_s \text{ (CW)}} \frac{F'(s)}{F(s)} \, ds = \sum_{i=1}^Z \oint_{\Gamma_s \text{ (CW)}} \frac{ds}{s - z_i} - \sum_{k=1}^P \oint_{\Gamma_s \text{ (CW)}} \frac{ds}{s - p_k}$$
-                        <p>
-                            According to Cauchy's Residue Theorem, for any singularity $a$ enclosed inside a contour traversed in the clockwise direction (which has negative orientation with respect to the interior):
-                        </p>
-                        $$\oint_{\Gamma_s \text{ (CW)}} \frac{ds}{s - a} = -2\pi j$$
-                        <p>
-                            For any point lying outside $\Gamma_s$, the integrand $\frac{1}{s - a}$ is analytic throughout the interior of $\Gamma_s$, so Cauchy's Integral Theorem gives:
-                        </p>
-                        $$\oint_{\Gamma_s} \frac{ds}{s - a_{\text{outside}}} = 0$$
-                        <p>
-                            Substituting these evaluations back into the summation:
-                        </p>
-                        $$\oint_{\Gamma_s \text{ (CW)}} \frac{F'(s)}{F(s)} \, ds = Z(-2\pi j) - P(-2\pi j) = -2\pi j (Z - P) = +2\pi j (P - Z)$$
                     </div>
 
                     <div class="solution-step">
-                        <span class="step-label">Step 3: Geometric Argument &amp; Phase Accumulation</span>
+                        <span class="step-label">Step 3: Frequency Response Mapping Along Path $C_1$ ($s = j\omega$, $\omega \in [0, +\infty)$)</span>
                         <p>
-                            Notice that the differential of $\ln F(s)$ can be partitioned into magnitude and phase components:
+                            Substitute $s = j\omega$ into $G(s)H(s)$:
+                            $$G(j\omega)H(j\omega) = \frac{j\omega + 2}{(j\omega + 1)(j\omega - 1)} = \frac{2 + j\omega}{j^2 \omega^2 - 1} = \frac{2 + j\omega}{-(1 + \omega^2)}$$
+                            Separating into real and imaginary components:
+                            $$\mathbf{G(j\omega)H(j\omega) = -\frac{2}{1 + \omega^2} - j \frac{\omega}{1 + \omega^2}}$$
                         </p>
-                        $$\oint_{\Gamma_s} \frac{F'(s)}{F(s)} \, ds = \oint_{\Gamma_F} \frac{dF}{F} = \oint_{\Gamma_F} d[\ln F] = \oint_{\Gamma_F} d[\ln |F| + j \arg F]$$
                         <p>
-                            Because $|F(s)|$ is a single-valued real scalar, traversing a complete closed loop returns $|F(s)|$ to its starting value, making $\oint d[\ln |F|] \equiv 0$. Therefore:
+                            Analyze the signs of the components for all $\omega > 0$:
                         </p>
-                        $$\oint_{\Gamma_F} \frac{dF}{F} = j \Delta [\arg F]_{\Gamma_s} = j (\phi_{\text{final}} - \phi_{\text{initial}})$$
+                        <ul class="academic-list">
+                            <li><strong>Real Part:</strong> $\text{Re}[G(j\omega)H(j\omega)] = -\frac{2}{1 + \omega^2} < 0$ for all $\omega \ge 0$. It is <em>strictly negative</em> everywhere.</li>
+                            <li><strong>Imaginary Part:</strong> $\text{Im}[G(j\omega)H(j\omega)] = -\frac{\omega}{1 + \omega^2} \le 0$ for all $\omega \ge 0$. It is <em>strictly negative</em> for $\omega > 0$.</li>
+                        </ul>
                         <p>
-                            Equating this expression with our previous integration result:
+                            <strong>Key Geometric Observation:</strong> Because both the real and imaginary parts are strictly negative, the polar plot for $\omega \in (0, \infty)$ lies <strong>entirely within the Third Quadrant</strong> of the complex plane!
                         </p>
-                        $$j \Delta [\arg F] = 2\pi j (P - Z) \implies \Delta [\arg F] = 2\pi (P - Z)$$
                         <p>
-                            The net counter-clockwise encirclements $N_{\text{ccw}}$ of the origin by the locus $\Gamma_F$ is the total phase angle accumulated divided by $2\pi$:
+                            Evaluate boundary frequencies:
                         </p>
-                        $$N_{\text{ccw}} = \frac{\Delta [\arg F]}{2\pi} = P - Z$$
+                        <ul class="academic-list">
+                            <li><strong>At $\omega = 0$ (Start of Path $C_1$):</strong>
+                            $$G(j0)H(j0) = -\frac{2}{1 + 0} - j 0 = \mathbf{-2 + j0}$$
+                            The plot starts on the negative real axis at coordinate $(-2, 0)$.</li>
+                            <li><strong>As $\omega \to \infty$ (End of Path $C_1$):</strong>
+                            $$\lim_{\omega \to \infty} G(j\omega)H(j\omega) = \lim_{\omega \to \infty} \left( -\frac{2}{\omega^2} - j \frac{1}{\omega} \right) = \mathbf{0^- - j0}$$
+                            The locus enters the origin tangentially from the third quadrant.</li>
+                            <li><strong>Extremum of Imaginary Component:</strong>
+                            $$\frac{d}{d\omega} \left( \frac{\omega}{1 + \omega^2} \right) = \frac{(1 + \omega^2)(1) - \omega(2\omega)}{(1 + \omega^2)^2} = \frac{1 - \omega^2}{(1 + \omega^2)^2} = 0 \implies \omega = 1\text{ rad/s}$$
+                            At $\omega = 1\text{ rad/s}$:
+                            $$G(j1)H(j1) = -\frac{2}{1 + 1} - j \frac{1}{1 + 1} = \mathbf{-1 - j0.5}$$
+                            The locus dips to maximum depth $\text{Im} = -0.5$ at $\text{Re} = -1$.
+                            </li>
+                        </ul>
                     </div>
 
-                    <!-- SVG 11 / Figure 3.2: Vector Angle Rotation Mechanics -->
+                    <div class="solution-step">
+                        <span class="step-label">Step 4: Mapping of Path $C_2$ (Infinite Semicircle $s = R e^{j\theta}$, $R \to \infty$)</span>
+                        <p>
+                            Along the semicircular arc enclosing the right-half plane, let $s = R e^{j\theta}$ where $\theta$ sweeps clockwise from $+90^\circ \to 0^\circ \to -90^\circ$:
+                            $$\lim_{R \to \infty} G(s)H(s) \approx \frac{s}{s^2} = \frac{1}{s} = \frac{1}{R e^{j\theta}} = \frac{1}{R} e^{-j\theta} \to 0$$
+                            Therefore, the entire infinite semicircular path $C_2$ maps directly to the <strong>origin ($0, 0$)</strong>.
+                        </p>
+                    </div>
+
+                    <div class="solution-step">
+                        <span class="step-label">Step 5: Mapping of Path $C_3$ (Negative Imaginary Axis $s = -j\omega$, $\omega$ from $-\infty$ to $0^-$)</span>
+                        <p>
+                            By the complex conjugate symmetry property $G(-j\omega)H(-j\omega) = [G(j\omega)H(j\omega)]^*$:
+                            $$G(-j\omega)H(-j\omega) = -\frac{2}{1 + \omega^2} + j \frac{\omega}{1 + \omega^2}$$
+                            This locus lies entirely in the <strong>Second Quadrant</strong>, starting from the origin ($0$) at $\omega = -\infty$ and terminating on the negative real axis at $\mathbf{-2 + j0}$ at $\omega = 0^-$.
+                        </p>
+                    </div>
+
+                    <!-- Clean Vector SVG of the Complete Nyquist Plot for G(s)H(s) = (s+2)/((s+1)(s-1)) -->
                     <div class="svg-diagram-wrapper">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 320" width="100%" height="auto" aria-label="Vector Angle Rotation for Enclosed and Non-Enclosed Singularities">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" width="100%" height="auto" aria-label="Complete Nyquist Plot for G(s)H(s) = (s+2)/((s+1)(s-1))">
                             <defs>
-                                <marker id="arr-vec1" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
-                                    <path d="M 0 1 L 10 5 L 0 9 z" fill="#16a34a" />
-                                </marker>
-                                <marker id="arr-vec2" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
-                                    <path d="M 0 1 L 10 5 L 0 9 z" fill="#d97706" />
-                                </marker>
-                                <marker id="arr-contour" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                <marker id="nyq-arr-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                                     <path d="M 0 1 L 10 5 L 0 9 z" fill="#1d4ed8" />
+                                </marker>
+                                <marker id="nyq-arr-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                    <path d="M 0 1 L 10 5 L 0 9 z" fill="#b44029" />
                                 </marker>
                             </defs>
 
-                            <!-- Sub-diagram 1: Singularity INSIDE Contour -->
-                            <g transform="translate(40, 20)">
-                                <rect x="0" y="0" width="370" height="270" rx="8" fill="transparent" stroke="#8c8a7e" stroke-width="1" />
-                                <text x="185" y="28" text-anchor="middle" class="svg-text-serif" font-size="13" font-weight="700">Case 1: Singularity INSIDE &#915;&#8348;</text>
+                            <!-- Axes -->
+                            <line x1="80" y1="200" x2="800" y2="200" class="svg-axis" />
+                            <line x1="680" y1="360" x2="680" y2="40" class="svg-axis" />
+                            <text x="795" y="190" class="svg-text-primary" font-weight="700">Re</text>
+                            <text x="686" y="55" class="svg-text-primary" font-weight="700">jIm</text>
+                            <text x="686" y="215" class="svg-text-muted">0</text>
 
-                                <!-- Contour -->
-                                <circle cx="185" cy="145" r="75" fill="none" stroke="#1d4ed8" stroke-width="2" />
-                                <path d="M 185 70 L 195 70" stroke="#1d4ed8" stroke-width="2" marker-end="url(#arr-contour)" />
-                                <text x="260" y="90" class="svg-text-primary" fill="#1d4ed8">&#915;&#8348; (CW)</text>
+                            <!-- Origin marker -->
+                            <circle cx="680" cy="200" r="4" fill="var(--ink)" />
 
-                                <!-- Singularity at center -->
-                                <circle cx="185" cy="145" r="5" fill="#16a34a" />
-                                <text x="185" y="165" text-anchor="middle" class="svg-text-primary" font-weight="700">z&#7522;&#8345;</text>
+                            <!-- Intercept at -2 (x=240, scale: 1 unit = 220px) -->
+                            <!-- Point -2 is at x=680 - 440 = 240 -->
+                            <!-- Critical point -1 is at x=680 - 220 = 460 -->
+                            <circle cx="240" cy="200" r="5" fill="var(--ink)" />
+                            <text x="240" y="185" text-anchor="middle" class="bd-text-bold">−2 + j0</text>
+                            <text x="240" y="225" text-anchor="middle" class="bd-text-muted">ω = 0</text>
 
-                                <!-- Vector to moving s point -->
-                                <line x1="185" y1="145" x2="238" y2="92" stroke="#16a34a" stroke-width="2" marker-end="url(#arr-vec1)" stroke-dasharray="3,3" />
-                                <circle cx="238" cy="92" r="4" fill="#1d4ed8" />
-                                <text x="248" y="90" class="svg-text-primary" font-weight="700">s</text>
+                            <!-- Critical Point (-1 + j0) at x=460, y=200 -->
+                            <circle cx="460" cy="200" r="6" fill="#dc2626" stroke="#7f1d1d" stroke-width="2" />
+                            <text x="460" y="180" text-anchor="middle" class="bd-text-bold" fill="#dc2626">−1 + j0</text>
+                            <text x="460" y="195" text-anchor="middle" class="bd-text-muted">Critical Point</text>
 
-                                <!-- Angle sweep arc -->
-                                <path d="M 215 145 A 30 30 0 1 1 185 115" fill="none" stroke="#16a34a" stroke-width="1.8" marker-end="url(#arr-vec1)" />
-                                <text x="220" y="135" class="svg-text-primary" font-weight="700" fill="#16a34a">&#916;&#952; = &#8722;2&#960; (Full Turn)</text>
+                            <!-- Nyquist Curve C1 (w > 0, 3rd Quadrant): From (240, 200) through (460, 310) to (680, 200) -->
+                            <path d="M 240 200 C 240 310, 400 310, 460 310 C 560 310, 650 250, 680 200" fill="none" stroke="#1d4ed8" stroke-width="2.5" />
+                            <!-- Arrow along C1 -->
+                            <path d="M 455 310 L 465 310" stroke="#1d4ed8" stroke-width="2.5" marker-end="url(#nyq-arr-blue)" />
+                            <text x="460" y="340" text-anchor="middle" class="bd-text-bold" fill="#1d4ed8">Path C₁ (ω > 0) &bull; Maximum depth −1 − j0.5 at ω = 1</text>
 
-                                <text x="185" y="248" text-anchor="middle" class="svg-text-muted">Enclosed singularity rotates through a full &#8722;360&#176;</text>
-                            </g>
+                            <!-- Nyquist Curve C3 (w < 0, 2nd Quadrant): Mirror from (680, 200) through (460, 90) to (240, 200) -->
+                            <path d="M 680 200 C 650 150, 560 90, 460 90 C 400 90, 240 90, 240 200" fill="none" stroke="#b44029" stroke-width="2.2" stroke-dasharray="5,3" />
+                            <!-- Arrow along C3 -->
+                            <path d="M 465 90 L 455 90" stroke="#b44029" stroke-width="2.2" marker-end="url(#nyq-arr-red)" />
+                            <text x="460" y="75" text-anchor="middle" class="bd-text-bold" fill="#b44029">Path C₃ (ω < 0) &bull; Complex Conjugate Locus</text>
 
-                            <!-- Sub-diagram 2: Singularity OUTSIDE Contour -->
-                            <g transform="translate(470, 20)">
-                                <rect x="0" y="0" width="370" height="270" rx="8" fill="transparent" stroke="#8c8a7e" stroke-width="1" />
-                                <text x="185" y="28" text-anchor="middle" class="svg-text-serif" font-size="13" font-weight="700">Case 2: Singularity OUTSIDE &#915;&#8348;</text>
-
-                                <!-- Contour -->
-                                <circle cx="235" cy="145" r="60" fill="none" stroke="#1d4ed8" stroke-width="2" />
-                                <path d="M 235 85 L 245 85" stroke="#1d4ed8" stroke-width="2" marker-end="url(#arr-contour)" />
-                                <text x="300" y="105" class="svg-text-primary" fill="#1d4ed8">&#915;&#8348; (CW)</text>
-
-                                <!-- Singularity outside to left -->
-                                <circle cx="65" cy="145" r="5" fill="#d97706" />
-                                <text x="65" y="165" text-anchor="middle" class="svg-text-primary" font-weight="700">z&#7538;&#7541;&#7536;</text>
-
-                                <!-- Ray lines to extremes -->
-                                <line x1="65" y1="145" x2="235" y2="85" stroke="#d97706" stroke-width="1.5" stroke-dasharray="3,3" />
-                                <line x1="65" y1="145" x2="235" y2="205" stroke="#d97706" stroke-width="1.5" stroke-dasharray="3,3" />
-
-                                <!-- Rocking angle sector -->
-                                <path d="M 115 130 A 55 55 0 0 1 115 160" fill="none" stroke="#d97706" stroke-width="1.5" />
-                                <text x="125" y="148" class="svg-text-primary" font-weight="700" fill="#d97706">&#952;&#7540;&#7522;&#7580;</text>
-
-                                <text x="215" y="228" text-anchor="middle" class="svg-text-primary" font-weight="700" fill="#d97706">&#916;&#952;&#7542;&#7580;&#7538; = +&#952; &#8722; &#952; = 0&#176;</text>
-                                <text x="185" y="248" text-anchor="middle" class="svg-text-muted">Exterior singularity accumulates zero net phase</text>
-                            </g>
+                            <!-- Counter-Clockwise Encirclement Arrow around (-1 + j0) -->
+                            <path d="M 490 170 A 40 40 0 1 0 490 230" fill="none" stroke="#16a34a" stroke-width="2" marker-end="url(#nyq-arr-blue)" />
+                            <text x="545" y="205" class="bd-text-bold" fill="#16a34a">N_ccw = +1</text>
                         </svg>
-                        <div class="diagram-caption">Figure 3.2: Geometric Mechanics of Vector Angle Rotation &bull; Enclosed singularities sweep a complete $2\pi$ radians, whereas external singularities sweep equal and opposite angles netting $0^\circ$.</div>
+                        <div class="diagram-caption">Figure 3.1: Complete Closed Nyquist Plot for $G(s)H(s) = \frac{s+2}{(s+1)(s-1)}$ &bull; The locus intersects the negative real axis at $-2$, fully enclosing the critical point $(-1+j0)$ in the counter-clockwise direction ($N_{\text{ccw}} = 1$).</div>
                     </div>
 
                     <div class="solution-step">
-                        <span class="step-label">Step 4: Why Zeros Add $-2\pi$ and Poles Add $+2\pi$</span>
+                        <span class="step-label">Step 6: Encirclement Analysis &amp; Stability Determination</span>
                         <p>
-                            Consider the overall phase of $F(s)$:
+                            Inspect the position of the critical point $(-1 + j0)$ relative to the closed Nyquist locus:
                         </p>
-                        $$\angle F(s) = \sum_{i=1}^Z \angle(s - z_i) - \sum_{k=1}^P \angle(s - p_k)$$
-                        <ul style="margin: 8px 0 16px 24px;">
-                            <li>
-                                As $s$ traverses $\Gamma_s$ clockwise, every vector $(s - z_i)$ from an enclosed zero rotates by a full circle clockwise: $\Delta \theta_{z_i} = -2\pi$. Since zeros appear in the numerator with a positive sign, their contribution to $\angle F(s)$ is:
-                                $$\Delta \phi_{\text{zero}} = +1 \times (-2\pi) = -2\pi$$
-                            </li>
-                            <li>
-                                Every vector $(s - p_k)$ from an enclosed pole also rotates clockwise by $-2\pi$. However, because poles reside in the denominator, they are <em>subtracted</em> in the phase summation:
-                                $$\Delta \phi_{\text{pole}} = -1 \times (-2\pi) = +2\pi$$
-                            </li>
+                        <ul class="academic-list">
+                            <li>The closed Nyquist contour crosses the negative real axis at exactly one point: $\omega = 0$, where $\text{Re} = -2$.</li>
+                            <li>The critical point is located at $-1 + j0$.</li>
+                            <li>Since $-2 < -1$, the point $-1 + j0$ lies <strong>strictly inside</strong> the closed Nyquist contour.</li>
+                            <li>Tracing the contour in the direction of increasing parameter $\omega$ (from $\omega = 0 \to +\infty$ through the 3rd quadrant, and returning from $-\infty \to 0^-$ through the 2nd quadrant): the locus encircles the critical point $(-1 + j0)$ in the <strong>counter-clockwise (CCW)</strong> direction.</li>
                         </ul>
                         <p>
-                            Hence, the net phase accumulated over the complete clockwise traversal is:
+                            Therefore, the number of counter-clockwise encirclements is:
+                            $$\mathbf{N_{\text{ccw}} = +1}$$
                         </p>
-                        $$\Delta \angle F(s) = Z(-2\pi) - P(-2\pi) = -2\pi(Z - P) = 2\pi(P - Z)$$
-                    </div>
-
-                    <div class="solution-step">
-                        <span class="step-label">Step 5: Transition from $F(s)$-plane to $G(s)H(s)$-plane and the $(-1+j0)$ Critical Point</span>
                         <p>
-                            In feedback control systems, the characteristic equation is:
+                            Now apply the Nyquist Stability Criterion:
+                            $$N_{\text{ccw}} = P - Z \implies Z = P - N_{\text{ccw}}$$
+                            Substitute $P = 1$ and $N_{\text{ccw}} = 1$:
+                            $$\mathbf{Z = 1 - 1 = 0}$$
                         </p>
-                        $$F(s) = 1 + G(s)H(s) = 0 \implies G(s)H(s) = F(s) - 1$$
-                        <ul style="margin: 8px 0 16px 24px;">
-                            <li>
-                                <strong>Poles of $F(s)$ vs $G(s)H(s)$:</strong > Since $F(s) = 1 + G(s)H(s)$, any pole of $G(s)H(s)$ is identically a pole of $F(s)$. Thus, $P$ is the number of <em>open-loop poles</em> in the RHP.
-                            </li>
-                            <li>
-                                <strong>Zeros of $F(s)$ vs Closed-Loop Poles:</strong> The zeros of $F(s)$ are the solutions to $1 + G(s)H(s) = 0$. These are the poles of the closed-loop transfer function $T(s) = \frac{G(s)}{1 + G(s)H(s)}$. Thus, $Z$ is the number of <em>closed-loop poles</em> in the RHP.
-                            </li>
-                            <li>
-                                <strong>Mapping Equivalence:</strong> Notice that $G(s)H(s) = F(s) - 1$. The origin $(0 + j0)$ in the $F(s)$-plane corresponds to:
-                                $$F(s) = 0 \iff G(s)H(s) = -1 + j0$$
-                                Plotting $G(s)H(s)$ directly eliminates the need to calculate $1 + G(s)H(s)$ at every frequency. Encirclement of the origin by $1 + G(s)H(s)$ is topologically identical to encirclement of the point <strong>$(-1 + j0)$</strong> by the open-loop transfer function locus $G(s)H(s)$!
-                            </li>
-                        </ul>
                     </div>
 
-                    <!-- Sign Convention Comparison Matrix -->
                     <div class="solution-step">
-                        <span class="step-label">Step 6: Academic Sign Convention Matrix</span>
-                        <table class="academic-table">
+                        <span class="step-label">Step 7: Final Examination Conclusion</span>
+                        <div class="callout callout-success">
+                            <strong>Official Examination Conclusion:</strong>
+                            <ol class="academic-list">
+                                <li>The number of closed-loop poles in the right-half $s$-plane is $\mathbf{Z = 0}$.</li>
+                                <li>Therefore, the closed-loop system is strictly <strong>STABLE</strong>.</li>
+                                <li><em>Physical Insight:</em> Even though the open-loop plant is unstable ($P = 1$, pole at $s = +1$), the negative feedback loop introduces 1 counter-clockwise encirclement that cancels the open-loop unstable pole, achieving stable closed-loop operation.</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="solution-step">
+                        <span class="step-label">Step 8: Direct Verification via Routh-Hurwitz Criterion</span>
+                        <p>
+                            The closed-loop characteristic equation is:
+                            $$1 + G(s)H(s) = 0 \implies 1 + \frac{s+2}{(s+1)(s-1)} = 0$$
+                            $$(s^2 - 1) + (s + 2) = 0 \implies \mathbf{s^2 + s + 1 = 0}$$
+                        </p>
+                        <p>
+                            Construct the Routh array:
+                        </p>
+                        <table class="academic-table" style="max-width: 320px;">
                             <thead>
-                                <tr>
-                                    <th>Feature / Parameter</th>
-                                    <th>Prof. Madhubanti Maitra (JU MM Convention)</th>
-                                    <th>Nagrath &amp; Gopal / Ogata / Kuo Convention</th>
-                                </tr>
+                                <tr><th>Row</th><th>Column 1</th><th>Column 2</th></tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Encirclement Counted</td>
-                                    <td>Counter-Clockwise ($N_{\text{ccw}}$)</td>
-                                    <td>Clockwise ($N_{\text{cw}}$)</td>
-                                </tr>
-                                <tr>
-                                    <td>Fundamental Formula</td>
-                                    <td>$$N_{\text{ccw}} = P - Z$$</td>
-                                    <td>$$N_{\text{cw}} = Z - P$$</td>
-                                </tr>
-                                <tr>
-                                    <td>Closed-Loop RHP Poles</td>
-                                    <td>$$Z = P - N_{\text{ccw}}$$</td>
-                                    <td>$$Z = P + N_{\text{cw}}$$</td>
-                                </tr>
-                                <tr>
-                                    <td>Stability Requirement</td>
-                                    <td>$Z = 0 \implies N_{\text{ccw}} = P$</td>
-                                    <td>$Z = 0 \implies N_{\text{cw}} = -P$</td>
-                                </tr>
-                                <tr>
-                                    <td>For Open-Loop Stable ($P = 0$)</td>
-                                    <td>$N_{\text{ccw}} = 0$ (No encirclement of $-1+j0$)</td>
-                                    <td>$N_{\text{cw}} = 0$ (No encirclement of $-1+j0$)</td>
-                                </tr>
-                                <tr>
-                                    <td>For Open-Loop Unstable ($P = 1$)</td>
-                                    <td>Requires $1$ CCW encirclement ($N_{\text{ccw}} = 1$)</td>
-                                    <td>Requires $-1$ CW encirclement ($N_{\text{cw}} = -1$)</td>
-                                </tr>
+                                <tr><td>$s^2$</td><td>$1$</td><td>$1$</td></tr>
+                                <tr><td>$s^1$</td><td>$1$</td><td>$0$</td></tr>
+                                <tr><td>$s^0$</td><td>$1$</td><td>&mdash;</td></tr>
                             </tbody>
                         </table>
-                    </div>
-
-                    <div class="examiner-note">
-                        <strong>Examiner Golden Rule &bull; University Valuation</strong>
-                        In Jadavpur University examinations, always begin your answer with: <em>&ldquo;Using the convention $N_{\text{ccw}} = P - Z$, where $N_{\text{ccw}}$ represents the net counter-clockwise encirclements of $(-1+j0)$ in the $G(s)H(s)$-plane&hellip;&rdquo;</em> This completely prevents any marker ambiguity and ensures full 16/16 marks.
+                        <p>
+                            All coefficients in the first column are strictly positive ($+1, +1, +1$). There are <strong>zero sign changes</strong>, confirming that all closed-loop roots lie strictly in the left-half $s$-plane ($Z = 0$). The closed-loop system is stable, verifying the Nyquist criterion result with 100% precision.
+                        </p>
                     </div>
                 </div>
             </article>
