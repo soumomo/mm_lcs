@@ -57,12 +57,14 @@
             </a>
             <nav class="site-nav">
                 <a href="index.html">&larr; Portal</a>
-                <a href="nyquist_masterclass.html" style="color:var(--accent); font-weight:700;">&#9733; Visual Masterclass</a>
-                <a href="#prob-ct">CT Problems</a>
-                <a href="#prob-cauchy">Open-Loop Unstable (JU 2024)</a>
-                <a href="#prob-type1">Type 1 Benchmark</a>
-                <a href="#prob-type2">Type 2 Pole at Origin</a>
-                <a href="#prob-margins">Margins (GM/PM)</a>
+                <a href="nyquist_masterclass.html" style="color:var(--accent); font-weight:700;">&#9733; Visual Lab</a>
+                <a href="#prob-ct2024">CT 2024-25</a>
+                <a href="#prob-supp2024">JU 2024 Supp</a>
+                <a href="#prob-sem2026">JU 2026</a>
+                <a href="#prob-type2">JU 2024 &amp; 2019</a>
+                <a href="#prob-sem2023">JU 2023</a>
+                <a href="#prob-type1">JU 2018 &amp; 2017</a>
+                <a href="#prob-notes">Short Notes</a>
                 <div class="reading-progress-pill" title="Line-by-line reading progress">
                     <span class="progress-track-mini"><span class="progress-fill-mini"></span></span>
                     <span class="progress-percentage-val">0%</span>
@@ -78,50 +80,48 @@
             <div class="chapter-masthead">
                 <span class="chapter-number">Chapter 03</span>
                 <h1 class="chapter-title">Nyquist Stability Criterion &amp; Frequency Margins</h1>
-                <p class="chapter-subtitle">Cauchy's Principle of Argument, Canonical Contour Mapping, Open-Loop Unstable Systems, and Exact Margins &bull; Jadavpur University EE Series</p>
+                <p class="chapter-subtitle">Cauchy's Principle of Argument, Canonical Contour Mapping, Open-Loop Unstable Systems, and Exact Margins &bull; Authentic Jadavpur University Examination Questions (2017&ndash;2026)</p>
             </div>
 
-            <!-- PROBLEM 1: OPEN-LOOP UNSTABLE SYSTEM (CT 2024-25 & JU 2023) -->
-            <article id="prob-ct" class="problem-entry">
+            <!-- PROBLEM 1: CLASS TEST 2024-25 Q4 -->
+            <article id="prob-ct2024" class="problem-entry">
                 <div class="problem-header">
                     <div class="problem-tag">
-                        <span class="exam-badge">Class Test 2024-25 Q4 &bull; JU 2023 Regular Option 1</span>
+                        <span class="exam-badge">Class Test 2024-25 (Part-II) Q4</span>
                         <span class="marks-badge">[12 Marks]</span>
                     </div>
-                    <span class="meta-label">Archetype &bull; Open-Loop Unstable Plant with RHP Pole</span>
+                    <span class="meta-label">Open-Loop Unstable Plant &bull; Indented Origin &bull; Single RHP Pole</span>
                 </div>
 
-                <h2 class="problem-title">Stability Analysis of $G(s)H(s) = \frac{K(s+3)}{s(s-1)}$ via Nyquist Criterion</h2>
+                <h2 class="problem-title">Stability Analysis of $G(s)H(s) = \frac{K(s+3)}{s(s-1)}$ via Nyquist Stability Criterion</h2>
 
                 <div class="question-prompt">
-                    &ldquo;The open loop transfer function of a unity feedback control system is given by $G(s)H(s) = \frac{K(s+3)}{s(s-1)}$ with $K &gt; 0$. Sketch the complete Nyquist plot and determine the range of $K$ for which the closed-loop system is stable. Verify your result using the Routh-Hurwitz criterion.&rdquo;
+                    &ldquo;The open loop transfer function of a unity feedback control system is
+                    $$G(s)H(s) = \frac{K(s+3)}{s(s-1)}$$
+                    Comment on the stability of the closed loop system using Nyquist Stability Criterion. (CO4, K4)&rdquo;
                 </div>
 
                 <div class="solution-body">
                     <div class="solution-step">
-                        <span class="step-label">Step 1: Open-Loop Singularity Inventory &amp; Closed-Loop Stability Condition</span>
+                        <span class="step-label">Step 1: Open-Loop Singularity Inventory &amp; Stability Condition</span>
                         <p>
-                            Identify the poles and zeros of the open-loop transfer function:
+                            Identify open-loop poles and zeros:
                         </p>
                         $$G(s)H(s) = \frac{K(s+3)}{s(s-1)}$$
                         <ul style="margin: 8px 0 16px 24px;">
-                            <li>Open-loop zeros: $s = -3$ (lies in the Left-Half Plane, LHP).</li>
-                            <li>Open-loop poles: $s = 0$ (on imaginary axis at the origin), $s = +1$ (lies strictly in the open Right-Half Plane, RHP).</li>
+                            <li><strong>Open-loop Zero:</strong> $s = -3$ (lies in the Left-Half Plane, LHP).</li>
+                            <li><strong>Open-loop Poles:</strong> $s = 0$ (at origin), $s = +1$ (lies strictly in the open Right-Half Plane, RHP).</li>
                         </ul>
                         <p>
                             Consequently, the number of open-loop poles in the open Right-Half Plane is:
                         </p>
-                        $$P = 1$$
+                        $$\mathbf{P = 1}$$
                         <p>
-                            For the closed-loop system to be stable, all roots of the characteristic equation $1 + G(s)H(s) = 0$ must lie strictly in the LHP. Hence, the number of closed-loop poles in the RHP must be:
+                            For the closed-loop system to be strictly stable, there must be zero closed-loop poles in the open RHP ($Z = 0$). According to the Nyquist Stability Criterion:
                         </p>
-                        $$Z = 0$$
+                        $$\mathbf{N_{\text{ccw}} = P - Z = 1 - 0 = +1}$$
                         <p>
-                            According to the Nyquist Stability Criterion (under Prof. Madhubanti Maitra's convention):
-                        </p>
-                        $$N_{\text{ccw}} = P - Z = 1 - 0 = +1$$
-                        <p>
-                            <strong>Fundamental Requirement:</strong> The closed Nyquist plot of $G(s)H(s)$ <strong>must encircle the critical point $(-1 + j0)$ exactly once in the counter-clockwise (CCW) direction</strong> for the closed-loop system to be stable.
+                            <strong>Fundamental Requirement:</strong> The complete closed Nyquist plot of $G(s)H(s)$ <strong>must encircle the critical point $(-1 + j0)$ exactly once in the counter-clockwise (CCW) direction</strong> for the closed-loop system to be stable.
                         </p>
                     </div>
 
@@ -130,17 +130,13 @@
                         <p>
                             Substitute $s = j\omega$ into the open-loop transfer function:
                         </p>
-                        $$G(j\omega)H(j\omega) = \frac{K(j\omega + 3)}{j\omega(j\omega - 1)} = \frac{K(3 + j\omega)}{-\omega^2 - j\omega} = \frac{K(3 + j\omega)}{-\omega(\omega + j)}$$
+                        $$G(j\omega)H(j\omega) = \frac{K(j\omega + 3)}{j\omega(j\omega - 1)} = \frac{K(3 + j\omega)}{-\omega^2 - j\omega}$$
                         <p>
-                            To separate into real and imaginary parts, multiply numerator and denominator by $(-\omega^2 + j\omega)$:
+                            Multiplying numerator and denominator by $(-\omega^2 + j\omega)$ to separate real and imaginary parts:
                         </p>
-                        $$G(j\omega)H(j\omega) = \frac{K(3 + j\omega)(-\omega^2 + j\omega)}{\omega^4 + \omega^2} = \frac{K\left[-3\omega^2 + 3j\omega - j\omega^3 - \omega^2\right]}{\omega^2(\omega^2 + 1)}$$
-                        $$G(j\omega)H(j\omega) = \frac{K\left[-4\omega^2 + j\omega(3 - \omega^2)\right]}{\omega^2(\omega^2 + 1)}$$
-                        <p>
-                            Dividing through by $\omega^2$ in the real and imaginary components:
-                        </p>
-                        $$\text{Re}[G(j\omega)H(j\omega)] = \frac{-4K}{\omega^2 + 1}$$
-                        $$\text{Im}[G(j\omega)H(j\omega)] = \frac{K(3 - \omega^2)}{\omega(\omega^2 + 1)}$$
+                        $$G(j\omega)H(j\omega) = \frac{K(3 + j\omega)(-\omega^2 + j\omega)}{\omega^4 + \omega^2} = \frac{K\left[-4\omega^2 + j\omega(3 - \omega^2)\right]}{\omega^2(\omega^2 + 1)}$$
+                        $$\mathbf{\text{Re}[G(j\omega)H(j\omega)] = \frac{-4K}{\omega^2 + 1}}$$
+                        $$\mathbf{\text{Im}[G(j\omega)H(j\omega)] = \frac{K(3 - \omega^2)}{\omega(\omega^2 + 1)}}$$
                     </div>
 
                     <div class="solution-step">
@@ -148,237 +144,79 @@
                         <p>
                             The phase crossover frequency $\omega_{pc}$ occurs where the Nyquist locus crosses the real axis, i.e., where $\text{Im}[G(j\omega)H(j\omega)] = 0$:
                         </p>
-                        $$\frac{K(3 - \omega_{pc}^2)}{\omega_{pc}(\omega_{pc}^2 + 1)} = 0 \implies 3 - \omega_{pc}^2 = 0 \implies \omega_{pc} = \sqrt{3} \approx 1.7320 \text{ rad/s}$$
+                        $$\frac{K(3 - \omega_{pc}^2)}{\omega_{pc}(\omega_{pc}^2 + 1)} = 0 \implies 3 - \omega_{pc}^2 = 0 \implies \mathbf{\omega_{pc} = \sqrt{3} \approx 1.7320 \text{ rad/s}}$$
                         <p>
                             Evaluate the real part at this phase crossover frequency:
                         </p>
-                        $$\text{Re}[G(j\sqrt{3})H(j\sqrt{3})] = \frac{-4K}{(\sqrt{3})^2 + 1} = \frac{-4K}{3 + 1} = -K$$
+                        $$\text{Re}[G(j\sqrt{3})H(j\sqrt{3})] = \frac{-4K}{(\sqrt{3})^2 + 1} = \frac{-4K}{3 + 1} = \mathbf{-K}$$
                         <p>
-                            Thus, the polar plot crosses the negative real axis at the coordinate:
+                            Thus, the polar plot intersects the negative real axis at the coordinate $\mathbf{(-K, 0)}$.
                         </p>
-                        $$\mathbf{(-K, 0)}$$
                     </div>
 
                     <div class="solution-step">
-                        <span class="step-label">Step 4: Asymptotic Limits of Path $C_1$</span>
-                        <p>
-                            Examine the terminal behavior of the polar curve:
-                        </p>
+                        <span class="step-label">Step 4: Mapping of All Segments of the Canonical Nyquist Contour</span>
                         <ul style="margin: 8px 0 16px 24px;">
                             <li>
-                                <strong>As $\omega \to 0^+$:</strong>
-                                $$\lim_{\omega \to 0^+} \text{Re}[G(j\omega)H(j\omega)] = \frac{-4K}{0 + 1} = -4K$$
-                                $$\lim_{\omega \to 0^+} \text{Im}[G(j\omega)H(j\omega)] = \lim_{\omega \to 0^+} \frac{3K}{\omega} = +\infty$$
-                                $$\angle G(j\omega)H(j\omega) = \tan^{-1}\left(\frac{\omega}{3}\right) - 90^\circ - (180^\circ - \tan^{-1}\omega) \to 0^\circ - 90^\circ - 180^\circ = -270^\circ \equiv +90^\circ$$
-                                Therefore, at low frequencies, the locus approaches a vertical asymptote at $\text{Re} = -4K$ heading towards $+j\infty$ in the <strong>second quadrant</strong>.
+                                <strong>Path $C_1$ ($\omega: 0^+ \to +\infty$):</strong>
+                                <br>As $\omega \to 0^+$: $\text{Re} \to -4K$ and $\text{Im} \to +\infty$. The locus starts at an asymptote at $\text{Re} = -4K$ in the 2nd quadrant.
+                                <br>At $\omega = \sqrt{3}$: crosses the negative real axis at $(-K, 0)$ heading downward into the 3rd quadrant.
+                                <br>As $\omega \to +\infty$: $|GH| \to 0, \angle GH \to -90^\circ$ (enters origin tangent to negative imaginary axis).
                             </li>
-                            <li>
-                                <strong>For $0 &lt; \omega &lt; \sqrt{3}$:</strong> $\text{Re} &lt; 0$ and $\text{Im} &gt; 0$ (Locus traverses the 2nd quadrant).
-                            </li>
-                            <li>
-                                <strong>At $\omega = \sqrt{3}$:</strong> Locus crosses the real axis at $(-K, 0)$ heading downward into the 3rd quadrant.
-                            </li>
-                            <li>
-                                <strong>As $\omega \to +\infty$:</strong>
-                                $$|G(j\omega)H(j\omega)| \approx \frac{K\omega}{\omega^2} = \frac{K}{\omega} \to 0$$
-                                $$\lim_{\omega \to +\infty} \angle G(j\omega)H(j\omega) = 90^\circ - 90^\circ - 90^\circ = -90^\circ$$
-                                The locus terminates at the origin $(0,0)$ tangent to the negative imaginary axis (entering along $-90^\circ$ in the 3rd quadrant).
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="solution-step">
-                        <span class="step-label">Step 5: Mapping the Remaining Segments of the Canonical Contour $\Gamma_s$</span>
-                        <ul style="margin: 8px 0 16px 24px;">
                             <li>
                                 <strong>Path $C_2$ (Infinite Semicircle $s = R e^{j\theta}, R \to \infty, \theta: +90^\circ \to -90^\circ$):</strong>
                                 $$G(s)H(s) \approx \frac{K s}{s^2} = \frac{K}{s} = \frac{K}{R} e^{-j\theta} \to 0$$
-                                Maps to the origin $(0,0)$ in the $G(s)H(s)$-plane.
+                                Maps to the origin $(0,0)$ in the $GH$-plane.
                             </li>
                             <li>
                                 <strong>Path $C_3$ (Negative imaginary axis $\omega: -\infty \to 0^-$):</strong>
-                                The mapping is the exact complex conjugate reflection of Path $C_1$ about the real axis. It leaves the origin at $+90^\circ$, traverses the 2nd quadrant, crosses the negative real axis at $(-K, 0)$ at $\omega = -\sqrt{3}$ rad/s, and descends toward the vertical asymptote $\text{Re} = -4K$ with $\text{Im} \to -\infty$.
+                                Exact complex conjugate reflection of Path $C_1$ about the real axis. Leaves origin along $+90^\circ$, traverses the 2nd quadrant, crosses the real axis at $(-K, 0)$ at $\omega = -\sqrt{3}$ rad/s, and heads to $\text{Re} = -4K, \text{Im} \to -\infty$.
                             </li>
                             <li>
-                                <strong>Path $C_4$ (Infinitesimal origin indentation $s = \varepsilon e^{j\theta}, \varepsilon \to 0, \theta: -90^\circ \to +90^\circ$):</strong>
-                                Evaluating the transfer function near $s = 0$:
-                                $$G(s)H(s) \approx \frac{K(0 + 3)}{\varepsilon e^{j\theta}(0 - 1)} = \frac{3K}{-\varepsilon e^{j\theta}} = \frac{3K}{\varepsilon} e^{j(180^\circ - \theta)}$$
-                                As $\theta$ sweeps counter-clockwise from $-90^\circ \to 0^\circ \to +90^\circ$:
-                                The phase angle $(180^\circ - \theta)$ sweeps:
-                                $$180^\circ - (-90^\circ) = +270^\circ \longrightarrow 180^\circ \longrightarrow 180^\circ - 90^\circ = +90^\circ$$
-                                With radius $R_\infty = \frac{3K}{\varepsilon} \to \infty$, this forms a vast semicircle of infinite radius in the <strong>Left-Half Plane</strong> (traversed in the counter-clockwise sense, from $-j\infty$ through $-\infty$ on the real axis to $+j\infty$). This segment joins the terminus of Path $C_3$ at $(-4K - j\infty)$ to the start of Path $C_1$ at $(-4K + j\infty)$.
+                                <strong>Path $C_4$ (Origin Indentation $s = \varepsilon e^{j\theta}, \varepsilon \to 0, \theta: -90^\circ \to +90^\circ$):</strong>
+                                $$G(s)H(s) \approx \frac{3K}{\varepsilon e^{j\theta}(-1)} = \frac{3K}{\varepsilon} e^{-j(\theta + 180^\circ)}$$
+                                As $\theta$ sweeps from $-90^\circ \to 0^\circ \to +90^\circ$, the angle sweeps from $-90^\circ \to -180^\circ \to -270^\circ \equiv +90^\circ$ (a $180^\circ$ clockwise arc of infinite radius in the left-half plane, connecting $-4K - j\infty$ to $-4K + j\infty$).
                             </li>
                         </ul>
                     </div>
 
-                    <!-- SVG 8 / Figure 3.6: Vector Nyquist Diagram for P = 1 -->
-                    <div class="svg-diagram-wrapper">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" width="100%" height="auto" aria-label="Nyquist Plot for Open-Loop Unstable System with RHP Pole">
-                            <defs>
-                                <marker id="arr-c1" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                                    <path d="M 0 1 L 10 5 L 0 9 z" fill="#1d4ed8" />
-                                </marker>
-                                <marker id="arr-c3" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                                    <path d="M 0 1 L 10 5 L 0 9 z" fill="#0284c7" />
-                                </marker>
-                                <marker id="arr-c4" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                                    <path d="M 0 1 L 10 5 L 0 9 z" fill="#b44029" />
-                                </marker>
-                            </defs>
-
-                            <!-- Axes -->
-                            <line x1="40" y1="220" x2="840" y2="220" class="svg-axis" />
-                            <line x1="580" y1="410" x2="580" y2="30" class="svg-axis" />
-                            <text x="835" y="212" class="svg-text-primary" font-weight="700">Re</text>
-                            <text x="586" y="42" class="svg-text-primary" font-weight="700">jIm</text>
-                            <text x="586" y="235" class="svg-text-muted">0</text>
-
-                            <!-- Vertical Asymptote at Re = -4K (x = 180) -->
-                            <line x1="180" y1="400" x2="180" y2="40" class="svg-grid" />
-                            <text x="175" y="55" text-anchor="end" class="svg-text-muted">Asymptote: &#8722;4K</text>
-
-                            <!-- Path C1: Polar Curve -->
-                            <path d="M 180 50 C 180 150, 220 205, 320 220 C 400 235, 540 280, 580 220" class="svg-c1" />
-                            <path d="M 290 216 L 302 218" class="svg-c1" marker-end="url(#arr-c1)" />
-                            <text x="210" y="115" class="svg-text-primary" font-weight="600" fill="#1d4ed8">Path C&#8321; (&#969;: 0&#8314; &#8594; +&#8734;)</text>
-
-                            <!-- Path C3: Conjugate Curve -->
-                            <path d="M 580 220 C 540 160, 400 205, 320 220 C 220 235, 180 290, 180 390" class="svg-c3" />
-                            <path d="M 302 222 L 290 224" class="svg-c3" marker-end="url(#arr-c3)" />
-                            <text x="210" y="340" class="svg-text-primary" font-weight="600" fill="#0284c7">Path C&#8323; (&#969;: &#8722;&#8734; &#8594; 0&#8315;)</text>
-
-                            <!-- Path C4: Infinite Semicircle Closure in LHP -->
-                            <path d="M 180 390 C 70 390, 70 50, 180 50" class="svg-c4" />
-                            <path d="M 85 225 L 85 215" class="svg-c4" marker-end="url(#arr-c4)" />
-                            <text x="45" y="205" class="svg-text-primary" font-weight="700" fill="#b44029">Path C&#8324; (LHP &#8734; Arc)</text>
-                            <text x="45" y="220" class="svg-text-muted">&#916;&#981; = +180&#176; (CCW Closure)</text>
-
-                            <!-- Phase Crossover Intercept at (-K, 0) (x = 320) -->
-                            <circle cx="320" cy="220" r="5" fill="#d97706" stroke="#b45309" stroke-width="1.5" />
-                            <text x="320" y="202" text-anchor="middle" class="svg-text-primary" font-weight="700">&#8722;K</text>
-                            <text x="320" y="188" text-anchor="middle" class="svg-text-muted">&#969;&#7522;&#7580; = &#8730;3 rad/s</text>
-
-                            <!-- Critical Point (-1 + j0) for K > 1 (x = 240) -->
-                            <circle cx="240" cy="220" r="6" fill="#16a34a" stroke="#14532d" stroke-width="2" />
-                            <text x="240" y="246" text-anchor="middle" class="svg-text-primary" font-weight="700" fill="#16a34a">&#8722;1 + j0 (for K &gt; 1)</text>
-                            <text x="240" y="262" text-anchor="middle" class="svg-text-muted">N&#7580;&#7580;&#8348; = 1 &#8658; Z = 1 &#8722; 1 = 0</text>
-                            <text x="240" y="278" text-anchor="middle" class="svg-text-primary" font-weight="700" fill="#16a34a">STABLE REGION</text>
-
-                            <!-- Alternative Point for K < 1 (x = 370) -->
-                            <circle cx="370" cy="220" r="5" fill="#dc2626" stroke="#7f1d1d" stroke-width="1.5" />
-                            <text x="370" y="246" text-anchor="middle" class="svg-text-primary" font-weight="600" fill="#dc2626">&#8722;1 (if K &lt; 1)</text>
-                            <text x="370" y="262" text-anchor="middle" class="svg-text-muted">N&#7580;&#7580;&#8348; = 0 &#8658; Z = 1</text>
-                            <text x="370" y="278" text-anchor="middle" class="svg-text-primary" font-weight="700" fill="#dc2626">UNSTABLE</text>
-                        </svg>
-                        <div class="diagram-caption">Figure 3.1: Complete Closed Nyquist Diagram for Open-Loop Unstable System $G(s)H(s) = \frac{K(s+3)}{s(s-1)}$ ($P=1$), highlighting the single CCW encirclement of $(-1+j0)$ when $K &gt; 1$.</div>
-                    </div>
-
                     <div class="solution-step">
-                        <span class="step-label">Step 6: Encirclement Evaluation &amp; Range of $K$ for Stability</span>
+                        <span class="step-label">Step 5: Encirclement of Critical Point $(-1+j0)$ &amp; Stability Conclusion</span>
                         <p>
-                            Consider the closed contour formed by $C_1 \cup C_2 \cup C_3 \cup C_4$:
+                            The closed Nyquist plot intersects the negative real axis at the point $(-K, 0)$. The critical point is $(-1 + j0)$.
                         </p>
                         <ul style="margin: 8px 0 16px 24px;">
                             <li>
-                                The locus crosses the negative real axis at coordinate $(-K, 0)$.
+                                <strong>Case 1 ($K &gt; 1$):</strong>
+                                The intercept $-K$ lies to the left of $-1$ (i.e., $-K &lt; -1$). The critical point $(-1+j0)$ is enclosed inside the loop formed by $C_1, C_3,$ and $C_4$. Tracing the contour demonstrates that $(-1+j0)$ is encircled <strong>once in the counter-clockwise (CCW) direction</strong>:
+                                $$N_{\text{ccw}} = 1 \implies Z = P - N_{\text{ccw}} = 1 - 1 = 0 \quad \mathbf{(STABLE)}$$
                             </li>
                             <li>
-                                The infinite semicircular arc $C_4$ sweeps through the Left-Half Plane from $-j\infty$ around $-\infty$ to $+j\infty$ in the counter-clockwise direction.
+                                <strong>Case 2 ($K = 1$):</strong>
+                                The Nyquist locus passes directly through the critical point $(-1 + j0)$ at frequency $\omega = \sqrt{3}$ rad/s. The closed-loop system is <strong>marginally stable</strong>, exhibiting sustained oscillations at $\omega = \sqrt{3} \approx 1.732\text{ rad/s}$.
                             </li>
                             <li>
-                                Along the negative real axis, there are two distinct intervals:
-                                <ol style="margin-left: 20px;">
-                                    <li>
-                                        <strong>Interval $(-\infty, -K)$:</strong> Tracing the boundary $C_3 \to C_4 \to C_1$, points located in this outer interval are encircled in the counter-clockwise direction once ($N_{\text{ccw}} = 1$).
-                                    </li>
-                                    <li>
-                                        <strong>Interval $(-K, 0)$:</strong> Points in this interior segment between the origin and $-K$ lie outside the infinite closure, resulting in zero net encirclement ($N_{\text{ccw}} = 0$).
-                                    </li>
-                                </ol>
+                                <strong>Case 3 ($0 &lt; K &lt; 1$):</strong>
+                                The intercept $-K$ lies to the right of $-1$ (i.e., $-K &gt; -1$). The critical point $(-1+j0)$ lies outside the closed loop:
+                                $$N_{\text{ccw}} = 0 \implies Z = P - N_{\text{ccw}} = 1 - 0 = 1 \quad \mathbf{(UNSTABLE, 1\text{ pole in RHP})}$$
                             </li>
                         </ul>
-                        <p>
-                            To satisfy the stability criterion $N_{\text{ccw}} = P = 1$, the critical point $(-1 + j0)$ must reside strictly in the region encircled once counter-clockwise, i.e., in the interval $(-\infty, -K)$:
-                        </p>
-                        $$-1 &lt; -K \implies \mathbf{K &gt; 1}$$
-                        <p>
-                            When $K &gt; 1$:
-                        </p>
-                        $$N_{\text{ccw}} = 1 \implies Z = P - N_{\text{ccw}} = 1 - 1 = 0 \quad \text{\textbf{(STABLE)}}$$
-                        <p>
-                            When $0 &lt; K &lt; 1$:
-                        </p>
-                        $$-K &gt; -1 \implies \text{Critical point } (-1+j0) \text{ falls in } (-K, 0) \implies N_{\text{ccw}} = 0$$
-                        $$Z = P - N_{\text{ccw}} = 1 - 0 = 1 \quad \text{\textbf{(UNSTABLE, 1 closed-loop pole in RHP)}}$$
-                        <p>
-                            When $K = 1$: The Nyquist plot passes directly through $(-1 + j0)$ at $\omega = \sqrt{3}$ rad/s, indicating marginal stability with sustained oscillations.
-                        </p>
-                    </div>
-
-                    <div class="solution-step">
-                        <span class="step-label">Step 7: Verification via Routh-Hurwitz Stability Criterion</span>
-                        <p>
-                            The closed-loop characteristic equation is:
-                        </p>
-                        $$1 + G(s)H(s) = 0 \implies s(s - 1) + K(s + 3) = 0$$
-                        $$s^2 - s + Ks + 3K = 0 \implies s^2 + (K - 1)s + 3K = 0$$
-                        <p>
-                            Construct the Routh array:
-                        </p>
-                        <table class="academic-table" style="max-width: 380px;">
-                            <thead>
-                                <tr>
-                                    <th>Row</th>
-                                    <th>Col 1</th>
-                                    <th>Col 2</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>$s^2$</td>
-                                    <td>$1$</td>
-                                    <td>$3K$</td>
-                                </tr>
-                                <tr>
-                                    <td>$s^1$</td>
-                                    <td>$K - 1$</td>
-                                    <td>$0$</td>
-                                </tr>
-                                <tr>
-                                    <td>$s^0$</td>
-                                    <td>$3K$</td>
-                                    <td>$0$</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <p>
-                            For all roots to lie strictly in the LHP, all elements in the first column must be strictly positive:
-                        </p>
-                        <ol style="margin: 8px 0 16px 24px;">
-                            <li>$1 &gt; 0$ (satisfied).</li>
-                            <li>$K - 1 &gt; 0 \implies \mathbf{K &gt; 1}$.</li>
-                            <li>$3K &gt; 0 \implies K &gt; 0$.</li>
-                        </ol>
-                        <p>
-                            The Routh-Hurwitz criterion confirms that the system is strictly stable if and only if <strong>$K &gt; 1$</strong>, in exact agreement with the Nyquist criterion. At $K = 1$, the auxiliary equation yields $s^2 + 3 = 0 \implies s = \pm j\sqrt{3}$, proving that sustained oscillations occur at precisely $\omega_{pc} = \sqrt{3}$ rad/s!
-                        </p>
-                    </div>
-
-                    <div class="examiner-note">
-                        <strong>Examiner Pitfall Alert &bull; Class Test Trap</strong>
-                        Many students lose the full 12 marks by automatically assuming $N = 0$ is required for stability. Remember: $N_{\text{ccw}} = 0$ guarantees stability <em>only</em> for open-loop stable plants ($P = 0$). For plants with open-loop RHP poles ($P \ge 1$), stability demands $N_{\text{ccw}} = P$. Always explicitly state $P = 1 \implies N_{\text{ccw}} = 1$.
+                        <div class="examiner-note">
+                            <strong>Final Conclusion:</strong>
+                            The closed-loop system is strictly <strong>STABLE for $K &gt; 1$</strong>, marginally stable at $K = 1$, and unstable for $0 &lt; K &lt; 1$.
+                        </div>
                     </div>
                 </div>
             </article>
 
-            <!-- PROBLEM 2: MATHEMATICAL FOUNDATIONS - CAUCHY'S PRINCIPLE OF ARGUMENT -->
-                        <article id="prob-cauchy" class="problem-entry">
+            <!-- PROBLEM 2: JU 2024 SUPPLEMENTARY Q3 -->
+            <article id="prob-supp2024" class="problem-entry">
                 <div class="problem-header">
                     <div class="problem-tag">
                         <span class="exam-badge">JU 2024 Supplementary Q3</span>
                         <span class="marks-badge">[16 Marks]</span>
                     </div>
-                    <span class="meta-label">Open-Loop Unstable Plant &bull; Cauchy's Principle &bull; Complete Nyquist Stability</span>
+                    <span class="meta-label">Open-Loop Unstable Plant &bull; Cauchy's Principle &bull; Closed-Loop Stability</span>
                 </div>
 
                 <h2 class="problem-title">Stability Analysis of Open-Loop Unstable System: $G(s)H(s) = \frac{s+2}{(s+1)(s-1)}$</h2>
@@ -390,696 +228,570 @@
 
                 <div class="solution-body">
                     <div class="solution-step">
-                        <span class="step-label">Step 1: Cauchy's Principle of Argument &amp; The Nyquist Stability Criterion</span>
-                        <p>
-                            The Nyquist Stability Criterion is based on <strong>Cauchy's Principle of Argument</strong>: when a closed contour $\Gamma_s$ in the $s$-plane (enclosing the entire open right-half plane, $\text{Re}(s) > 0$) is mapped into the $G(s)H(s)$-plane, the number of counter-clockwise (CCW) encirclements $N_{\text{ccw}}$ of the critical point $(-1 + j0)$ satisfies:
-                        </p>
-                        $$\mathbf{N_{\text{ccw}} = P - Z \iff Z = P - N_{\text{ccw}}}$$
-                        <p>where:</p>
-                        <ul class="academic-list">
-                            <li><strong>$P$:</strong> Number of open-loop poles lying in the open right-half $s$-plane ($\text{Re}(s) > 0$).</li>
-                            <li><strong>$Z$:</strong> Number of closed-loop poles lying in the open right-half $s$-plane ($\text{Re}(s) > 0$).</li>
-                            <li><strong>$N_{\text{ccw}}$:</strong> Number of net counter-clockwise encirclements of the critical point $(-1 + j0)$ by the complete closed Nyquist plot.</li>
-                        </ul>
-                        <p>
-                            <strong>Stability Condition:</strong> For closed-loop stability, there must be no closed-loop poles in the right-half plane:
-                            $$\mathbf{Z = 0 \iff N_{\text{ccw}} = P}$$
-                        </p>
-                    </div>
-
-                    <div class="solution-step">
-                        <span class="step-label">Step 2: Identify Open-Loop Singularities &amp; Open-Loop Unstable Poles ($P$)</span>
+                        <span class="step-label">Step 1: Open-Loop Poles in Right-Half Plane ($P$)</span>
                         <p>
                             The open-loop transfer function is:
                             $$G(s)H(s) = \frac{s+2}{(s+1)(s-1)}$$
                         </p>
-                        <ul class="academic-list">
-                            <li><strong>Open-loop Zero:</strong> $s = -2$ (located in the stable left-half $s$-plane).</li>
-                            <li><strong>Open-loop Poles:</strong> Roots of $(s+1)(s-1) = 0 \implies s_1 = -1$ (LHP) and $s_2 = +1$ (RHP).</li>
+                        <ul style="margin: 8px 0 16px 24px;">
+                            <li><strong>Open-loop Zero:</strong> $s = -2$ (LHP).</li>
+                            <li><strong>Open-loop Poles:</strong> Roots of $(s+1)(s-1) = 0 \implies s = -1$ (LHP) and $s = +1$ (RHP).</li>
                         </ul>
                         <p>
-                            Because the pole at $s = +1$ has $\text{Re}(s) = +1 > 0$, it is located in the right-half $s$-plane. Thus:
-                            $$\mathbf{P = 1}$$
-                            <em>The open-loop system is inherently UNSTABLE.</em>
+                            The pole at $s = +1$ lies in the open right-half $s$-plane ($\text{Re}(s) &gt; 0$). Therefore:
+                        </p>
+                        $$\mathbf{P = 1}$$
+                        <p>
+                            <em>Notice that there are no poles on the imaginary axis (no pole at origin), so no semicircular indentation is required.</em>
                         </p>
                     </div>
 
                     <div class="solution-step">
-                        <span class="step-label">Step 3: Frequency Response Mapping Along Path $C_1$ ($s = j\omega$, $\omega \in [0, +\infty)$)</span>
+                        <span class="step-label">Step 2: Frequency Response Mapping Along Path $C_1$ ($s = j\omega, \omega \in [0, +\infty)$)</span>
                         <p>
                             Substitute $s = j\omega$ into $G(s)H(s)$:
-                            $$G(j\omega)H(j\omega) = \frac{j\omega + 2}{(j\omega + 1)(j\omega - 1)} = \frac{2 + j\omega}{j^2 \omega^2 - 1} = \frac{2 + j\omega}{-(1 + \omega^2)}$$
-                            Separating into real and imaginary components:
-                            $$\mathbf{G(j\omega)H(j\omega) = -\frac{2}{1 + \omega^2} - j \frac{\omega}{1 + \omega^2}}$$
                         </p>
+                        $$G(j\omega)H(j\omega) = \frac{j\omega + 2}{(j\omega + 1)(j\omega - 1)} = \frac{2 + j\omega}{-\omega^2 - 1} = -\frac{2}{1 + \omega^2} - j \frac{\omega}{1 + \omega^2}$$
                         <p>
-                            Analyze the signs of the components for all $\omega > 0$:
+                            <strong>Key Geometric Deductions:</strong>
                         </p>
-                        <ul class="academic-list">
-                            <li><strong>Real Part:</strong> $\text{Re}[G(j\omega)H(j\omega)] = -\frac{2}{1 + \omega^2} < 0$ for all $\omega \ge 0$. It is <em>strictly negative</em> everywhere.</li>
-                            <li><strong>Imaginary Part:</strong> $\text{Im}[G(j\omega)H(j\omega)] = -\frac{\omega}{1 + \omega^2} \le 0$ for all $\omega \ge 0$. It is <em>strictly negative</em> for $\omega > 0$.</li>
-                        </ul>
-                        <p>
-                            <strong>Key Geometric Observation:</strong> Because both the real and imaginary parts are strictly negative, the polar plot for $\omega \in (0, \infty)$ lies <strong>entirely within the Third Quadrant</strong> of the complex plane!
-                        </p>
-                        <p>
-                            Evaluate boundary frequencies:
-                        </p>
-                        <ul class="academic-list">
-                            <li><strong>At $\omega = 0$ (Start of Path $C_1$):</strong>
-                            $$G(j0)H(j0) = -\frac{2}{1 + 0} - j 0 = \mathbf{-2 + j0}$$
-                            The plot starts on the negative real axis at coordinate $(-2, 0)$.</li>
-                            <li><strong>As $\omega \to \infty$ (End of Path $C_1$):</strong>
-                            $$\lim_{\omega \to \infty} G(j\omega)H(j\omega) = \lim_{\omega \to \infty} \left( -\frac{2}{\omega^2} - j \frac{1}{\omega} \right) = \mathbf{0^- - j0}$$
-                            The locus enters the origin tangentially from the third quadrant.</li>
-                            <li><strong>Extremum of Imaginary Component:</strong>
-                            $$\frac{d}{d\omega} \left( \frac{\omega}{1 + \omega^2} \right) = \frac{(1 + \omega^2)(1) - \omega(2\omega)}{(1 + \omega^2)^2} = \frac{1 - \omega^2}{(1 + \omega^2)^2} = 0 \implies \omega = 1\text{ rad/s}$$
-                            At $\omega = 1\text{ rad/s}$:
-                            $$G(j1)H(j1) = -\frac{2}{1 + 1} - j \frac{1}{1 + 1} = \mathbf{-1 - j0.5}$$
-                            The locus dips to maximum depth $\text{Im} = -0.5$ at $\text{Re} = -1$.
+                        <ul style="margin: 8px 0 16px 24px;">
+                            <li><strong>Real Part:</strong> $\text{Re}[G(j\omega)H(j\omega)] = -\frac{2}{1 + \omega^2} &lt; 0$ for all $\omega \ge 0$.</li>
+                            <li><strong>Imaginary Part:</strong> $\text{Im}[G(j\omega)H(j\omega)] = -\frac{\omega}{1 + \omega^2} \le 0$ for all $\omega \ge 0$.</li>
+                            <li>Thus, for all $\omega \in [0, \infty)$, the polar plot lies <strong>strictly and entirely in the third quadrant</strong>!</li>
+                            <li><strong>At $\omega = 0$:</strong> $G(j0)H(j0) = -2 - j0 = \mathbf{-2}$.</li>
+                            <li><strong>As $\omega \to +\infty$:</strong> $\lim_{\omega \to \infty} G(j\omega)H(j\omega) = 0^- - j0$ (enters origin along $-180^\circ$).</li>
+                            <li><strong>Peak Negative Imaginary Part:</strong> Set $\frac{d}{d\omega}\left[\frac{\omega}{1+\omega^2}\right] = 0 \implies 1 - \omega^2 = 0 \implies \omega = 1\text{ rad/s}$.
+                                <br>At $\omega = 1$: $G(j1)H(j1) = -\frac{2}{2} - j\frac{1}{2} = \mathbf{-1 - j0.5}$.
                             </li>
                         </ul>
                     </div>
 
                     <div class="solution-step">
-                        <span class="step-label">Step 4: Mapping of Path $C_2$ (Infinite Semicircle $s = R e^{j\theta}$, $R \to \infty$)</span>
-                        <p>
-                            Along the semicircular arc enclosing the right-half plane, let $s = R e^{j\theta}$ where $\theta$ sweeps clockwise from $+90^\circ \to 0^\circ \to -90^\circ$:
-                            $$\lim_{R \to \infty} G(s)H(s) \approx \frac{s}{s^2} = \frac{1}{s} = \frac{1}{R e^{j\theta}} = \frac{1}{R} e^{-j\theta} \to 0$$
-                            Therefore, the entire infinite semicircular path $C_2$ maps directly to the <strong>origin ($0, 0$)</strong>.
-                        </p>
-                    </div>
-
-                    <div class="solution-step">
-                        <span class="step-label">Step 5: Mapping of Path $C_3$ (Negative Imaginary Axis $s = -j\omega$, $\omega$ from $-\infty$ to $0^-$)</span>
-                        <p>
-                            By the complex conjugate symmetry property $G(-j\omega)H(-j\omega) = [G(j\omega)H(j\omega)]^*$:
-                            $$G(-j\omega)H(-j\omega) = -\frac{2}{1 + \omega^2} + j \frac{\omega}{1 + \omega^2}$$
-                            This locus lies entirely in the <strong>Second Quadrant</strong>, starting from the origin ($0$) at $\omega = -\infty$ and terminating on the negative real axis at $\mathbf{-2 + j0}$ at $\omega = 0^-$.
-                        </p>
-                    </div>
-
-                    <!-- Clean Vector SVG of the Complete Nyquist Plot for G(s)H(s) = (s+2)/((s+1)(s-1)) -->
-                    <div class="svg-diagram-wrapper">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" width="100%" height="auto" aria-label="Complete Nyquist Plot for G(s)H(s) = (s+2)/((s+1)(s-1))">
-                            <defs>
-                                <marker id="nyq-arr-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                                    <path d="M 0 1 L 10 5 L 0 9 z" fill="#1d4ed8" />
-                                </marker>
-                                <marker id="nyq-arr-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                                    <path d="M 0 1 L 10 5 L 0 9 z" fill="#b44029" />
-                                </marker>
-                            </defs>
-
-                            <!-- Axes -->
-                            <line x1="80" y1="200" x2="800" y2="200" class="svg-axis" />
-                            <line x1="680" y1="360" x2="680" y2="40" class="svg-axis" />
-                            <text x="795" y="190" class="svg-text-primary" font-weight="700">Re</text>
-                            <text x="686" y="55" class="svg-text-primary" font-weight="700">jIm</text>
-                            <text x="686" y="215" class="svg-text-muted">0</text>
-
-                            <!-- Origin marker -->
-                            <circle cx="680" cy="200" r="4" fill="var(--ink)" />
-
-                            <!-- Intercept at -2 (x=240, scale: 1 unit = 220px) -->
-                            <!-- Point -2 is at x=680 - 440 = 240 -->
-                            <!-- Critical point -1 is at x=680 - 220 = 460 -->
-                            <circle cx="240" cy="200" r="5" fill="var(--ink)" />
-                            <text x="240" y="185" text-anchor="middle" class="bd-text-bold">−2 + j0</text>
-                            <text x="240" y="225" text-anchor="middle" class="bd-text-muted">ω = 0</text>
-
-                            <!-- Critical Point (-1 + j0) at x=460, y=200 -->
-                            <circle cx="460" cy="200" r="6" fill="#dc2626" stroke="#7f1d1d" stroke-width="2" />
-                            <text x="460" y="180" text-anchor="middle" class="bd-text-bold" fill="#dc2626">−1 + j0</text>
-                            <text x="460" y="195" text-anchor="middle" class="bd-text-muted">Critical Point</text>
-
-                            <!-- Nyquist Curve C1 (w > 0, 3rd Quadrant): From (240, 200) through (460, 310) to (680, 200) -->
-                            <path d="M 240 200 C 240 310, 400 310, 460 310 C 560 310, 650 250, 680 200" fill="none" stroke="#1d4ed8" stroke-width="2.5" />
-                            <!-- Arrow along C1 -->
-                            <path d="M 455 310 L 465 310" stroke="#1d4ed8" stroke-width="2.5" marker-end="url(#nyq-arr-blue)" />
-                            <text x="460" y="340" text-anchor="middle" class="bd-text-bold" fill="#1d4ed8">Path C₁ (ω > 0) &bull; Maximum depth −1 − j0.5 at ω = 1</text>
-
-                            <!-- Nyquist Curve C3 (w < 0, 2nd Quadrant): Mirror from (680, 200) through (460, 90) to (240, 200) -->
-                            <path d="M 680 200 C 650 150, 560 90, 460 90 C 400 90, 240 90, 240 200" fill="none" stroke="#b44029" stroke-width="2.2" stroke-dasharray="5,3" />
-                            <!-- Arrow along C3 -->
-                            <path d="M 465 90 L 455 90" stroke="#b44029" stroke-width="2.2" marker-end="url(#nyq-arr-red)" />
-                            <text x="460" y="75" text-anchor="middle" class="bd-text-bold" fill="#b44029">Path C₃ (ω < 0) &bull; Complex Conjugate Locus</text>
-
-                            <!-- Counter-Clockwise Encirclement Arrow around (-1 + j0) -->
-                            <path d="M 490 170 A 40 40 0 1 0 490 230" fill="none" stroke="#16a34a" stroke-width="2" marker-end="url(#nyq-arr-blue)" />
-                            <text x="545" y="205" class="bd-text-bold" fill="#16a34a">N_ccw = +1</text>
-                        </svg>
-                        <div class="diagram-caption">Figure 3.1: Complete Closed Nyquist Plot for $G(s)H(s) = \frac{s+2}{(s+1)(s-1)}$ &bull; The locus intersects the negative real axis at $-2$, fully enclosing the critical point $(-1+j0)$ in the counter-clockwise direction ($N_{\text{ccw}} = 1$).</div>
-                    </div>
-
-                    <div class="solution-step">
-                        <span class="step-label">Step 6: Encirclement Analysis &amp; Stability Determination</span>
-                        <p>
-                            Inspect the position of the critical point $(-1 + j0)$ relative to the closed Nyquist locus:
-                        </p>
-                        <ul class="academic-list">
-                            <li>The closed Nyquist contour crosses the negative real axis at exactly one point: $\omega = 0$, where $\text{Re} = -2$.</li>
-                            <li>The critical point is located at $-1 + j0$.</li>
-                            <li>Since $-2 < -1$, the point $-1 + j0$ lies <strong>strictly inside</strong> the closed Nyquist contour.</li>
-                            <li>Tracing the contour in the direction of increasing parameter $\omega$ (from $\omega = 0 \to +\infty$ through the 3rd quadrant, and returning from $-\infty \to 0^-$ through the 2nd quadrant): the locus encircles the critical point $(-1 + j0)$ in the <strong>counter-clockwise (CCW)</strong> direction.</li>
+                        <span class="step-label">Step 3: Mapping of Remaining Contour Segments</span>
+                        <ul style="margin: 8px 0 16px 24px;">
+                            <li>
+                                <strong>Path $C_2$ (Infinite Semicircle $s = R e^{j\theta}, R \to \infty, \theta: +90^\circ \to -90^\circ$):</strong>
+                                $$G(s)H(s) \approx \frac{s}{s^2} = \frac{1}{s} = \frac{1}{R} e^{-j\theta} \to 0$$
+                                Maps to the origin $(0,0)$.
+                            </li>
+                            <li>
+                                <strong>Path $C_3$ (Negative Imaginary Axis $s = -j\omega, \omega: -\infty \to 0^-$):</strong>
+                                Complex conjugate reflection across the real axis: lies entirely in the second quadrant ($\text{Re} &lt; 0, \text{Im} \ge 0$), passing through $-1 + j0.5$ at $\omega = -1$ rad/s and returning to $-2 + j0$ as $\omega \to 0^-$.
+                            </li>
                         </ul>
-                        <p>
-                            Therefore, the number of counter-clockwise encirclements is:
-                            $$\mathbf{N_{\text{ccw}} = +1}$$
-                        </p>
-                        <p>
-                            Now apply the Nyquist Stability Criterion:
-                            $$N_{\text{ccw}} = P - Z \implies Z = P - N_{\text{ccw}}$$
-                            Substitute $P = 1$ and $N_{\text{ccw}} = 1$:
-                            $$\mathbf{Z = 1 - 1 = 0}$$
-                        </p>
                     </div>
 
                     <div class="solution-step">
-                        <span class="step-label">Step 7: Final Examination Conclusion</span>
-                        <div class="callout callout-success">
-                            <strong>Official Examination Conclusion:</strong>
-                            <ol class="academic-list">
+                        <span class="step-label">Step 4: Encirclement Analysis &amp; Closed-Loop Stability</span>
+                        <p>
+                            The complete closed Nyquist plot intersects the negative real axis at only one point: $\mathbf{-2 + j0}$ (at $\omega = 0$).
+                        </p>
+                        <p>
+                            The critical point is $\mathbf{-1 + j0}$. Since $-2$ lies to the left of $-1$ ($-2 &lt; -1$), the closed Nyquist locus encloses the critical point. Tracing the path from $\omega = 0 \to +\infty$ (3rd quadrant) and $\omega = -\infty \to 0$ (2nd quadrant) shows that $(-1 + j0)$ is encircled in the <strong>counter-clockwise (CCW) direction</strong>:
+                        </p>
+                        $$\mathbf{N_{\text{ccw}} = +1}$$
+                        <p>
+                            Applying the Nyquist Stability Criterion:
+                        </p>
+                        $$Z = P - N_{\text{ccw}} = 1 - 1 = \mathbf{0}$$
+                        <div class="examiner-note">
+                            <strong>Conclusion:</strong>
+                            <ol style="margin: 4px 0 0 16px;">
                                 <li>The number of closed-loop poles in the right-half $s$-plane is $\mathbf{Z = 0}$.</li>
-                                <li>Therefore, the closed-loop system is strictly <strong>STABLE</strong>.</li>
-                                <li><em>Physical Insight:</em> Even though the open-loop plant is unstable ($P = 1$, pole at $s = +1$), the negative feedback loop introduces 1 counter-clockwise encirclement that cancels the open-loop unstable pole, achieving stable closed-loop operation.</li>
+                                <li>Therefore, the closed-loop system is strictly <strong>STABLE</strong>!</li>
                             </ol>
                         </div>
                     </div>
-
-                    <div class="solution-step">
-                        <span class="step-label">Step 8: Direct Verification via Routh-Hurwitz Criterion</span>
-                        <p>
-                            The closed-loop characteristic equation is:
-                            $$1 + G(s)H(s) = 0 \implies 1 + \frac{s+2}{(s+1)(s-1)} = 0$$
-                            $$(s^2 - 1) + (s + 2) = 0 \implies \mathbf{s^2 + s + 1 = 0}$$
-                        </p>
-                        <p>
-                            Construct the Routh array:
-                        </p>
-                        <table class="academic-table" style="max-width: 320px;">
-                            <thead>
-                                <tr><th>Row</th><th>Column 1</th><th>Column 2</th></tr>
-                            </thead>
-                            <tbody>
-                                <tr><td>$s^2$</td><td>$1$</td><td>$1$</td></tr>
-                                <tr><td>$s^1$</td><td>$1$</td><td>$0$</td></tr>
-                                <tr><td>$s^0$</td><td>$1$</td><td>&mdash;</td></tr>
-                            </tbody>
-                        </table>
-                        <p>
-                            All coefficients in the first column are strictly positive ($+1, +1, +1$). There are <strong>zero sign changes</strong>, confirming that all closed-loop roots lie strictly in the left-half $s$-plane ($Z = 0$). The closed-loop system is stable, verifying the Nyquist criterion result with 100% precision.
-                        </p>
-                    </div>
                 </div>
             </article>
 
-            <!-- PROBLEM 3: TYPE 1 THIRD-ORDER SYSTEM -->
-            <article id="prob-type1" class="problem-entry">
+            <!-- PROBLEM 3: JU 2026 SEMESTER EXAM Q3 -->
+            <article id="prob-sem2026" class="problem-entry">
                 <div class="problem-header">
                     <div class="problem-tag">
-                        <span class="exam-badge">JU 2024 Regular Q3 Option 1 &bull; JU 2018 Q8</span>
-                        <span class="marks-badge">[12M / 16M]</span>
+                        <span class="exam-badge">JU 2026 Semester Examination Q3</span>
+                        <span class="marks-badge">[12 Marks]</span>
                     </div>
-                    <span class="meta-label">Benchmark &bull; Complete Nyquist Mapping of Canonical Contour</span>
+                    <span class="meta-label">Negative Plant Gain &bull; RHP Pole &bull; Origin Indentation</span>
                 </div>
 
-                <h2 class="problem-title">Complete Nyquist Plot for Type 1 Third-Order System: $G(s)H(s) = \frac{K}{s(1+T_1 s)(1+T_2 s)}$</h2>
+                <h2 class="problem-title">Stability Analysis of $G(s)H(s) = \frac{-1}{2s(1 - 20s)}$ via Nyquist Plot</h2>
 
                 <div class="question-prompt">
-                    &ldquo;Sketch the complete Nyquist plot for a system having $G(s)H(s) = \frac{K}{s(1+T_1 s)(1+T_2 s)}$. Detail the mapping of all 4 paths of the Nyquist contour. Determine the phase crossover frequency $\omega_{pc}$, the real-axis intercept, and find the condition on $K$ for closed-loop stability. Illustrate specifically for $G(s)H(s) = \frac{K}{s(s+1)(s+2)}$.&rdquo;
+                    &ldquo;Sketch the Nyquist plot for a system with the following open-loop transfer function. Determine the stability of the system. (CO4)
+                    $$G(s)H(s) = \frac{-1}{2s(1 - 20s)}$$&rdquo;
                 </div>
 
                 <div class="solution-body">
                     <div class="solution-step">
-                        <span class="step-label">Step 1: The Canonical Nyquist Contour $\Gamma_s$</span>
+                        <span class="step-label">Step 1: Open-Loop Singularities &amp; RHP Pole Count ($P$)</span>
                         <p>
-                            To detect all possible closed-loop poles in the unstable right-half plane, the contour $\Gamma_s$ must encompass the entire open Right-Half Plane ($\text{Re}(s) &gt; 0$). Because the plant has a pole at the origin $s = 0$, the contour must be indented into the right-half plane by an infinitesimal semicircle of radius $\varepsilon \to 0$.
+                            The open-loop transfer function is:
                         </p>
+                        $$G(s)H(s) = \frac{-1}{2s(1 - 20s)} = \frac{1}{2s(20s - 1)}$$
+                        <ul style="margin: 8px 0 16px 24px;">
+                            <li>Open-loop pole at origin: $s = 0$.</li>
+                            <li>Open-loop pole from $(1 - 20s) = 0 \implies s = +\frac{1}{20} = +0.05$ (lies strictly in the open Right-Half Plane).</li>
+                        </ul>
                         <p>
-                            The canonical contour $\Gamma_s$ consists of 4 distinct segments:
+                            Therefore, the number of open-loop RHP poles is:
                         </p>
-                        <ol style="margin: 8px 0 16px 24px;">
-                            <li><strong>Path $C_1$:</strong> The positive imaginary axis from $s = +j\varepsilon$ ($\varepsilon \to 0$) to $s = +jR$ ($R \to \infty$).</li>
-                            <li><strong>Path $C_2$:</strong> Semicircle of infinite radius $s = R e^{j\theta}$ with $R \to \infty$, where $\theta$ sweeps from $+90^\circ \to 0^\circ \to -90^\circ$ (CW).</li>
-                            <li><strong>Path $C_3$:</strong> The negative imaginary axis from $s = -jR$ ($R \to \infty$) to $s = -j\varepsilon$ ($\varepsilon \to 0$).</li>
-                            <li><strong>Path $C_4$:</strong> Infinitesimal semicircular indentation around the origin $s = \varepsilon e^{j\theta}$ with $\varepsilon \to 0$, where $\theta$ sweeps from $-90^\circ \to 0^\circ \to +90^\circ$ (CCW in $s$-plane).</li>
-                        </ol>
-                    </div>
-
-                    <!-- SVG 2 / Figure 3.3: Canonical Nyquist Contour in s-Plane -->
-                    <div class="svg-diagram-wrapper">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 380" width="100%" height="auto" aria-label="Canonical Closed Nyquist Contour in s-Plane">
-                            <defs>
-                                <marker id="arr-axis" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                                    <path d="M 0 1 L 10 5 L 0 9 z" fill="#8c8a7e" />
-                                </marker>
-                                <marker id="arr-c-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                                    <path d="M 0 1 L 10 5 L 0 9 z" fill="#1d4ed8" />
-                                </marker>
-                                <marker id="arr-c-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                                    <path d="M 0 1 L 10 5 L 0 9 z" fill="#b44029" />
-                                </marker>
-                            </defs>
-
-                            <!-- Axes -->
-                            <line x1="60" y1="190" x2="820" y2="190" class="svg-axis" marker-end="url(#arr-axis)" />
-                            <line x1="320" y1="360" x2="320" y2="25" class="svg-axis" marker-end="url(#arr-axis)" />
-                            <text x="815" y="182" class="svg-text-primary" font-weight="700">+&#963;</text>
-                            <text x="328" y="32" class="svg-text-primary" font-weight="700">+j&#969;</text>
-                            <text x="328" y="365" class="svg-text-primary" font-weight="700">&#8722;j&#969;</text>
-
-                            <!-- Shaded RHP Region -->
-                            <path d="M 320 60 A 130 130 0 0 1 320 320 L 320 215 A 25 25 0 0 0 320 165 Z" fill="rgba(180, 64, 41, 0.05)" />
-
-                            <!-- Path C1 (Blue line from +jeps to +jR) -->
-                            <line x1="320" y1="165" x2="320" y2="60" stroke="#1d4ed8" stroke-width="3" />
-                            <path d="M 320 115 L 320 105" stroke="#1d4ed8" stroke-width="3" marker-end="url(#arr-c-blue)" />
-                            <text x="240" y="115" class="svg-text-primary" font-weight="700" fill="#1d4ed8">Path C&#8321;</text>
-                            <text x="230" y="130" class="svg-text-muted">(&#969;: 0&#8314; &#8594; +jR)</text>
-
-                            <!-- Path C2 (Infinite Semicircle R -> inf) -->
-                            <path d="M 320 60 A 130 130 0 0 1 320 320" stroke="#b44029" stroke-width="3" fill="none" />
-                            <path d="M 450 185 L 450 195" stroke="#b44029" stroke-width="3" marker-end="url(#arr-c-red)" />
-                            <text x="465" y="185" class="svg-text-primary" font-weight="700" fill="#b44029">Path C&#8322; (R &#8594; &#8734;)</text>
-                            <text x="465" y="200" class="svg-text-muted">&#952;: +90&#176; &#8594; &#8722;90&#176; (CW)</text>
-
-                            <!-- Path C3 (Cyan line from -jR to -jeps) -->
-                            <line x1="320" y1="320" x2="320" y2="215" stroke="#0284c7" stroke-width="3" />
-                            <path d="M 320 265 L 320 255" stroke="#0284c7" stroke-width="3" marker-end="url(#arr-c-blue)" />
-                            <text x="240" y="265" class="svg-text-primary" font-weight="700" fill="#0284c7">Path C&#8323;</text>
-                            <text x="230" y="280" class="svg-text-muted">(&#969;: &#8722;jR &#8594; 0&#8315;)</text>
-
-                            <!-- Path C4 (Indentation around origin in RHP) -->
-                            <path d="M 320 215 A 25 25 0 0 0 320 165" stroke="#16a34a" stroke-width="3" fill="none" />
-                            <path d="M 345 192 L 345 188" stroke="#16a34a" stroke-width="3" marker-end="url(#arr-c-blue)" />
-                            <text x="355" y="165" class="svg-text-primary" font-weight="700" fill="#16a34a">Path C&#8324; (&#949; &#8594; 0)</text>
-                            <text x="355" y="180" class="svg-text-muted">&#952;: &#8722;90&#176; &#8594; +90&#176; (CCW)</text>
-
-                            <!-- Pole at origin -->
-                            <g stroke="#b44029" stroke-width="2.5">
-                                <line x1="315" y1="185" x2="325" y2="195" />
-                                <line x1="325" y1="185" x2="315" y2="195" />
-                            </g>
-                            <text x="300" y="185" text-anchor="end" class="svg-text-primary" font-weight="700" fill="#b44029">Pole at s=0</text>
-                        </svg>
-                        <div class="diagram-caption">Figure 3.3: Canonical Closed Nyquist Contour $\Gamma_s$ in the complex $s$-plane enclosing the entire Right-Half Plane with origin indentation.</div>
+                        $$\mathbf{P = 1}$$
+                        <p>
+                            For closed-loop stability ($Z = 0$), the Nyquist plot must satisfy:
+                        </p>
+                        $$\mathbf{N_{\text{ccw}} = P - Z = 1 - 0 = +1}$$
                     </div>
 
                     <div class="solution-step">
-                        <span class="step-label">Step 2: Mathematical Mapping of the 4 Contour Paths</span>
+                        <span class="step-label">Step 2: Frequency Response Formulation Along Path $C_1$ ($s = j\omega, \omega: 0^+ \to +\infty$)</span>
+                        <p>
+                            Substitute $s = j\omega$:
+                        </p>
+                        $$G(j\omega)H(j\omega) = \frac{-1}{2j\omega(1 - j20\omega)} = \frac{-1}{j2\omega + 40\omega^2} = \frac{-1}{40\omega^2 + j2\omega}$$
+                        <p>
+                            Rationalizing the denominator:
+                        </p>
+                        $$G(j\omega)H(j\omega) = \frac{-(40\omega^2 - j2\omega)}{(40\omega^2)^2 + (2\omega)^2} = \frac{-40\omega^2 + j2\omega}{1600\omega^4 + 4\omega^2} = \frac{-40\omega^2 + j2\omega}{4\omega^2(400\omega^2 + 1)}$$
+                        $$\mathbf{\text{Re}[G(j\omega)H(j\omega)] = \frac{-10}{400\omega^2 + 1}}$$
+                        $$\mathbf{\text{Im}[G(j\omega)H(j\omega)] = \frac{1}{2\omega(400\omega^2 + 1)}}$$
+                        <p>
+                            <strong>Key Deductions for $\omega &gt; 0$:</strong>
+                        </p>
                         <ul style="margin: 8px 0 16px 24px;">
-                            <li>
-                                <strong>Path $C_1$ ($s = j\omega, \omega \in (0^+, +\infty)$):</strong>
-                                $$G(j\omega)H(j\omega) = \frac{K}{j\omega(1 + j\omega T_1)(1 + j\omega T_2)}$$
-                                Magnitude and phase:
-                                $$|G(j\omega)H(j\omega)| = \frac{K}{\omega \sqrt{1 + \omega^2 T_1^2}\sqrt{1 + \omega^2 T_2^2}}$$
-                                $$\phi(\omega) = -90^\circ - \tan^{-1}(\omega T_1) - \tan^{-1}(\omega T_2)$$
-                                As $\omega \to 0^+$: $|GH| \to \infty$ and $\phi \to -90^\circ$.
-                                The real part at low frequencies approaches:
-                                $$\lim_{\omega \to 0^+} \text{Re}[G(j\omega)H(j\omega)] = -K(T_1 + T_2)$$
-                                As $\omega \to +\infty$: $|GH| \to 0$ and $\phi \to -90^\circ - 90^\circ - 90^\circ = -270^\circ \equiv +90^\circ$.
-                            </li>
-                            <li>
-                                <strong>Path $C_2$ ($s = R e^{j\theta}, R \to \infty, \theta: +90^\circ \to -90^\circ$):</strong>
-                                $$G(s)H(s) \approx \frac{K}{(R e^{j\theta})(T_1 R e^{j\theta})(T_2 R e^{j\theta})} = \frac{K}{T_1 T_2 R^3} e^{-j3\theta} \to 0$$
-                                Because the number of poles $n = 3$ exceeds the number of zeros $m = 0$, Path $C_2$ collapses to the origin $(0,0)$.
-                            </li>
-                            <li>
-                                <strong>Path $C_3$ ($s = j\omega, \omega \in (-\infty, 0^-)$):</strong>
-                                This is the complex conjugate of Path $C_1$, reflected across the real axis. It leaves the origin at $-90^\circ$ ($-270^\circ$), crosses the negative real axis at $-\frac{K T_1 T_2}{T_1 + T_2}$, and terminates at $-K(T_1 + T_2) + j\infty$.
-                            </li>
-                            <li>
-                                <strong>Path $C_4$ ($s = \varepsilon e^{j\theta}, \varepsilon \to 0, \theta: -90^\circ \to +90^\circ$):</strong>
-                                $$G(s)H(s) \approx \frac{K}{\varepsilon e^{j\theta}(1 + 0)(1 + 0)} = \frac{K}{\varepsilon} e^{-j\theta} = R_\infty e^{-j\theta}$$
-                                As $\theta$ sweeps counter-clockwise from $-90^\circ \to 0^\circ \to +90^\circ$:
-                                The phase $-\theta$ sweeps clockwise:
-                                $$-(-90^\circ) = +90^\circ \longrightarrow 0^\circ \longrightarrow -90^\circ$$
-                                This forms a huge semicircle of infinite radius spanning the entire Right-Half Plane in the <strong>clockwise direction</strong> from $+j\infty$ through $+\infty$ on the real axis to $-j\infty$.
-                            </li>
+                            <li>$\text{Re}[G(j\omega)H(j\omega)] &lt; 0$ for all $\omega &gt; 0$.</li>
+                            <li>$\text{Im}[G(j\omega)H(j\omega)] &gt; 0$ for all $\omega &gt; 0$.</li>
+                            <li>The polar curve lies <strong>strictly and entirely in the second quadrant</strong>!</li>
+                            <li>As $\omega \to 0^+$: $\lim_{\omega \to 0^+} \text{Re} = -10$ and $\lim_{\omega \to 0^+} \text{Im} = +\infty$. Thus, the locus approaches a vertical asymptote at $\mathbf{\text{Re} = -10}$.</li>
+                            <li>As $\omega \to +\infty$: $\text{Re} \to 0^-$ and $\text{Im} \to 0^+$. The locus enters the origin tangent to the positive imaginary axis ($+90^\circ$).</li>
                         </ul>
                     </div>
 
                     <div class="solution-step">
-                        <span class="step-label">Step 3: Analytical Derivation of Phase Crossover &amp; Real Intercept</span>
+                        <span class="step-label">Step 3: Indentation Around Origin on Path $C_4$ ($s = \varepsilon e^{j\theta}, \theta: -90^\circ \to +90^\circ$)</span>
                         <p>
-                            At the phase crossover frequency $\omega_{pc}$, the phase angle is $-180^\circ$:
+                            Near $s = 0$, with $\varepsilon \to 0$:
                         </p>
-                        $$\phi(\omega_{pc}) = -90^\circ - \tan^{-1}(\omega_{pc} T_1) - \tan^{-1}(\omega_{pc} T_2) = -180^\circ$$
-                        $$\tan^{-1}(\omega_{pc} T_1) + \tan^{-1}(\omega_{pc} T_2) = 90^\circ$$
-                        <p>
-                            Taking the tangent of both sides:
-                        </p>
-                        $$\tan\left[\tan^{-1}(\omega_{pc} T_1) + \tan^{-1}(\omega_{pc} T_2)\right] = \frac{\omega_{pc}(T_1 + T_2)}{1 - \omega_{pc}^2 T_1 T_2} = \tan(90^\circ) = \infty$$
-                        <p>
-                            For the fraction to become infinite, its denominator must vanish:
-                        </p>
-                        $$1 - \omega_{pc}^2 T_1 T_2 = 0 \implies \mathbf{\omega_{pc} = \frac{1}{\sqrt{T_1 T_2}}}$$
-                        <p>
-                            Substitute $\omega_{pc}$ into the magnitude expression:
-                        </p>
-                        $$|G(j\omega_{pc})H(j\omega_{pc})| = \frac{K}{\frac{1}{\sqrt{T_1 T_2}} \sqrt{1 + \frac{T_1^2}{T_1 T_2}} \sqrt{1 + \frac{T_2^2}{T_1 T_2}}} = \frac{K \sqrt{T_1 T_2}}{\sqrt{\frac{T_2 + T_1}{T_2}} \sqrt{\frac{T_1 + T_2}{T_1}}}$$
-                        $$|G(j\omega_{pc})H(j\omega_{pc})| = \frac{K \sqrt{T_1 T_2}}{\frac{T_1 + T_2}{\sqrt{T_1 T_2}}} = \mathbf{\frac{K T_1 T_2}{T_1 + T_2}}$$
-                        <p>
-                            The Nyquist locus crosses the negative real axis at coordinate:
-                        </p>
-                        $$\left(-\frac{K T_1 T_2}{T_1 + T_2}, 0\right)$$
-                    </div>
-
-                    <div class="solution-step">
-                        <span class="step-label">Step 4: Application to JU Benchmark Plant $G(s)H(s) = \frac{K}{s(s+1)(s+2)}$</span>
-                        <p>
-                            Express $G(s)H(s)$ in standard time-constant form:
-                        </p>
-                        $$G(s)H(s) = \frac{K}{s(s+1) \cdot 2(1 + 0.5s)} = \frac{K/2}{s(1 + s)(1 + 0.5s)}$$
-                        <p>
-                            Here, $K' = K/2$, $T_1 = 1\text{ s}$, and $T_2 = 0.5\text{ s}$.
-                        </p>
-                        <ul style="margin: 8px 0 16px 24px;">
-                            <li>
-                                <strong>Phase Crossover Frequency:</strong>
-                                $$\omega_{pc} = \frac{1}{\sqrt{1 \times 0.5}} = \frac{1}{\sqrt{0.5}} = \sqrt{2} \approx 1.4142\text{ rad/s}$$
-                            </li>
-                            <li>
-                                <strong>Real-Axis Intercept:</strong>
-                                $$|G(j\sqrt{2})H(j\sqrt{2})| = \frac{(K/2)(1)(0.5)}{1 + 0.5} = \frac{K/4}{1.5} = \frac{K}{6}$$
-                                The locus crosses the negative real axis at $\mathbf{-\frac{K}{6}}$.
-                            </li>
-                            <li>
-                                <strong>Low-Frequency Asymptote:</strong>
-                                $$\lim_{\omega \to 0^+} \text{Re}[G(j\omega)H(j\omega)] = -K'(T_1 + T_2) = -\frac{K}{2}(1 + 0.5) = -0.75K$$
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- SVG 6 / Figure 3.4: Complete Nyquist Plot for Type 1 Third Order -->
-                    <div class="svg-diagram-wrapper">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" width="100%" height="auto" aria-label="Complete Closed Nyquist Plot for Type 1 System">
-                            <defs>
-                                <marker id="arr-nyq-t1" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                                    <path d="M 0 1 L 10 5 L 0 9 z" fill="#1d4ed8" />
-                                </marker>
-                                <marker id="arr-nyq-t1-c3" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                                    <path d="M 0 1 L 10 5 L 0 9 z" fill="#0284c7" />
-                                </marker>
-                                <marker id="arr-nyq-t1-c4" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                                    <path d="M 0 1 L 10 5 L 0 9 z" fill="#b44029" />
-                                </marker>
-                            </defs>
-
-                            <!-- Axes -->
-                            <line x1="40" y1="220" x2="840" y2="220" class="svg-axis" />
-                            <line x1="500" y1="410" x2="500" y2="30" class="svg-axis" />
-                            <text x="835" y="212" class="svg-text-primary" font-weight="700">Re</text>
-                            <text x="506" y="42" class="svg-text-primary" font-weight="700">jIm</text>
-                            <text x="506" y="235" class="svg-text-muted">0</text>
-
-                            <!-- Low Frequency Asymptote at Re = -0.75K (x = 380) -->
-                            <line x1="380" y1="400" x2="380" y2="40" class="svg-grid" />
-                            <text x="375" y="55" text-anchor="end" class="svg-text-muted">Asymptote: &#8722;0.75K</text>
-
-                            <!-- Path C1 (Polar Curve) -->
-                            <path d="M 380 410 C 380 290, 340 260, 420 220 C 460 200, 495 215, 500 220" class="svg-c1" />
-                            <path d="M 395 233 L 405 228" class="svg-c1" marker-end="url(#arr-nyq-t1)" />
-                            <text x="390" y="340" class="svg-text-primary" font-weight="600" fill="#1d4ed8">Path C&#8321; (&#969;: 0&#8314; &#8594; +&#8734;)</text>
-
-                            <!-- Path C3 (Conjugate Mirror) -->
-                            <path d="M 500 220 C 495 225, 460 240, 420 220 C 340 180, 380 150, 380 30" class="svg-c3" />
-                            <path d="M 405 212 L 395 207" class="svg-c3" marker-end="url(#arr-nyq-t1-c3)" />
-                            <text x="390" y="110" class="svg-text-primary" font-weight="600" fill="#0284c7">Path C&#8323; (&#969;: &#8722;&#8734; &#8594; 0&#8315;)</text>
-
-                            <!-- Path C4 (Infinite Semicircle in RHP) -->
-                            <path d="M 380 30 C 760 30, 760 410, 380 410" class="svg-c4" />
-                            <path d="M 670 215 L 670 225" class="svg-c4" marker-end="url(#arr-nyq-t1-c4)" />
-                            <text x="690" y="220" class="svg-text-primary" font-weight="700" fill="#b44029">Path C&#8324;: &#8734; e&#7579;&#7580;&#7579;&#952;</text>
-                            <text x="690" y="235" class="svg-text-muted">180&#176; CW Detour</text>
-
-                            <!-- Intercept at -K/6 (x = 420) -->
-                            <circle cx="420" cy="220" r="5" fill="#d97706" stroke="#b45309" stroke-width="1.5" />
-                            <text x="420" y="202" text-anchor="middle" class="svg-text-primary" font-weight="700">&#8722;K/6</text>
-                            <text x="420" y="188" text-anchor="middle" class="svg-text-muted">&#969;&#7522;&#7580; = &#8730;2 rad/s</text>
-
-                            <!-- Critical Point Case 1: K < 6 (x = 220) -->
-                            <circle cx="220" cy="220" r="5" fill="#16a34a" stroke="#14532d" stroke-width="1.5" />
-                            <text x="220" y="246" text-anchor="middle" class="svg-text-primary" font-weight="700" fill="#16a34a">&#8722;1 + j0 (for K &lt; 6)</text>
-                            <text x="220" y="262" text-anchor="middle" class="svg-text-muted">N = 0 &#8658; Stable</text>
-
-                            <!-- Critical Point Case 2: K > 6 (x = 460) -->
-                            <circle cx="460" cy="220" r="5" fill="#dc2626" stroke="#7f1d1d" stroke-width="1.5" />
-                            <text x="460" y="246" text-anchor="middle" class="svg-text-primary" font-weight="700" fill="#dc2626">&#8722;1 (for K &gt; 6)</text>
-                            <text x="460" y="262" text-anchor="middle" class="svg-text-muted">N&#7580;&#8332; = 2 &#8658; Unstable</text>
-                        </svg>
-                        <div class="diagram-caption">Figure 3.4: Complete Nyquist Plot for Type 1 System $G(s)H(s) = \frac{K}{s(s+1)(s+2)}$, showing stability for $K &lt; 6$, marginal stability at $K = 6$, and instability for $K &gt; 6$.</div>
-                    </div>
-
-                    <div class="solution-step">
-                        <span class="step-label">Step 5: Stability Determination &amp; Critical Gain $K_{\text{mar}}$</span>
-                        <p>
-                            Open-loop poles of $G(s)H(s) = \frac{K}{s(s+1)(s+2)}$ are $s = 0, -1, -2$. Hence:
-                        </p>
-                        $$P = 0$$
-                        <p>
-                            For closed-loop stability, we require $Z = 0 \implies N_{\text{ccw}} = P - Z = 0$. That is, the critical point $(-1 + j0)$ must <strong>not</strong> be encircled by the Nyquist plot.
-                        </p>
-                        <ul style="margin: 8px 0 16px 24px;">
-                            <li>
-                                <strong>Case 1 ($K &lt; 6$):</strong>
-                                $$-\frac{K}{6} &gt; -1 \iff \frac{K}{6} &lt; 1 \implies K &lt; 6$$
-                                The critical point $(-1 + j0)$ lies to the left of the negative real-axis intercept $-\frac{K}{6}$. It remains entirely outside the closed Nyquist loop:
-                                $$N_{\text{ccw}} = 0 \implies Z = P - N_{\text{ccw}} = 0 - 0 = 0 \quad \text{\textbf{(STABLE)}}$$
-                            </li>
-                            <li>
-                                <strong>Case 2 ($K = 6$):</strong>
-                                $$-\frac{K}{6} = -1 \implies K_{\text{mar}} = 6$$
-                                The Nyquist plot passes directly through $(-1 + j0)$ at $\omega = \sqrt{2}$ rad/s. The closed-loop system is <strong>marginally stable</strong>, exhibiting sustained sinusoidal oscillations at frequency $\omega = \sqrt{2}\text{ rad/s}$.
-                            </li>
-                            <li>
-                                <strong>Case 3 ($K &gt; 6$):</strong>
-                                $$-\frac{K}{6} &lt; -1 \implies K &gt; 6$$
-                                The critical point $(-1 + j0)$ falls inside the loop formed by $C_1, C_3,$ and $C_4$. Tracing the loop reveals that $(-1 + j0)$ is encircled <strong>twice in the clockwise direction</strong>:
-                                $$N_{\text{cw}} = 2 \iff N_{\text{ccw}} = -2$$
-                                $$Z = P - N_{\text{ccw}} = 0 - (-2) = 2 \quad \text{\textbf{(UNSTABLE, 2 closed-loop poles in RHP)}}$$
-                            </li>
-                        </ul>
-                        <p>
-                            <strong>Conclusion:</strong> The system is closed-loop stable for the gain range:
-                        </p>
-                        $$\mathbf{0 &lt; K &lt; 6}$$
-                    </div>
-
-                    <div class="examiner-note">
-                        <strong>Analytical Verification via Routh Array</strong>
-                        Characteristic equation: $s(s+1)(s+2) + K = s^3 + 3s^2 + 2s + K = 0$.
-                        The $s^1$ row in the Routh array is $\frac{3(2) - K}{3} = \frac{6 - K}{3}$.
-                        For stability: $6 - K &gt; 0 \implies K &lt; 6$. Marginal stability occurs at $K = 6$, giving the auxiliary equation $3s^2 + 6 = 0 \implies s = \pm j\sqrt{2}$ rad/s, perfectly corroborating $\omega_{pc} = \sqrt{2}$.
-                    </div>
-                </div>
-            </article>
-
-            <!-- PROBLEM 4: TYPE 2 SYSTEM WITH DOUBLE POLE AT ORIGIN -->
-            <article id="prob-type2" class="problem-entry">
-                <div class="problem-header">
-                    <div class="problem-tag">
-                        <span class="exam-badge">JU 2019 Q7 Option OR</span>
-                        <span class="marks-badge">[10 Marks]</span>
-                    </div>
-                    <span class="meta-label">Pathology &bull; Double Pole at Origin &amp; 360&deg; Enclosure</span>
-                </div>
-
-                <h2 class="problem-title">Type 2 System with Double Pole at Origin: $G(s)H(s) = \frac{K}{s^2(s+1)}$</h2>
-
-                <div class="question-prompt">
-                    &ldquo;Draw the complete Nyquist plot of a unity feedback system whose open-loop transfer function is $G(s)H(s) = \frac{K}{s^2(s+1)}$ with $K &gt; 0$. Pay specific attention to the mapping of the indentation around the double pole at the origin. Evaluate the encirclement of $(-1+j0)$ and comment on the closed-loop stability.&rdquo;
-                </div>
-
-                <div class="solution-body">
-                    <div class="solution-step">
-                        <span class="step-label">Step 1: Open-Loop Poles &amp; Frequency Response on Path $C_1$</span>
-                        <p>
-                            The open-loop poles are $s = 0, 0$ (double pole at the origin) and $s = -1$ (LHP).
-                        </p>
-                        $$P = 0$$
-                        <p>
-                            Evaluate along Path $C_1$ ($s = j\omega, \omega \in (0^+, +\infty)$):
-                        </p>
-                        $$G(j\omega)H(j\omega) = \frac{K}{(j\omega)^2(1 + j\omega)} = \frac{K}{-\omega^2(1 + j\omega)} = \frac{-K(1 - j\omega)}{\omega^2(1 + \omega^2)}$$
-                        $$\text{Re}[G(j\omega)H(j\omega)] = \frac{-K}{\omega^2(1 + \omega^2)}$$
-                        $$\text{Im}[G(j\omega)H(j\omega)] = \frac{K}{\omega(1 + \omega^2)}$$
-                        <p>
-                            <strong>Critical Observation:</strong>
-                        </p>
-                        <ul style="margin: 8px 0 16px 24px;">
-                            <li>For all finite $\omega &gt; 0$, $\text{Re}[G(j\omega)H(j\omega)] &lt; 0$ and $\text{Im}[G(j\omega)H(j\omega)] &gt; 0$.</li>
-                            <li>Therefore, Path $C_1$ lies <strong>strictly and entirely in the second quadrant</strong>!</li>
-                            <li>Because $\text{Im}[G(j\omega)H(j\omega)] \ne 0$ for any finite $\omega &gt; 0$, the polar plot <strong>never intersects the negative real axis</strong> at any finite non-zero frequency!</li>
-                            <li>As $\omega \to 0^+$: $|GH| \to \infty, \phi \to -180^\circ$. The locus is asymptotic to $-\infty + j\infty$.</li>
-                            <li>As $\omega \to +\infty$: $|GH| \to 0, \phi \to -180^\circ - 90^\circ = -270^\circ \equiv +90^\circ$. Approaches the origin tangent to the $+j$ axis.</li>
-                        </ul>
-                    </div>
-
-                    <div class="solution-step">
-                        <span class="step-label">Step 2: Mapping of Path $C_4$ (Double Pole Indentation)</span>
-                        <p>
-                            To bypass the double pole at $s = 0$, the contour $\Gamma_s$ takes an infinitesimal semicircular indentation $s = \varepsilon e^{j\theta}$ with $\varepsilon \to 0$, where $\theta$ sweeps from $-90^\circ \to 0^\circ \to +90^\circ$ ($\Delta \theta = +180^\circ$ counter-clockwise in the $s$-plane).
-                        </p>
-                        <p>
-                            Substitute into the transfer function near $s = 0$:
-                        </p>
-                        $$G(s)H(s) \approx \frac{K}{(\varepsilon e^{j\theta})^2(0 + 1)} = \frac{K}{\varepsilon^2 e^{j2\theta}} = \frac{K}{\varepsilon^2} e^{-j2\theta} = R_\infty e^{-j2\theta}$$
+                        $$G(s)H(s) \approx \frac{-1}{2(\varepsilon e^{j\theta})(1 - 0)} = \frac{-1}{2\varepsilon e^{j\theta}} = \frac{1}{2\varepsilon} e^{j(180^\circ - \theta)}$$
                         <p>
                             As $\theta$ sweeps from $-90^\circ \to 0^\circ \to +90^\circ$:
                         </p>
-                        <ul style="margin: 8px 0 16px 24px;">
-                            <li>At $\theta = -90^\circ$: $\phi = -2(-90^\circ) = +180^\circ$ (negative real axis).</li>
-                            <li>At $\theta = -45^\circ$: $\phi = -2(-45^\circ) = +90^\circ$ (positive imaginary axis).</li>
-                            <li>At $\theta = 0^\circ$: $\phi = 0^\circ$ (positive real axis).</li>
-                            <li>At $\theta = +45^\circ$: $\phi = -90^\circ$ (negative imaginary axis).</li>
-                            <li>At $\theta = +90^\circ$: $\phi = -2(+90^\circ) = -180^\circ$ (negative real axis).</li>
-                        </ul>
+                        $$\text{Angle sweeps: } 180^\circ - (-90^\circ) = +270^\circ \longrightarrow 180^\circ \longrightarrow +90^\circ$$
                         <p>
-                            Total phase angle swept:
+                            This describes a circular arc of infinite radius ($R_\infty = \frac{1}{2\varepsilon} \to \infty$) sweeping clockwise by $180^\circ$ through the left-half plane, connecting $-10 - j\infty$ (end of $C_3$) to $-10 + j\infty$ (start of $C_1$) via $(-\infty, 0)$.
                         </p>
-                        $$\Delta \phi = -180^\circ - (+180^\circ) = \mathbf{-360^\circ}$$
-                        <p>
-                            <strong>Key Result:</strong> The indentation around the double pole at the origin maps to <strong>one complete circular revolution of infinite radius ($360^\circ$) traversed in the clockwise direction</strong>! This vast circular closure connects Path $C_3$ (which ends at $\omega = 0^-$ with phase $+180^\circ$) to Path $C_1$ (which starts at $\omega = 0^+$ with phase $-180^\circ$).
-                        </p>
-                    </div>
-
-                    <!-- SVG 7 / Figure 3.5: Nyquist Plot for Double Pole at Origin -->
-                    <div class="svg-diagram-wrapper">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" width="100%" height="auto" aria-label="Nyquist Plot for Type 2 System with Double Pole at Origin">
-                            <defs>
-                                <marker id="arr-t2-c1" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                                    <path d="M 0 1 L 10 5 L 0 9 z" fill="#1d4ed8" />
-                                </marker>
-                                <marker id="arr-t2-c3" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                                    <path d="M 0 1 L 10 5 L 0 9 z" fill="#0284c7" />
-                                </marker>
-                                <marker id="arr-t2-inf" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                                    <path d="M 0 1 L 10 5 L 0 9 z" fill="#b44029" />
-                                </marker>
-                            </defs>
-
-                            <!-- Axes -->
-                            <line x1="40" y1="220" x2="840" y2="220" class="svg-axis" />
-                            <line x1="620" y1="410" x2="620" y2="30" class="svg-axis" />
-                            <text x="835" y="212" class="svg-text-primary" font-weight="700">Re</text>
-                            <text x="626" y="42" class="svg-text-primary" font-weight="700">jIm</text>
-                            <text x="626" y="235" class="svg-text-muted">0</text>
-
-                            <!-- Critical Point (-1 + j0) at x = 380 -->
-                            <circle cx="380" cy="220" r="6" fill="#dc2626" stroke="#7f1d1d" stroke-width="2" />
-                            <text x="380" y="202" text-anchor="middle" class="svg-text-primary" font-weight="700" fill="#dc2626">&#8722;1 + j0</text>
-                            <text x="380" y="246" text-anchor="middle" class="svg-text-primary" font-weight="700" fill="#dc2626">Encircled Twice CW</text>
-                            <text x="380" y="262" text-anchor="middle" class="svg-text-muted">N&#7580;&#8332; = 2 &#8658; Z = 2</text>
-
-                            <!-- Path C1 (In Quadrant 2) -->
-                            <path d="M 60 230 C 320 230, 480 260, 620 220" class="svg-c1" />
-                            <path d="M 400 236 L 412 238" class="svg-c1" marker-end="url(#arr-t2-c1)" />
-                            <text x="180" y="255" class="svg-text-primary" font-weight="600" fill="#1d4ed8">Path C&#8321; (Quadr. II strictly)</text>
-
-                            <!-- Path C3 (In Quadrant 3) -->
-                            <path d="M 620 220 C 480 180, 320 210, 60 210" class="svg-c3" />
-                            <path d="M 412 202 L 400 204" class="svg-c3" marker-end="url(#arr-t2-c3)" />
-                            <text x="180" y="195" class="svg-text-primary" font-weight="600" fill="#0284c7">Path C&#8323; (Quadr. III strictly)</text>
-
-                            <!-- Path C4: 360 deg Circular Closure at Infinity -->
-                            <path d="M 60 210 C 60 40, 780 40, 780 220 C 780 400, 60 400, 60 230" class="svg-c4" />
-                            <path d="M 780 215 L 780 225" class="svg-c4" marker-end="url(#arr-t2-inf)" />
-                            <text x="710" y="260" class="svg-text-primary" font-weight="700" fill="#b44029">Path C&#8324;: &#8734; e&#7579;&#7580;&#178;&#7579;&#952;</text>
-                            <text x="710" y="275" class="svg-text-muted">360&#176; Full CW Circle at &#8734;</text>
-                        </svg>
-                        <div class="diagram-caption">Figure 3.5: Nyquist Plot for Type 2 System $G(s)H(s) = \frac{K}{s^2(s+1)}$ with double pole at origin, showing 2 clockwise encirclements of $(-1+j0)$ and unconditional instability.</div>
                     </div>
 
                     <div class="solution-step">
-                        <span class="step-label">Step 3: Encirclement Evaluation &amp; Closed-Loop Instability</span>
+                        <span class="step-label">Step 4: Encirclement Analysis &amp; Closed-Loop Stability</span>
                         <p>
-                            Inspect the critical point $(-1 + j0)$:
-                        </p>
-                        <ul style="margin: 8px 0 16px 24px;">
-                            <li>
-                                Because Path $C_1$ lies in Quadrant II and Path $C_3$ lies in Quadrant III, the polar plot does not intersect the negative real axis anywhere between $0$ and $-\infty$.
-                            </li>
-                            <li>
-                                The infinite circular arc $C_4$ starts on the negative real axis at $-\infty$, sweeps clockwise across the entire right-half plane, and closes back onto the negative real axis.
-                            </li>
-                            <li>
-                                Thus, the critical point $(-1 + j0)$ is enclosed within the $360^\circ$ loop and is encircled <strong>twice in the clockwise direction</strong>:
-                                $$N_{\text{cw}} = 2 \iff N_{\text{ccw}} = -2$$
-                            </li>
-                        </ul>
-                        <p>
-                            Evaluate the number of unstable closed-loop poles $Z$:
-                        </p>
-                        $$Z = P - N_{\text{ccw}} = 0 - (-2) = \mathbf{2}$$
-                        <p>
-                            <strong>Conclusion:</strong> For every value of $K &gt; 0$, the closed-loop system possesses <strong>two roots in the right-half $s$-plane</strong>. The uncompensated Type 2 third-order system is <strong>unconditionally unstable</strong>!
+                            The closed contour is bounded by the vertical asymptote at $\text{Re} = -10$ and the infinite left-half plane closure arc.
                         </p>
                         <p>
-                            <em>Routh-Hurwitz Cross-Check:</em> Characteristic equation is $s^3 + s^2 + K = 0$. Routh array:
+                            The critical point is $\mathbf{-1 + j0}$. Since $\text{Re} = -1 &gt; -10$, the critical point lies to the right of the vertical asymptote and inside the closed loop formed by $C_1$, $C_3$, and $C_4$. Tracing the loop reveals that the critical point $(-1 + j0)$ is encircled <strong>once in the counter-clockwise (CCW) direction</strong>:
                         </p>
-                        <table class="academic-table" style="max-width: 320px;">
-                            <thead>
-                                <tr><th>Row</th><th>Col 1</th><th>Col 2</th></tr>
-                            </thead>
-                            <tbody>
-                                <tr><td>$s^3$</td><td>$1$</td><td>$0$</td></tr>
-                                <tr><td>$s^2$</td><td>$1$</td><td>$K$</td></tr>
-                                <tr><td>$s^1$</td><td>$-K$</td><td>$0$</td></tr>
-                                <tr><td>$s^0$</td><td>$K$</td><td>$0$</td></tr>
-                            </tbody>
-                        </table>
+                        $$\mathbf{N_{\text{ccw}} = +1}$$
                         <p>
-                            For any $K &gt; 0$, the signs of the first column are $+1, +1, -K, +K$ (exactly <strong>two sign changes</strong>), proving $Z = 2$ unstable poles in strict accordance with Nyquist.
+                            Applying the Nyquist Stability Criterion:
                         </p>
+                        $$Z = P - N_{\text{ccw}} = 1 - 1 = \mathbf{0}$$
+                        <div class="examiner-note">
+                            <strong>Conclusion:</strong>
+                            Because $Z = 0$, all closed-loop poles lie in the left-half $s$-plane. The closed-loop system is strictly <strong>STABLE</strong>.
+                        </div>
                     </div>
                 </div>
             </article>
 
-            <!-- PROBLEM 5: ANALYTICAL MARGINS (GM & PM) -->
-            <article id="prob-margins" class="problem-entry">
+            <!-- PROBLEM 4: JU 2024 REGULAR Q3 & JU 2019 Q7 OR -->
+            <article id="prob-type2" class="problem-entry">
                 <div class="problem-header">
                     <div class="problem-tag">
-                        <span class="exam-badge">JU 2024 Supplementary Q5(iii) &bull; JU 2018 Q6(i)</span>
-                        <span class="marks-badge">[8M / 4.5M]</span>
+                        <span class="exam-badge">JU 2024 Regular Q3 (Option 1) &bull; JU 2019 Q7 (Option OR)</span>
+                        <span class="marks-badge">[12M / 10M]</span>
                     </div>
-                    <span class="meta-label">Design Metrics &bull; Gain Margin, Phase Margin &amp; Relative Stability</span>
+                    <span class="meta-label">Type 2 Systems &bull; Double Pole at Origin &bull; 360&deg; Enclosure</span>
                 </div>
 
-                <h2 class="problem-title">Analytical Computation of Gain Margin (GM) and Phase Margin (PM)</h2>
+                <h2 class="problem-title">Nyquist Analysis for Type 2 Systems with Double Pole at Origin</h2>
 
+                <!-- PART A: JU 2024 REGULAR Q3 -->
                 <div class="question-prompt">
-                    &ldquo;Define Gain Margin and Phase Margin from the polar plot. Provide their analytical mathematical formulas. Calculate the exact Gain Margin and Phase Margin for:
-                    <br>(a) $G(s)H(s) = \frac{10}{s(1+0.1s)(1+0.05s)}$ [JU 2024 Supp Q5(iii)]
-                    <br>(b) $G(s)H(s) = \frac{2}{s(s+1)(s+2)}$ [JU 2018 Q6(i)].&rdquo;
+                    <strong>Part A &bull; JU 2024 Regular Q3 (Option 1) [12 Marks]:</strong><br>
+                    &ldquo;By use of Nyquist criterion, determine whether the closed-loop system having the following open-loop transfer function is stable or not. If, not how many closed-loop poles lie in the right half s-plane? (CO4)
+                    $$G(s)H(s) = \frac{1+4s}{s^2(1+s)(1+2s)}$$&rdquo;
                 </div>
 
                 <div class="solution-body">
                     <div class="solution-step">
-                        <span class="step-label">Step 1: Rigorous Definitions &amp; Analytical Formulas</span>
+                        <span class="step-label">Step 1: Open-Loop Singularities &amp; RHP Pole Count ($P$)</span>
+                        <p>
+                            Open-loop poles are roots of $s^2(1+s)(1+2s) = 0$:
+                        </p>
+                        $$s_1 = 0, \quad s_2 = 0, \quad s_3 = -1, \quad s_4 = -0.5$$
+                        <p>
+                            No open-loop poles lie in the open right-half $s$-plane ($\text{Re}(s) &gt; 0$):
+                        </p>
+                        $$\mathbf{P = 0}$$
+                    </div>
+
+                    <div class="solution-step">
+                        <span class="step-label">Step 2: Mapping of Indented Origin Semicircle ($s = \varepsilon e^{j\theta}, \theta: -90^\circ \to +90^\circ$)</span>
+                        <p>
+                            Near $s = 0$, with $\varepsilon \to 0$:
+                        </p>
+                        $$G(s)H(s) \approx \frac{1}{(\varepsilon e^{j\theta})^2 (1)(1)} = \frac{1}{\varepsilon^2} e^{-j2\theta}$$
+                        <p>
+                            As $\theta$ sweeps from $-90^\circ \to 0^\circ \to +90^\circ$ (CCW in $s$-plane):
+                        </p>
+                        $$\text{Angle in } GH\text{-plane sweeps: } +180^\circ \longrightarrow 0^\circ \longrightarrow -180^\circ$$
+                        <p>
+                            This describes an arc of infinite radius $R_\infty = \frac{1}{\varepsilon^2} \to \infty$ sweeping clockwise by $360^\circ$ (a full circle) through the right-half plane.
+                        </p>
+                    </div>
+
+                    <div class="solution-step">
+                        <span class="step-label">Step 3: Frequency Response Formulation on Path $C_1$ ($s = j\omega, \omega: 0^+ \to +\infty$)</span>
+                        <p>
+                            Substitute $s = j\omega$:
+                        </p>
+                        $$G(j\omega)H(j\omega) = \frac{1 + j4\omega}{-\omega^2(1 + j\omega)(1 + j2\omega)} = \frac{1 + j4\omega}{-\omega^2[(1 - 2\omega^2) + j3\omega]}$$
+                        <p>
+                            Multiplying numerator and denominator by $[(1 - 2\omega^2) - j3\omega]$:
+                        </p>
+                        $$(1 + j4\omega)[(1 - 2\omega^2) - j3\omega] = (1 - 2\omega^2 + 12\omega^2) + j[4\omega(1 - 2\omega^2) - 3\omega] = (1 + 10\omega^2) + j\omega(1 - 8\omega^2)$$
+                        $$\mathbf{\text{Re}[G(j\omega)H(j\omega)] = -\frac{1 + 10\omega^2}{\omega^2[(1 - 2\omega^2)^2 + 9\omega^2]}}$$
+                        $$\mathbf{\text{Im}[G(j\omega)H(j\omega)] = -\frac{\omega(1 - 8\omega^2)}{\omega^2[(1 - 2\omega^2)^2 + 9\omega^2]} = \frac{8\omega^2 - 1}{\omega[(1 - 2\omega^2)^2 + 9\omega^2]}}$$
+                    </div>
+
+                    <div class="solution-step">
+                        <span class="step-label">Step 4: Phase Crossover Frequency &amp; Real-Axis Intercept</span>
+                        <p>
+                            Set $\text{Im}[G(j\omega)H(j\omega)] = 0$:
+                        </p>
+                        $$1 - 8\omega_{pc}^2 = 0 \implies \omega_{pc}^2 = \frac{1}{8} \implies \mathbf{\omega_{pc} = \frac{1}{\sqrt{8}} = \frac{1}{2\sqrt{2}} \approx 0.3536\text{ rad/s}}$$
+                        <p>
+                            Substitute $\omega_{pc}^2 = \frac{1}{8} = 0.125$ into the real part:
+                        </p>
+                        $$\text{Re}[G(j\omega_{pc})H(j\omega_{pc})] = -\frac{1 + 10(0.125)}{0.125\left[(1 - 2(0.125))^2 + 9(0.125)\right]} = -\frac{2.25}{0.125[0.5625 + 1.125]} = -\frac{2.25}{0.125 \times 1.6875} = \mathbf{-10.667}$$
+                        <p>
+                            The Nyquist plot intersects the negative real axis at $\mathbf{-10.667}$.
+                        </p>
+                    </div>
+
+                    <div class="solution-step">
+                        <span class="step-label">Step 5: Encirclement &amp; Stability Conclusion</span>
+                        <p>
+                            The negative real axis is crossed at $-10.667$. The critical point is $\mathbf{-1 + j0}$.
+                        </p>
+                        <p>
+                            Because $-10.667 &lt; -1$, the critical point lies to the right of the real axis intercept. When combining Path $C_1$, the infinite $360^\circ$ clockwise circle of Path $C_4$, and conjugate Path $C_3$, the critical point $(-1 + j0)$ is enclosed by the loop and encircled <strong>twice in the clockwise (CW) direction</strong>:
+                        </p>
+                        $$\mathbf{N_{\text{cw}} = 2 \iff N_{\text{ccw}} = -2}$$
+                        <p>
+                            Applying the Nyquist Stability Criterion:
+                        </p>
+                        $$\mathbf{Z = P - N_{\text{ccw}} = 0 - (-2) = 2}$$
+                        <div class="examiner-note">
+                            <strong>Conclusion:</strong>
+                            The closed-loop system is strictly <strong>UNSTABLE</strong>, and exactly $\mathbf{Z = 2}$ closed-loop poles lie in the right-half $s$-plane.
+                        </div>
+                    </div>
+
+                    <!-- PART B: JU 2019 Q7 OR -->
+                    <div class="question-prompt" style="margin-top: 36px;">
+                        <strong>Part B &bull; JU 2019 Regular Q7 (Option OR) [10 Marks]:</strong><br>
+                        &ldquo;For the system described by the following open loop transfer function, sketch the Nyquist plot and ascertain the stability of the closed loop system.
+                        $$G(s)H(s) = \frac{K}{s^2(1+s)(1+2s)}$$&rdquo;
+                    </div>
+
+                    <div class="solution-step">
+                        <span class="step-label">Solution for $G(s)H(s) = \frac{K}{s^2(1+s)(1+2s)}$</span>
+                        <ul style="margin: 8px 0 16px 24px;">
+                            <li>$P = 0$ (open-loop poles at $s = 0, 0, -1, -0.5$).</li>
+                            <li>
+                                Along $s = j\omega$:
+                                $$G(j\omega)H(j\omega) = \frac{-K}{\omega^2(1+j\omega)(1+j2\omega)} = \frac{-K(1-2\omega^2) + j3K\omega}{\omega^2[(1-2\omega^2)^2 + 9\omega^2]}$$
+                                Notice that $\text{Im}[G(j\omega)H(j\omega)] = \frac{3K}{\omega[(1-2\omega^2)^2 + 9\omega^2]} &gt; 0$ for all $\omega &gt; 0$. The entire polar locus lies strictly in the Upper Half-Plane!
+                            </li>
+                            <li>
+                                The origin indentation $s = \varepsilon e^{j\theta}$ maps to a massive $360^\circ$ clockwise circle of infinite radius ($K/\varepsilon^2$).
+                            </li>
+                            <li>
+                                The critical point $(-1 + j0)$ is encircled twice in the clockwise direction ($N_{\text{cw}} = 2$).
+                            </li>
+                            <li>
+                                $$Z = P + N_{\text{cw}} = 0 + 2 = \mathbf{2}$$
+                            </li>
+                        </ul>
+                        <div class="examiner-note">
+                            <strong>Conclusion:</strong> The system is unconditionally <strong>UNSTABLE for all $K &gt; 0$</strong>, with 2 closed-loop poles in the RHP.
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- PROBLEM 5: JU 2023 REGULAR Q2 (OPTION 1) -->
+            <article id="prob-sem2023" class="problem-entry">
+                <div class="problem-header">
+                    <div class="problem-tag">
+                        <span class="exam-badge">JU 2023 Regular Q2 (Option 1)</span>
+                        <span class="marks-badge">[12 Marks]</span>
+                    </div>
+                    <span class="meta-label">Exact Circular Nyquist Locus &bull; Open-Loop Unstable Plant</span>
+                </div>
+
+                <h2 class="problem-title">Stability Range of $G(s)H(s) = \frac{K(s+1)}{1-s}$ via Nyquist Criterion</h2>
+
+                <div class="question-prompt">
+                    &ldquo;For the system described by the following open loop transfer function, sketch the Nyquist plot. Ascertain the range of gain $K$ for which the closed loop system will remain stable using Nyquist Stability criterion only. (CO4)
+                    $$G(s)H(s) = \frac{K(s+1)}{1-s} \quad (K &gt; 0)$$&rdquo;
+                </div>
+
+                <div class="solution-body">
+                    <div class="solution-step">
+                        <span class="step-label">Step 1: Open-Loop Singularity Inventory &amp; Stability Requirement</span>
+                        <p>
+                            Identify open-loop poles and zeros:
+                        </p>
+                        $$G(s)H(s) = \frac{K(s+1)}{1-s}$$
+                        <ul style="margin: 8px 0 16px 24px;">
+                            <li>Zero: $s = -1$ (LHP).</li>
+                            <li>Pole: $s = +1$ (lies in open Right-Half Plane).</li>
+                        </ul>
+                        <p>
+                            Number of open-loop RHP poles is:
+                        </p>
+                        $$\mathbf{P = 1}$$
+                        <p>
+                            For closed-loop stability ($Z = 0$), the complete Nyquist plot must encircle the critical point $(-1+j0)$ once in the counter-clockwise direction:
+                        </p>
+                        $$\mathbf{N_{\text{ccw}} = P - Z = 1 - 0 = +1}$$
+                    </div>
+
+                    <div class="solution-step">
+                        <span class="step-label">Step 2: Frequency Response Mapping Along $s = j\omega$ ($\omega: 0 \to +\infty$)</span>
+                        <p>
+                            Substitute $s = j\omega$:
+                        </p>
+                        $$G(j\omega)H(j\omega) = \frac{K(1+j\omega)}{1-j\omega} = K \frac{(1+j\omega)^2}{1+\omega^2} = K \left[\frac{1-\omega^2}{1+\omega^2} + j \frac{2\omega}{1+\omega^2}\right]$$
+                        <p>
+                            <strong>Magnitude and Phase:</strong>
+                        </p>
+                        $$|G(j\omega)H(j\omega)| = K \frac{\sqrt{1+\omega^2}}{\sqrt{1+\omega^2}} = \mathbf{K \quad \text{(CONSTANT for all $\omega$!)}}$$
+                        $$\angle G(j\omega)H(j\omega) = \tan^{-1}\omega - (-\tan^{-1}\omega) = \mathbf{2\tan^{-1}\omega}$$
+                        <ul style="margin: 8px 0 16px 24px;">
+                            <li>At $\omega = 0$: $G(j0)H(j0) = +K \angle 0^\circ$ (on positive real axis).</li>
+                            <li>At $\omega = 1$: $G(j1)H(j1) = K \angle +90^\circ = +jK$ (on positive imaginary axis).</li>
+                            <li>As $\omega \to +\infty$: $\lim_{\omega \to \infty} G(j\omega)H(j\omega) = K \angle +180^\circ = -K$ (on negative real axis).</li>
+                            <li>Path $C_1$ describes an <strong>exact semicircle of radius $K$ in the upper half-plane</strong> traversed counter-clockwise from $+K$ to $-K$!</li>
+                        </ul>
+                    </div>
+
+                    <div class="solution-step">
+                        <span class="step-label">Step 3: Mapping of Semicircle at Infinity and Negative Imaginary Axis</span>
                         <ul style="margin: 8px 0 16px 24px;">
                             <li>
-                                <strong>Phase Crossover Frequency ($\omega_{pc}$):</strong> The frequency at which the open-loop phase angle is $-180^\circ$:
-                                $$\angle G(j\omega_{pc})H(j\omega_{pc}) = -180^\circ \iff \text{Im}[G(j\omega_{pc})H(j\omega_{pc})] = 0$$
+                                <strong>Path $C_2$ ($s = R e^{j\theta}, R \to \infty$):</strong>
+                                $$G(s)H(s) \approx \frac{K s}{-s} = -K$$
+                                Maps to the single point $-K$ on the negative real axis.
                             </li>
                             <li>
-                                <strong>Gain Margin ($GM$):</strong> The reciprocal of the open-loop magnitude at the phase crossover frequency. It represents the factor by which the system gain can be increased before the system becomes unstable:
-                                $$K_g = \frac{1}{|G(j\omega_{pc})H(j\omega_{pc})|}$$
-                                $$GM_{\text{dB}} = 20 \log_{10}(K_g) = -20 \log_{10} |G(j\omega_{pc})H(j\omega_{pc})|$$
+                                <strong>Path $C_3$ ($s = -j\omega, \omega: -\infty \to 0$):</strong>
+                                Complex conjugate reflection describes the <strong>lower half semicircle of radius $K$</strong> from $-K$ back to $+K$ counter-clockwise!
+                            </li>
+                        </ul>
+                        <p>
+                            The complete closed Nyquist plot is an <strong>exact circle centered at the origin with radius $K$</strong>, traversed in the <strong>counter-clockwise (CCW) direction</strong>!
+                        </p>
+                    </div>
+
+                    <div class="solution-step">
+                        <span class="step-label">Step 4: Encirclement of Critical Point $(-1+j0)$ &amp; Range of $K$</span>
+                        <p>
+                            The circle of radius $K$ intersects the negative real axis at the point $\mathbf{-K}$.
+                        </p>
+                        <ul style="margin: 8px 0 16px 24px;">
+                            <li>
+                                <strong>If $K &gt; 1$:</strong>
+                                The radius of the circle is greater than 1. The critical point $(-1 + j0)$ lies strictly inside the circle. Because the circle is traversed counter-clockwise:
+                                $$N_{\text{ccw}} = 1 \implies Z = P - N_{\text{ccw}} = 1 - 1 = 0 \quad \mathbf{(STABLE)}$$
                             </li>
                             <li>
-                                <strong>Gain Crossover Frequency ($\omega_{gc}$):</strong> The frequency at which the open-loop magnitude is unity ($1.0$ or $0\text{ dB}$):
-                                $$|G(j\omega_{gc})H(j\omega_{gc})| = 1.0$$
+                                <strong>If $K = 1$:</strong>
+                                The circle passes directly through $(-1+j0)$. The system is <strong>marginally stable</strong>.
                             </li>
                             <li>
-                                <strong>Phase Margin ($PM$):</strong> The additional phase lag required at the gain crossover frequency to bring the system to the verge of instability:
-                                $$PM = 180^\circ + \angle G(j\omega_{gc})H(j\omega_{gc})$$
+                                <strong>If $0 &lt; K &lt; 1$:</strong>
+                                The critical point $(-1 + j0)$ lies outside the circle:
+                                $$N_{\text{ccw}} = 0 \implies Z = P - N_{\text{ccw}} = 1 - 0 = 1 \quad \mathbf{(UNSTABLE, 1\text{ pole in RHP})}$$
+                            </li>
+                        </ul>
+                        <div class="examiner-note">
+                            <strong>Final Answer:</strong>
+                            The closed-loop system will remain stable if and only if:
+                            $$\mathbf{K &gt; 1}$$
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- PROBLEM 6: JU 2018 Q8 & JU 2017 Q7 -->
+            <article id="prob-type1" class="problem-entry">
+                <div class="problem-header">
+                    <div class="problem-tag">
+                        <span class="exam-badge">JU 2018 Regular Q8 &bull; JU 2017 Regular Q7</span>
+                        <span class="marks-badge">[16 Marks / 16 Marks]</span>
+                    </div>
+                    <span class="meta-label">Type 1 Third-Order Canonical Benchmark &bull; Exact Margin Evaluation</span>
+                </div>
+
+                <h2 class="problem-title">Complete Nyquist Plot for Type 1 Plant: $G(s)H(s) = \frac{K}{s(1+T_1 s)(1+T_2 s)}$</h2>
+
+                <!-- PART A: JU 2018 Q8 -->
+                <div class="question-prompt">
+                    <strong>Part A &bull; JU 2018 Regular Q8 [16 Marks]:</strong><br>
+                    &ldquo;For the system described by the following transfer function, sketch the Nyquist plot and ascertain the value of $K$ for which the closed loop system would be stable:
+                    $$G(s)H(s) = \frac{K}{s(1+T_1 s)(1+T_2 s)}$$&rdquo;
+                </div>
+
+                <div class="solution-body">
+                    <div class="solution-step">
+                        <span class="step-label">Step 1: Open-Loop Poles &amp; Stability Condition</span>
+                        <p>
+                            Poles are at $s = 0, -1/T_1, -1/T_2$. None lie in the open right-half plane:
+                        </p>
+                        $$\mathbf{P = 0}$$
+                        <p>
+                            For closed-loop stability ($Z = 0$), the critical point $(-1 + j0)$ must not be encircled:
+                        </p>
+                        $$\mathbf{N_{\text{ccw}} = 0}$$
+                    </div>
+
+                    <div class="solution-step">
+                        <span class="step-label">Step 2: Frequency Response Along $s = j\omega$ ($\omega: 0^+ \to \infty$)</span>
+                        $$G(j\omega)H(j\omega) = \frac{K}{j\omega(1 + j\omega T_1)(1 + j\omega T_2)}$$
+                        $$|G(j\omega)H(j\omega)| = \frac{K}{\omega \sqrt{1 + \omega^2 T_1^2} \sqrt{1 + \omega^2 T_2^2}}$$
+                        $$\angle G(j\omega)H(j\omega) = -90^\circ - \tan^{-1}(\omega T_1) - \tan^{-1}(\omega T_2)$$
+                        <p>
+                            <strong>Phase Crossover Frequency $\omega_{pc}$:</strong> Set $\angle GH = -180^\circ$:
+                        </p>
+                        $$\tan^{-1}(\omega_{pc} T_1) + \tan^{-1}(\omega_{pc} T_2) = 90^\circ \implies \frac{\omega_{pc}(T_1 + T_2)}{1 - \omega_{pc}^2 T_1 T_2} = \infty \implies 1 - \omega_{pc}^2 T_1 T_2 = 0$$
+                        $$\mathbf{\omega_{pc} = \frac{1}{\sqrt{T_1 T_2}}}$$
+                    </div>
+
+                    <div class="solution-step">
+                        <span class="step-label">Step 3: Negative Real-Axis Intercept &amp; Stability Condition on $K$</span>
+                        <p>
+                            Evaluate magnitude at $\omega_{pc} = \frac{1}{\sqrt{T_1 T_2}}$:
+                        </p>
+                        $$|G(j\omega_{pc})H(j\omega_{pc})| = \frac{K}{\frac{1}{\sqrt{T_1 T_2}} \sqrt{1 + \frac{T_1}{T_2}} \sqrt{1 + \frac{T_2}{T_1}}} = \frac{K \sqrt{T_1 T_2}}{\sqrt{\frac{(T_1 + T_2)^2}{T_1 T_2}}} = \mathbf{\frac{K T_1 T_2}{T_1 + T_2}}$$
+                        <p>
+                            The Nyquist plot crosses the negative real axis at $-\frac{K T_1 T_2}{T_1 + T_2}$. For the critical point $(-1 + j0)$ not to be encircled:
+                        </p>
+                        $$-\frac{K T_1 T_2}{T_1 + T_2} &gt; -1 \iff \mathbf{K &lt; \frac{T_1 + T_2}{T_1 T_2}}$$
+                    </div>
+
+                    <!-- PART B: JU 2017 Q7 -->
+                    <div class="question-prompt" style="margin-top: 36px;">
+                        <strong>Part B &bull; JU 2017 Regular Q7 [16 Marks]:</strong><br>
+                        &ldquo;Comment on the stability of the system whose open loop transfer function is given by:
+                        $$G(s)H(s) = \frac{1}{s(2s + 1)(s + 1)}$$&rdquo;
+                    </div>
+
+                    <div class="solution-step">
+                        <span class="step-label">Exact Solution for $G(s)H(s) = \frac{1}{s(2s+1)(s+1)}$</span>
+                        <p>
+                            Here, $K = 1$, $T_1 = 2\text{ s}$, and $T_2 = 1\text{ s}$. Open-loop RHP poles $P = 0$.
+                        </p>
+                        <ol style="margin: 8px 0 16px 24px;">
+                            <li>
+                                <strong>Phase Crossover Frequency:</strong>
+                                $$\omega_{pc} = \frac{1}{\sqrt{T_1 T_2}} = \frac{1}{\sqrt{2 \times 1}} = \mathbf{\frac{1}{\sqrt{2}} \approx 0.7071\text{ rad/s}}$$
+                            </li>
+                            <li>
+                                <strong>Negative Real-Axis Intercept:</strong>
+                                $$|G(j\omega_{pc})H(j\omega_{pc})| = \frac{K T_1 T_2}{T_1 + T_2} = \frac{1 \times 2 \times 1}{2 + 1} = \mathbf{\frac{2}{3} \approx 0.6667}$$
+                                The polar plot crosses the negative real axis at $\mathbf{-0.6667}$.
+                            </li>
+                            <li>
+                                <strong>Encirclement of $(-1+j0)$:</strong>
+                                Since $-0.6667 &gt; -1$, the critical point $(-1 + j0)$ lies outside the closed Nyquist contour:
+                                $$N = 0 \implies Z = P - N = 0 - 0 = \mathbf{0}$$
+                            </li>
+                            <li>
+                                <strong>Gain Margin:</strong>
+                                $$GM = \frac{1}{a} = \frac{1}{2/3} = \mathbf{1.5} \implies GM_{\text{dB}} = 20 \log_{10}(1.5) = \mathbf{+3.52\text{ dB}}$$
+                            </li>
+                        </ol>
+                        <div class="examiner-note">
+                            <strong>Conclusion:</strong>
+                            Because $Z = 0$ and $GM = +3.52\text{ dB} &gt; 0$, the closed-loop system is strictly <strong>STABLE</strong>.
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- PROBLEM 7: SHORT NOTES & ARCHIVAL THEORY -->
+            <article id="prob-notes" class="problem-entry">
+                <div class="problem-header">
+                    <div class="problem-tag">
+                        <span class="exam-badge">JU 2024 Supplementary Q5(iii) &bull; JU 2018 Regular Q6(i)</span>
+                        <span class="marks-badge">[8 Marks / 4.5 Marks]</span>
+                    </div>
+                    <span class="meta-label">Archival Short Notes &bull; Gain/Phase Margins &bull; GH-plane vs q(s)-plane</span>
+                </div>
+
+                <h2 class="problem-title">Archival Theory &amp; Short Notes on Polar Plots and Stability Mapping</h2>
+
+                <!-- PART A: GAIN MARGIN & PHASE MARGIN -->
+                <div class="question-prompt">
+                    <strong>Part A &bull; JU 2024 Supplementary Q5(iii) [8 Marks]:</strong><br>
+                    &ldquo;Write short notes: Ascertaining phase margin and gain margin from open loop polar plot.&rdquo;
+                </div>
+
+                <div class="solution-body">
+                    <div class="solution-step">
+                        <span class="step-label">1. Concept of Relative Stability on Open-Loop Polar Plot</span>
+                        <p>
+                            The open-loop polar plot is a plot of the magnitude and phase of $G(j\omega)H(j\omega)$ in the complex plane as frequency $\omega$ varies from $0$ to $+\infty$. Gain Margin ($GM$) and Phase Margin ($PM$) measure the closeness of the polar locus to the critical point $(-1 + j0)$, quantifying the safety buffer against instability.
+                        </p>
+                    </div>
+
+                    <div class="solution-step">
+                        <span class="step-label">2. Ascertaining Gain Margin ($GM$)</span>
+                        <ul style="margin: 8px 0 16px 24px;">
+                            <li>
+                                <strong>Phase Crossover Frequency ($\omega_{pc}$):</strong> The frequency where the open-loop phase angle equals $-180^\circ$. Graphically, this is the frequency where the polar plot intersects the negative real axis:
+                                $$\angle G(j\omega_{pc})H(j\omega_{pc}) = -180^\circ$$
+                            </li>
+                            <li>
+                                <strong>Measurement ($a$):</strong> Measure the distance $a = |G(j\omega_{pc})H(j\omega_{pc})|$ from the origin to the intersection point on the negative real axis.
+                            </li>
+                            <li>
+                                <strong>Calculation:</strong> Gain Margin is defined as the reciprocal of this intercept:
+                                $$\mathbf{GM = \frac{1}{a} = \frac{1}{|G(j\omega_{pc})H(j\omega_{pc})|}}$$
+                                $$\mathbf{GM_{\text{dB}} = 20 \log_{10}\left(\frac{1}{a}\right) = -20 \log_{10} a}$$
                             </li>
                         </ul>
                     </div>
 
-                    <!-- SVG 4 / Figure 3.6: Margins Geometry on Nyquist Plot -->
+                    <div class="solution-step">
+                        <span class="step-label">3. Ascertaining Phase Margin ($PM$)</span>
+                        <ul style="margin: 8px 0 16px 24px;">
+                            <li>
+                                <strong>Gain Crossover Frequency ($\omega_{gc}$):</strong> The frequency where the magnitude of $G(j\omega)H(j\omega)$ equals unity ($1.0$). Graphically, this is the intersection of the polar plot with the unit circle centered at the origin:
+                                $$|G(j\omega_{gc})H(j\omega_{gc})| = 1.0$$
+                            </li>
+                            <li>
+                                <strong>Calculation:</strong> Draw a radial line from the origin to this intersection point on the unit circle. The phase angle is $\phi_{gc} = \angle G(j\omega_{gc})H(j\omega_{gc})$. The Phase Margin is:
+                                $$\mathbf{PM = 180^\circ + \phi_{gc} = 180^\circ + \angle G(j\omega_{gc})H(j\omega_{gc})}$$
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- SVG Diagram: GM & PM Geometry -->
                     <div class="svg-diagram-wrapper">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" width="100%" height="auto" aria-label="Gain Margin and Phase Margin Geometry on Nyquist Polar Plot">
                             <defs>
@@ -1134,96 +846,73 @@
                             <path d="M 320 220 A 200 200 0 0 0 355 338" fill="none" stroke="#16a34a" stroke-width="2.5" marker-end="url(#arr-pm)" />
                             <text x="290" y="285" class="svg-text-primary" font-weight="700" fill="#16a34a">PM = 180&#176; + &#981;&#7580;&#7580;</text>
                         </svg>
-                        <div class="diagram-caption">Figure 3.6: Geometric representation of Gain Margin ($GM = 1/a$) and Phase Margin ($PM = 180^\circ + \phi_{gc}$) on the Nyquist Polar Plot.</div>
+                        <div class="diagram-caption">Geometric representation of Gain Margin ($GM = 1/a$) and Phase Margin ($PM = 180^\circ + \phi_{gc}$) on the Nyquist Polar Plot.</div>
                     </div>
 
                     <div class="solution-step">
-                        <span class="step-label">Step 2: Solved Benchmark 1 &bull; JU 2024 Supplementary Q5(iii)</span>
-                        <p>
-                            Plant:
-                        </p>
-                        $$G(s)H(s) = \frac{10}{s(1 + 0.1s)(1 + 0.05s)}$$
-                        <p>
-                            Here, $K = 10$, $T_1 = 0.1\text{ s}$, and $T_2 = 0.05\text{ s}$.
-                        </p>
-                        <ol style="margin: 8px 0 16px 24px;">
-                            <li>
-                                <strong>Phase Crossover Frequency $\omega_{pc}$:</strong>
-                                $$\omega_{pc} = \frac{1}{\sqrt{T_1 T_2}} = \frac{1}{\sqrt{0.1 \times 0.05}} = \frac{1}{\sqrt{0.005}} = \frac{1}{0.07071} = \mathbf{14.142\text{ rad/s}}$$
-                            </li>
-                            <li>
-                                <strong>Magnitude at $\omega_{pc}$:</strong>
-                                $$|G(j\omega_{pc})H(j\omega_{pc})| = \frac{K T_1 T_2}{T_1 + T_2} = \frac{10 \times 0.1 \times 0.05}{0.1 + 0.05} = \frac{0.05}{0.15} = \frac{1}{3} \approx 0.3333$$
-                            </li>
-                            <li>
-                                <strong>Gain Margin ($GM$):</strong>
-                                $$K_g = \frac{1}{a} = \frac{1}{1/3} = 3.0$$
-                                $$GM_{\text{dB}} = 20 \log_{10}(3.0) = \mathbf{+9.542\text{ dB}}$$
-                            </li>
-                            <li>
-                                <strong>Gain Crossover Frequency $\omega_{gc}$:</strong> Set magnitude equal to unity:
-                                $$|G(j\omega_{gc})H(j\omega_{gc})| = \frac{10}{\omega_{gc} \sqrt{1 + (0.1\omega_{gc})^2}\sqrt{1 + (0.05\omega_{gc})^2}} = 1.0$$
-                                Squaring both sides:
-                                $$\omega_{gc}^2 (1 + 0.01\omega_{gc}^2)(1 + 0.0025\omega_{gc}^2) = 100$$
-                                Solving the polynomial yields:
-                                $$\mathbf{\omega_{gc} \approx 7.55\text{ rad/s}}$$
-                            </li>
-                            <li>
-                                <strong>Phase at $\omega_{gc}$:</strong>
-                                $$\phi(\omega_{gc}) = -90^\circ - \tan^{-1}(0.1 \times 7.55) - \tan^{-1}(0.05 \times 7.55)$$
-                                $$\phi(\omega_{gc}) = -90^\circ - \tan^{-1}(0.755) - \tan^{-1}(0.3775) = -90^\circ - 37.05^\circ - 20.68^\circ = -147.73^\circ$$
-                            </li>
-                            <li>
-                                <strong>Phase Margin ($PM$):</strong>
-                                $$PM = 180^\circ + (-147.73^\circ) = \mathbf{+32.27^\circ}$$
-                            </li>
-                        </ol>
-                        <p>
-                            <strong>Stability Assessment:</strong> Because $\omega_{gc} (7.55\text{ rad/s}) &lt; \omega_{pc} (14.14\text{ rad/s})$, $GM = +9.54\text{ dB} &gt; 0$, and $PM = +32.27^\circ &gt; 0$, the closed-loop system is <strong>stable</strong> with robust relative stability margins.
-                        </p>
-                    </div>
-
-                    <div class="solution-step">
-                        <span class="step-label">Step 3: Solved Benchmark 2 &bull; JU 2018 Q6(i)</span>
-                        <p>
-                            Plant:
-                        </p>
-                        $$G(s)H(s) = \frac{2}{s(s+1)(s+2)} = \frac{1}{s(1+s)(1+0.5s)}$$
-                        <p>
-                            Here, $K' = 1$, $T_1 = 1\text{ s}$, and $T_2 = 0.5\text{ s}$.
-                        </p>
-                        <ol style="margin: 8px 0 16px 24px;">
-                            <li>
-                                <strong>Phase Crossover Frequency:</strong>
-                                $$\omega_{pc} = \frac{1}{\sqrt{1 \times 0.5}} = \sqrt{2} \approx \mathbf{1.414\text{ rad/s}}$$
-                            </li>
-                            <li>
-                                <strong>Magnitude at $\omega_{pc}$:</strong>
-                                $$|G(j\sqrt{2})H(j\sqrt{2})| = \frac{2}{\sqrt{2} \cdot \sqrt{1+2} \cdot \sqrt{4+2}} = \frac{2}{\sqrt{2} \cdot \sqrt{3} \cdot \sqrt{6}} = \frac{2}{6} = \frac{1}{3}$$
-                            </li>
-                            <li>
-                                <strong>Gain Margin:</strong>
-                                $$GM = \frac{1}{1/3} = 3.0 \implies GM_{\text{dB}} = 20 \log_{10}(3) = \mathbf{+9.542\text{ dB}}$$
-                            </li>
-                            <li>
-                                <strong>Gain Crossover Frequency:</strong>
-                                $$\frac{2}{\omega_{gc} \sqrt{\omega_{gc}^2 + 1} \sqrt{\omega_{gc}^2 + 4}} = 1.0 \implies \mathbf{\omega_{gc} \approx 0.752\text{ rad/s}}$$
-                            </li>
-                            <li>
-                                <strong>Phase Margin:</strong>
-                                $$\phi(\omega_{gc}) = -90^\circ - \tan^{-1}(0.752) - \tan^{-1}\left(\frac{0.752}{2}\right) = -90^\circ - 36.94^\circ - 20.61^\circ = -147.55^\circ$$
-                                $$PM = 180^\circ - 147.55^\circ = \mathbf{+32.45^\circ}$$
-                            </li>
-                        </ol>
-                    </div>
-
-                    <div class="examiner-note">
-                        <strong>Relative Stability Criteria Summary</strong>
-                        <ul style="margin: 4px 0 0 16px;">
-                            <li><strong>Stable:</strong> $\omega_{gc} &lt; \omega_{pc} \iff GM_{\text{dB}} &gt; 0\text{ dB}$ and $PM &gt; 0^\circ$.</li>
-                            <li><strong>Marginally Stable:</strong> $\omega_{gc} = \omega_{pc} \iff GM_{\text{dB}} = 0\text{ dB}$ and $PM = 0^\circ$.</li>
-                            <li><strong>Unstable:</strong> $\omega_{gc} &gt; \omega_{pc} \iff GM_{\text{dB}} &lt; 0\text{ dB}$ and $PM &lt; 0^\circ$.</li>
+                        <span class="step-label">4. Relative Stability Interpretation</span>
+                        <ul style="margin: 8px 0 16px 24px;">
+                            <li><strong>Stable:</strong> $\omega_{gc} &lt; \omega_{pc} \iff a &lt; 1 \iff GM &gt; 1\text{ }(GM_{\text{dB}} &gt; 0\text{ dB})$ and $PM &gt; 0^\circ$.</li>
+                            <li><strong>Marginally Stable:</strong> $\omega_{gc} = \omega_{pc} \iff a = 1 \iff GM = 1\text{ }(0\text{ dB})$ and $PM = 0^\circ$.</li>
+                            <li><strong>Unstable:</strong> $\omega_{gc} &gt; \omega_{pc} \iff a &gt; 1 \iff GM &lt; 1\text{ }(GM_{\text{dB}} &lt; 0\text{ dB})$ and $PM &lt; 0^\circ$.</li>
                         </ul>
+                    </div>
+
+                    <!-- PART B: RELATIONSHIP BETWEEN GH-PLANE AND q(s)-PLANE -->
+                    <div class="question-prompt" style="margin-top: 36px;">
+                        <strong>Part B &bull; JU 2018 Regular Q6(i) [4.5 Marks]:</strong><br>
+                        &ldquo;Establish the relationship between GH-plane and q(s) plane. The symbols carry their usual meanings.&rdquo;
+                    </div>
+
+                    <div class="solution-step">
+                        <span class="step-label">1. Fundamental Definitions</span>
+                        <p>
+                            Let $G(s)H(s)$ be the open-loop transfer function of a closed-loop feedback control system. The closed-loop characteristic equation is given by:
+                        </p>
+                        $$q(s) = 1 + G(s)H(s) = 0$$
+                        <ul style="margin: 8px 0 16px 24px;">
+                            <li><strong>$GH$-Plane:</strong> The complex plane where the axes represent the real ($u$) and imaginary ($v$) parts of the open-loop frequency response:
+                                $$G(s)H(s) = u + jv$$
+                            </li>
+                            <li><strong>$q(s)$-Plane:</strong> The complex plane where the axes represent the real ($u_q$) and imaginary ($v_q$) parts of the characteristic function:
+                                $$q(s) = u_q + jv_q$$
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="solution-step">
+                        <span class="step-label">2. Analytical Relationship</span>
+                        <p>
+                            Substitute $G(s)H(s) = u + jv$ into $q(s)$:
+                        </p>
+                        $$q(s) = 1 + (u + jv) = (1 + u) + jv$$
+                        <p>
+                            Equating real and imaginary parts:
+                        </p>
+                        $$\mathbf{u_q = u + 1}$$
+                        $$\mathbf{v_q = v}$$
+                        <p>
+                            <strong>Geometric Deduction:</strong> The locus of $q(s)$ in the $q(s)$-plane is <strong>identical in shape, scale, and orientation</strong> to the locus of $G(s)H(s)$ in the $GH$-plane, translated horizontally to the right by $\mathbf{+1}$ unit along the real axis.
+                        </p>
+                    </div>
+
+                    <div class="solution-step">
+                        <span class="step-label">3. Equivalence of Encirclements &amp; Nyquist Criterion</span>
+                        <p>
+                            According to Cauchy's Principle of Argument, the number of clockwise encirclements of the <strong>origin $(0,0)$</strong> by the locus of $q(s)$ in the $q(s)$-plane equals $N = P - Z$.
+                        </p>
+                        <p>
+                            Because $q(s) = 0 \iff G(s)H(s) = -1 + j0$, setting $u_q = 0, v_q = 0$ gives:
+                        </p>
+                        $$u = u_q - 1 = 0 - 1 = -1, \quad v = v_q = 0$$
+                        <p>
+                            Therefore, the origin $(0 + j0)$ of the $q(s)$-plane corresponds <strong>identically to the critical point $(-1 + j0)$</strong> in the $GH$-plane:
+                        </p>
+                        $$\mathbf{N_{\text{origin in } q(s)\text{-plane}} \equiv N_{(-1+j0)\text{ in } GH\text{-plane}}}$$
+                        <div class="examiner-note">
+                            <strong>Practical Importance:</strong>
+                            Plotting in the $GH$-plane avoids having to add $+1$ point-by-point to $G(s)H(s)$. Moreover, the effect of varying open-loop gain $K$ can be evaluated directly on the same plot by checking the position of $-1/K$ relative to the locus, without re-plotting the entire function.
+                        </div>
                     </div>
                 </div>
             </article>
