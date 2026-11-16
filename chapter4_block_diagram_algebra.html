@@ -95,8 +95,6 @@
                 <a href="#fig-p3-system">Fig. P-3 (JU 2023)</a>
                 <a href="#fig-p10-system">Fig. P-10 (JU 2019)</a>
                 <a href="#bd-to-sfg">BD to SFG (JU 2024)</a>
-                <a href="#disturbance-rejection">Disturbance Superposition</a>
-                <a href="#liquid-level-modeling">Two-Tank Modeling</a>
                 <a href="#bd-rules-summary">BD Rules Summary</a>
                 <div class="reading-progress-pill" title="Line-by-line reading progress">
                     <span class="progress-track-mini"><span class="progress-fill-mini"></span></span>
@@ -110,7 +108,7 @@
         <div class="chapter-masthead">
             <span class="chapter-number">Chapter IV</span>
             <h1 class="chapter-title">Block Diagram Algebra &amp; Signal Flow Graphs</h1>
-            <p class="chapter-subtitle">Topological Equivalence Transformations, Mason's Gain Rule, Dual-Input Superposition &amp; Physical Liquid-Level Modeling &bull; Prof. Madhubanti Maitra Lecture Notes &bull; Jadavpur University Examination Archive (2017–2026)</p>
+            <p class="chapter-subtitle">Topological Equivalence Transformations, Elementary Reduction Operations, SFG Nomenclature &amp; Mason's Gain Rule &bull; Prof. Madhubanti Maitra Lecture Notes &bull; Jadavpur University Examination Archive (2017–2026)</p>
         </div>
 
         <main>
@@ -120,8 +118,8 @@
             <article class="problem-entry" id="masons-definitions">
                 <div class="problem-header">
                     <div class="problem-tag">
-                        <span class="exam-badge">JU 2024 Regular Q2(a) &bull; JU 2023 Regular Q3(a) &bull; JU 2019 Q10(a)</span>
-                        <span class="marks-badge">[6 Marks / 5 Marks / 4 Marks]</span>
+                        <span class="exam-badge">JU 2024 Regular Q2(a) &bull; JU 2024 Supp Q5(i) &bull; JU 2023 Regular Q3(a) &bull; JU 2019 Q10(a)</span>
+                        <span class="marks-badge">[6M / 8M / 5M / 4M]</span>
                     </div>
                     <div class="meta-label">Graph Theory &bull; Core Examination Definitions</div>
                 </div>
@@ -130,7 +128,8 @@
 
                 <div class="question-prompt">
                     &ldquo;(a) In the context of signal flow graph define source, path and loop. (CO3) [JU 2024 Regular Q2(a), 06 M]<br>
-                    (b) State and explain Mason's Gain formula with definitions of all associated topological symbols. (CO3) [JU 2023 Regular Q3(a), 05 M &amp; JU 2019 Q10(a), 04 M]&rdquo;
+                    (b) Write short notes on: Signal flow graph. [JU 2024 Supp Q5(i), 08 M]<br>
+                    (c) State and explain Mason's Gain formula with definitions of all associated topological symbols. (CO3) [JU 2023 Regular Q3(a), 05 M &amp; JU 2019 Q10(a), 04 M]&rdquo;
                 </div>
 
                 <div class="solution-body">
@@ -948,217 +947,6 @@
                 </div>
             </article>
 
-            <!-- ========================================================================= -->
-            <!-- 5. [JU 2017 Q10(i) & 2024 Supp Q5(i)] [8M] -->
-            <!-- ========================================================================= -->
-            <article class="problem-entry" id="disturbance-rejection">
-                <div class="problem-header">
-                    <div class="problem-tag">
-                        <span class="exam-badge">JU 2017 Q10(i) &bull; 2024 Supp Q5(i)</span>
-                        <span class="marks-badge">[8 Marks]</span>
-                    </div>
-                    <div class="meta-label">Multi-Input Superposition &bull; Disturbance Attenuation</div>
-                </div>
-
-                <h2 class="problem-title">Dual-Input Disturbance Rejection Analysis via Linear Superposition</h2>
-
-                <div class="question-prompt">
-                    &ldquo;A feedback control system is subject to both a reference command $R(s)$ and a load disturbance $D(s)$ injected between controller $G_1(s)$ and plant $G_2(s)$, with feedback sensor $H(s)$.<br>
-                    (a) Using the principle of superposition, derive the partial transfer functions $\frac{C_R(s)}{R(s)}$ with $D(s)=0$ and $\frac{C_D(s)}{D(s)}$ with $R(s)=0$.<br>
-                    (b) Express the total system output $C(s)$ and error signal $E(s)$.<br>
-                    (c) Prove that a high controller gain $|G_1(j\omega)| \gg 1$ simultaneously satisfies the dual objectives of precise reference tracking and complete disturbance rejection.&rdquo;
-                </div>
-
-                <div class="solution-body">
-                    <!-- SVG Figure: Multi-Input Disturbance System -->
-                    <div class="svg-diagram-wrapper">
-                        <svg width="780" height="200" viewBox="0 0 780 200" xmlns="http://www.w3.org/2000/svg">
-                            <defs>
-                                <marker id="dist-arr" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                                    <path d="M 0 1.5 L 8 5 L 0 8.5 z" class="marker-ink" />
-                                </marker>
-                                <marker id="dist-arr-acc" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                                    <path d="M 0 1.5 L 8 5 L 0 8.5 z" class="marker-accent" />
-                                </marker>
-                            </defs>
-
-                            <!-- Reference R(s) -->
-                            <line x1="30" y1="80" x2="88" y2="80" class="bd-wire" marker-end="url(#dist-arr)" />
-                            <text x="35" y="70" class="bd-text-bold">R(s)</text>
-
-                            <!-- Summer 1 -->
-                            <circle cx="100" cy="80" r="12" class="bd-summer" />
-                            <text x="91" y="75" class="bd-text-bold" fill="var(--ink)">+</text>
-                            <text x="96" y="102" class="bd-text-bold" fill="var(--accent)">−</text>
-
-                            <!-- Controller G1 -->
-                            <line x1="112" y1="80" x2="168" y2="80" class="bd-wire" marker-end="url(#dist-arr)" />
-                            <rect x="170" y="60" width="70" height="40" class="bd-block" />
-                            <text x="205" y="85" text-anchor="middle" class="bd-text-bold">G₁(s)</text>
-
-                            <!-- Disturbance Summer 2 -->
-                            <line x1="240" y1="80" x2="298" y2="80" class="bd-wire" marker-end="url(#dist-arr)" />
-                            <circle cx="310" cy="80" r="12" class="bd-summer" />
-                            <text x="301" y="75" class="bd-text-bold" fill="var(--ink)">+</text>
-                            <text x="314" y="68" class="bd-text-bold" fill="var(--ink)">+</text>
-
-                            <!-- Disturbance Input D(s) -->
-                            <line x1="310" y1="20" x2="310" y2="66" class="bd-wire" marker-end="url(#dist-arr)" />
-                            <text x="318" y="35" class="bd-text-bold">D(s) (Disturbance)</text>
-
-                            <!-- Plant G2 -->
-                            <line x1="322" y1="80" x2="378" y2="80" class="bd-wire" marker-end="url(#dist-arr)" />
-                            <rect x="380" y="60" width="70" height="40" class="bd-block" />
-                            <text x="415" y="85" text-anchor="middle" class="bd-text-bold">G₂(s)</text>
-
-                            <!-- Output C(s) -->
-                            <line x1="450" y1="80" x2="570" y2="80" class="bd-wire" marker-end="url(#dist-arr)" />
-                            <circle cx="510" cy="80" r="3.5" class="bd-node" />
-                            <text x="550" y="70" class="bd-text-bold">C(s)</text>
-
-                            <!-- Feedback Sensor H(s) -->
-                            <line x1="510" y1="80" x2="510" y2="150" class="bd-wire-accent" />
-                            <line x1="510" y1="150" x2="350" y2="150" class="bd-wire-accent" marker-end="url(#dist-arr-acc)" />
-                            <rect x="280" y="132" width="70" height="36" class="bd-block-accent" />
-                            <text x="315" y="155" text-anchor="middle" class="bd-text-accent">H(s)</text>
-                            <line x1="280" y1="150" x2="100" y2="150" class="bd-wire-accent" />
-                            <line x1="100" y1="150" x2="100" y2="94" class="bd-wire-accent" marker-end="url(#dist-arr-acc)" />
-                        </svg>
-                    </div>
-
-                    <div class="solution-step">
-                        <span class="step-label">Step 1: Partial Response to Reference $R(s)$ ($D(s) = 0$)</span>
-                        <p>
-                            Deactivating disturbance $D(s) = 0$, the system reduces to a canonical single-input feedback loop with forward path $G(s) = G_1(s)G_2(s)$ and feedback $H(s)$:
-                            $$\mathbf{\frac{C_R(s)}{R(s)} = \frac{G_1(s)G_2(s)}{1 + G_1(s)G_2(s)H(s)}}$$
-                        </p>
-                    </div>
-
-                    <div class="solution-step">
-                        <span class="step-label">Step 2: Partial Response to Disturbance $D(s)$ ($R(s) = 0$)</span>
-                        <p>
-                            Deactivating command $R(s) = 0$, input $D(s)$ enters between controller and plant:
-                            <ul>
-                                <li><strong>Forward path from $D$ to $C$:</strong> Passes only through plant $G_2(s)$. Hence forward gain is $G_2(s)$.</li>
-                                <li><strong>Feedback path:</strong> From $C$, through sensor $H(s)$, entering Summer 1 with a minus ($-$) sign, then passing through controller $G_1(s)$ back to Summer 2.</li>
-                                <li><strong>Open-loop gain around the loop:</strong> Remains identical: $-G_1(s)G_2(s)H(s)$.</li>
-                            </ul>
-                            Therefore:
-                            $$\mathbf{\frac{C_D(s)}{D(s)} = \frac{G_2(s)}{1 + G_1(s)G_2(s)H(s)}}$$
-                        </p>
-                    </div>
-
-                    <div class="solution-step">
-                        <span class="step-label">Step 3: Total Superimposed Output and Tracking Error</span>
-                        <p>
-                            By the principle of linear superposition:
-                            $$\mathbf{C(s) = C_R(s) + C_D(s) = \frac{G_1(s)G_2(s)}{1 + G_1(s)G_2(s)H(s)} R(s) + \frac{G_2(s)}{1 + G_1(s)G_2(s)H(s)} D(s)}$$
-                        </p>
-                        <p>
-                            For a unity feedback tracking system ($H(s) = 1$), the actuating error $E(s) = R(s) - C(s)$ is:
-                            $$E(s) = R(s) - \left[ \frac{G_1 G_2}{1 + G_1 G_2} R(s) + \frac{G_2}{1 + G_1 G_2} D(s) \right]$$
-                            $$\mathbf{E(s) = \frac{1}{1 + G_1(s)G_2(s)} R(s) - \frac{G_2(s)}{1 + G_1(s)G_2(s)} D(s)} \quad \blacksquare$$
-                        </p>
-                    </div>
-
-                    <div class="solution-step">
-                        <span class="step-label">Step 4: Engineering Design Insight &bull; Controller Gain Tuning</span>
-                        <p>
-                            In the operational frequency range $\omega \le \omega_b$, if the controller gain is designed to be sufficiently large such that $|G_1(j\omega) G_2(j\omega)| \gg 1$:
-                        </p>
-                        <ol class="academic-list">
-                            <li>
-                                <strong>Reference Tracking:</strong>
-                                $$\lim_{|G_1| \to \infty} \frac{C_R(j\omega)}{R(j\omega)} = \frac{G_1 G_2}{G_1 G_2} = 1 \implies C(j\omega) \approx R(j\omega)$$
-                            </li>
-                            <li>
-                                <strong>Disturbance Attenuation:</strong>
-                                $$\lim_{|G_1| \to \infty} \frac{C_D(j\omega)}{D(j\omega)} = \frac{G_2}{G_1 G_2} = \frac{1}{G_1(j\omega)} \to 0$$
-                            </li>
-                        </ol>
-                        <p>
-                            <em>Conclusion:</em> Placing a high-gain controller <strong>before</strong> the disturbance injection point suppresses the disturbance output by a factor of $\frac{1}{|G_1(j\omega)|}$ while maintaining near-perfect reference tracking.
-                        </p>
-                    </div>
-                </div>
-            </article>
-
-            <!-- ========================================================================= -->
-            <!-- 6. [Prof. MM Lecture Notes pp. 6–9 & 2018 Q9(a)] [6M] -->
-            <!-- ========================================================================= -->
-            <article class="problem-entry" id="liquid-level-modeling">
-                <div class="problem-header">
-                    <div class="problem-tag">
-                        <span class="exam-badge">Prof. MM Lecture Notes pp. 6–9 &bull; JU 2018 Q9(a)</span>
-                        <span class="marks-badge">[6 Marks]</span>
-                    </div>
-                    <div class="meta-label">Physical System Modeling &bull; Interacting Two-Tank System</div>
-                </div>
-
-                <h2 class="problem-title">Physical Modeling of Coupled Two-Tank Liquid-Level System &amp; SFG Representation</h2>
-
-                <div class="question-prompt">
-                    &ldquo;Consider a coupled two-tank liquid-level system where inflow $q_{in}(t)$ enters Tank 1 (area $A_1$, level $h_1$). Fluid flows from Tank 1 to Tank 2 (area $A_2$, level $h_2$) through an interacting valve of resistance $R_1$, and leaves Tank 2 via an outlet valve of resistance $R_2$.<br>
-                    (a) Write the governing hydraulic mass balance differential equations.<br>
-                    (b) Transform into Laplace domain and construct the complete Signal Flow Graph.<br>
-                    (c) Using Mason's Gain Formula, derive the overall transfer function $\frac{H_2(s)}{Q_{in}(s)}$.&rdquo;
-                </div>
-
-                <div class="solution-body">
-                    <div class="solution-step">
-                        <span class="step-label">Step 1: Governing Physical Equations</span>
-                        <p>
-                            Applying conservation of mass (rate of liquid accumulation = net inflow rate):
-                        </p>
-                        <ul>
-                            <li><strong>Tank 1 Mass Balance:</strong>
-                            $$A_1 \frac{dh_1}{dt} = q_{in}(t) - q_1(t)$$
-                            where flow between tanks depends on the head difference: $q_1(t) = \frac{h_1(t) - h_2(t)}{R_1}$.
-                            </li>
-                            <li><strong>Tank 2 Mass Balance:</strong>
-                            $$A_2 \frac{dh_2}{dt} = q_1(t) - q_2(t)$$
-                            where outlet flow from Tank 2 is: $q_2(t) = \frac{h_2(t)}{R_2}$.
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="solution-step">
-                        <span class="step-label">Step 2: Laplace Domain Algebraic Formulation</span>
-                        <p>
-                            Assuming zero initial conditions ($h_1(0) = 0, h_2(0) = 0$):
-                            $$A_1 s H_1(s) = Q_{in}(s) - \frac{H_1(s) - H_2(s)}{R_1} \implies H_1(s) \left( A_1 s + \frac{1}{R_1} \right) = Q_{in}(s) + \frac{1}{R_1} H_2(s)$$
-                            $$A_2 s H_2(s) = \frac{H_1(s) - H_2(s)}{R_1} - \frac{H_2(s)}{R_2} \implies H_2(s) \left( A_2 s + \frac{1}{R_1} + \frac{1}{R_2} \right) = \frac{1}{R_1} H_1(s)$$
-                        </p>
-                        <p>
-                            Re-writing as explicit causal node equations:
-                            $$H_1(s) = \frac{R_1}{1 + R_1 A_1 s} Q_{in}(s) + \frac{1}{1 + R_1 A_1 s} H_2(s)$$
-                            $$H_2(s) = \frac{\frac{R_2}{R_1 + R_2}}{1 + \left(\frac{R_1 R_2}{R_1 + R_2}\right) A_2 s} H_1(s)$$
-                        </p>
-                    </div>
-
-                    <div class="solution-step">
-                        <span class="step-label">Step 3: Mason's Rule Evaluation of Transfer Function</span>
-                        <p>
-                            From the two-node SFG formed by variables $Q_{in}(s), H_1(s), H_2(s)$:
-                            <ul>
-                                <li><strong>Forward Path:</strong> $P_1 = Q_{in} \to H_1 \to H_2$:
-                                $$P_1 = \frac{R_2}{(R_1 A_1 s + 1)(R_2 A_2 s + 1) + \frac{R_2}{R_1} \dots}$$
-                                </li>
-                                <li><strong>Feedback Interaction Loop:</strong> Liquid level $h_2$ exerts back-pressure on $h_1$:
-                                $$L_1 = \left( \frac{1}{1 + R_1 A_1 s} \right) \left( \frac{\frac{R_2}{R_1}}{1 + R_2 A_2 s + \frac{R_2}{R_1}} \right)$$
-                                </li>
-                            </ul>
-                            Evaluating yields the canonical interacting transfer function:
-                            $$\mathbf{\frac{H_2(s)}{Q_{in}(s)} = \frac{R_2}{A_1 A_2 R_1 R_2 s^2 + (A_1 R_1 + A_2 R_2 + A_1 R_2) s + 1}} \quad \blacksquare$$
-                            <em>Key Examination Note:</em> The extra cross-coupling term $A_1 R_2 s$ in the linear coefficient represents the physical <strong>hydraulic loading effect</strong> of Tank 2 on Tank 1.
-                        </p>
-                    </div>
-                </div>
-            </article>
-
-            <!-- ========================================================================= -->
-            <!-- 7. ESSENTIAL BLOCK DIAGRAM RULES SUMMARY TABLE -->
-            <!-- ========================================================================= -->
             <article class="problem-entry" id="bd-rules-summary">
                 <div class="problem-header">
                     <div class="problem-tag">
