@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nyquist Stability Criterion: Interactive Visual Guide &amp; Masterclass | Jadavpur University LCS</title>
+    <link rel="stylesheet" href="paper.css">
+    <!-- KaTeX for High-Fidelity Mathematical Typography -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMath();"></script>
+    <script>
+        function renderMath() {
+            if (typeof renderMathInElement === 'function') {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false},
+                        {left: '\\(', right: '\\)', display: false},
+                        {left: '\\[', right: '\\]', display: true}
+                    ],
+                    throwOnError: false
+                });
+            }
+        }
+        document.addEventListener('DOMContentLoaded', renderMath);
+    </script>
+    <script src="theme.js"></script>
+    <style>
+        /* Interactive Lab Styles */
+        .lab-container {
+            background: var(--code-bg);
+            border: 1px solid var(--rule);
+            border-radius: 8px;
+            padding: 24px;
+            margin: 28px 0;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+        }
+        .lab-controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--rule);
+        }
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .control-group label {
+            font-family: var(--mono);
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--ink);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .control-select, .control-slider {
+            font-family: var(--mono);
+            font-size: 13px;
+            padding: 6px 10px;
+            background: var(--card-bg);
+            color: var(--ink);
+            border: 1px solid var(--rule);
+            border-radius: 4px;
+            outline: none;
+        }
+        .slider-readout {
+            font-family: var(--mono);
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        .canvas-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        @media (max-width: 820px) {
+            .canvas-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .canvas-box {
+            background: var(--card-bg);
+            border: 1px solid var(--rule);
+            border-radius: 6px;
+            padding: 12px;
+            text-align: center;
+        }
+        .canvas-title {
+            font-family: var(--mono);
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--muted);
+            letter-spacing: 0.5px;
+        }
+        .nyquist-canvas {
+            width: 100%;
+            height: 320px;
+            background: var(--card-bg);
+            border-radius: 4px;
+            display: block;
+        }
+        .lab-readouts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 12px;
+            margin-top: 18px;
+            padding-top: 16px;
+            border-top: 1px solid var(--rule);
+        }
+        .metric-card {
+            background: var(--card-bg);
+            border: 1px solid var(--rule);
+            border-radius: 4px;
+            padding: 10px 14px;
+            text-align: center;
+        }
+        .metric-title {
+            font-family: var(--mono);
+            font-size: 10.5px;
+            color: var(--muted);
+            text-transform: uppercase;
+        }
+        .metric-value {
+            font-family: var(--mono);
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--ink);
+            margin-top: 4px;
+        }
+        .metric-badge {
+            display: inline-block;
+            font-family: var(--mono);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 4px;
+            margin-top: 4px;
+        }
+        .badge-stable {
+            background: #dcfce7;
+            color: #15803d;
+            border: 1px solid #86efac;
+        }
+        .badge-unstable {
+            background: #fee2e2;
+            color: #b91c1c;
+            border: 1px solid #fca5a5;
+        }
+        [data-theme='dark'] .badge-stable {
+            background: #14532d;
+            color: #86efac;
+            border-color: #166534;
+        }
+        [data-theme='dark'] .badge-unstable {
+            background: #7f1d1d;
+            color: #fca5a5;
+            border-color: #991b1b;
+        }
+        .formula-callout {
+            background: var(--code-bg);
+            border-left: 4px solid var(--accent);
+            padding: 14px 18px;
+            margin: 18px 0;
+            border-radius: 0 4px 4px 0;
+            font-size: 15.5px;
+        }
+        .path-pill {
+            display: inline-block;
+            font-family: var(--mono);
+            font-size: 11px;
+            font-weight: 700;
+            padding: 1px 7px;
+            border-radius: 3px;
+            background: var(--code-bg);
+            border: 1px solid var(--rule);
+            color: var(--accent);
+            margin-right: 6px;
+        }
+        .exam-anchor-tag {
+            font-family: var(--mono);
+            font-size: 11px;
+            background: var(--code-bg);
+            padding: 2px 8px;
+            border-radius: 3px;
+            border: 1px solid var(--rule);
+            color: var(--muted);
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <!-- Site Header -->
+        <header class="site-header">
+            <a href="index.html" class="site-signature" aria-label="EE313 Home">
+                <span class="signature-mark">EE313</span>
+            </a>
+            <nav class="site-nav">
+                <a href="index.html">&larr; Portal</a>
+                <a href="chapter3_nyquist_stability_criterion.html">Ch III PYQs</a>
+                <a href="#intuition">Intuition</a>
+                <a href="#cauchy">Cauchy Rule</a>
+                <a href="#contour">4 Contour Paths</a>
+                <a href="#encirclements">Encirclement Rule</a>
+                <a href="#interactive-lab">Interactive Lab</a>
+                <a href="#exam-cases">Exam Archetypes</a>
+                <a href="#margins">GM &amp; PM</a>
+                <div class="reading-progress-pill" title="Line-by-line reading progress">
+                    <span class="progress-track-mini"><span class="progress-fill-mini"></span></span>
+                    <span class="progress-percentage-val">0%</span>
+                </div>
+                <button class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Toggle Theme">☽ Dark</button>
+            </nav>
+        </header>
+
+        <!-- Chapter Masthead -->
+        <div class="chapter-masthead">
+            <span class="chapter-number">Masterclass</span>
+            <h1 class="chapter-title">The Nyquist Stability Criterion</h1>
+            <p class="chapter-subtitle">A Complete Visual, Mathematical &amp; Interactive Pedagogical Guide &bull; From Cauchy's Argument Principle to Encirclement Counting, Origin Indentations &amp; Stability Margins &bull; Department of Electrical Engineering, Jadavpur University</p>
+        </div>
+
+        <main>
+            <!-- ========================================================================= -->
+            <!-- 1. CORE INTUITION: WHAT PROBLEM DOES NYQUIST SOLVE? -->
+            <!-- ========================================================================= -->
+            <article class="problem-entry" id="intuition">
+                <div class="problem-header">
+                    <div class="problem-tag">
+                        <span class="exam-badge">Foundational Concept</span>
+                        <span class="marks-badge">[Intuition First]</span>
+                    </div>
+                    <div class="meta-label">Frequency Domain Stability &bull; Open-Loop to Closed-Loop Mapping</div>
+                </div>
+
+                <h2 class="problem-title">1. Why Nyquist? The Big Picture &amp; Engineering Motivation</h2>
+
+                <div class="solution-body">
+                    <p>
+                        In linear feedback control, the central question is always: <em>Given an open-loop plant $G(s)H(s)$, will the closed-loop system with unity negative feedback be stable?</em>
+                    </p>
+                    <p>
+                        The closed-loop transfer function is:
+                        $$T(s) = \frac{C(s)}{R(s)} = \frac{G(s)}{1 + G(s)H(s)}$$
+                        The poles of the closed-loop system are the roots of the <strong>characteristic equation</strong>:
+                        $$\mathbf{1 + G(s)H(s) = 0 \iff G(s)H(s) = -1 + j0}$$
+                    </p>
+
+                    <div class="formula-callout">
+                        <strong>The Dilemma with Existing Methods:</strong>
+                        <ul class="academic-list">
+                            <li><strong>Direct Root Solving:</strong> For high-order polynomials ($n \ge 3$), finding roots analytically is tedious and often impossible by hand.</li>
+                            <li><strong>Routh-Hurwitz Criterion:</strong> Works only on polynomials with constant rational coefficients. It fails completely when the plant contains pure time delay ($e^{-sT}$) or when only experimental frequency response data (magnitude and phase tables) is available.</li>
+                            <li><strong>Root Locus:</strong> Requires exact pole-zero factorization of the open-loop transfer function.</li>
+                        </ul>
+                    </div>
+
+                    <p>
+                        <strong>Harry Nyquist's Breakthrough (1932):</strong><br>
+                        Instead of solving for the roots of $1 + G(s)H(s) = 0$, we test the <em>open-loop frequency response</em> $G(j\omega)H(j\omega)$ along the boundary of the right-half plane. By observing how many times the locus encircles the critical point <strong>$-1 + j0$</strong>, we can immediately deduce the exact number of unstable closed-loop poles ($Z$)!
+                    </p>
+
+                    <table class="academic-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 25%;">Entity</th>
+                                <th style="width: 35%;">Open-Loop System</th>
+                                <th style="width: 40%;">Closed-Loop System</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Transfer Function</strong></td>
+                                <td>$G(s)H(s)$</td>
+                                <td>$\frac{G(s)}{1 + G(s)H(s)}$</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Poles in Right-Half Plane</strong></td>
+                                <td>$P$ (Known by inspection of denominator of $GH$)</td>
+                                <td>$Z$ (Unknown closed-loop roots to be found)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Critical Threshold</strong></td>
+                                <td>Origin ($0 + j0$)</td>
+                                <td>Critical Point ($-1 + j0$)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Governing Theorem</strong></td>
+                                <td>Cauchy's Principle of Argument</td>
+                                <td>$\mathbf{Z = P - N_{\text{ccw}}}$ (Stable $\iff Z = 0$)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </article>
+
+            <!-- ========================================================================= -->
+            <!-- 2. CAUCHY'S PRINCIPLE OF ARGUMENT -->
+            <!-- ========================================================================= -->
+            <article class="problem-entry" id="cauchy">
+                <div class="problem-header">
+                    <div class="problem-tag">
+                        <span class="exam-badge">Core Theoretical Law</span>
+                        <span class="marks-badge">[Complex Mapping]</span>
+                    </div>
+                    <div class="meta-label">Cauchy's Principle &bull; Vector Rotation Mechanics</div>
+                </div>
+
+                <h2 class="problem-title">2. Cauchy's Principle of Argument: The Geometry of Encirclement</h2>
+
+                <div class="solution-body">
+                    <p>
+                        Cauchy's Principle of Argument relates the contour traversal in the $s$-plane to the rotation of phasors in the mapped function plane $F(s)$.
+                    </p>
+
+                    <p>
+                        Consider a rational function with $Z$ zeros and $P$ poles:
+                        $$F(s) = K \frac{(s - z_1)(s - z_2) \cdots (s - z_Z)}{(s - p_1)(s - p_2) \cdots (s - p_P)}$$
+                        The phase angle of $F(s)$ is the algebraic sum of the angles contributed by all individual factors:
+                        $$\mathbf{\angle F(s) = \sum_{i=1}^Z \angle(s - z_i) - \sum_{k=1}^P \angle(s - p_k)}$$
+                    </p>
+
+                    <p>
+                        Now let a point $s$ traverse a continuous closed contour $\Gamma_s$ in the <strong>clockwise (CW)</strong> direction:
+                    </p>
+
+                    <div class="solution-step">
+                        <span class="step-label">Case A: An Enclosed Zero ($z_i$ inside $\Gamma_s$)</span>
+                        <p>
+                            As $s$ makes one full clockwise revolution around contour $\Gamma_s$, the vector $(s - z_i)$ rotates by a full circle clockwise:
+                            $$\Delta \theta_{z_i} = -360^\circ = -2\pi \text{ radians}$$
+                            Because zeros appear in the numerator (with positive sign in phase), an enclosed zero contributes:
+                            $$\Delta \angle F = +1 \times (-2\pi) = \mathbf{-2\pi} \quad \text{(1 Clockwise Rotation of } F\text{)}$$
+                        </p>
+                    </div>
+
+                    <div class="solution-step">
+                        <span class="step-label">Case B: An Enclosed Pole ($p_k$ inside $\Gamma_s$)</span>
+                        <p>
+                            As $s$ makes one full clockwise revolution, the vector $(s - p_k)$ also rotates by $-360^\circ = -2\pi$ clockwise.<br>
+                            However, because poles reside in the <strong>denominator</strong>, their phase is <em>subtracted</em>:
+                            $$\Delta \angle F = -1 \times (-2\pi) = \mathbf{+2\pi} \quad \text{(1 Counter-Clockwise Rotation of } F\text{)}$$
+                        </p>
+                    </div>
+
+                    <div class="solution-step">
+                        <span class="step-label">Case C: An Exterior Singularity (Outside $\Gamma_s$)</span>
+                        <p>
+                            If a zero or pole lies outside the contour $\Gamma_s$, as $s$ travels around $\Gamma_s$, the vector to $s$ merely swings back and forth like a pendulum. When $s$ returns to its starting point, the net angle accumulated is strictly <strong>$0^\circ$</strong>!
+                        </p>
+                    </div>
+
+                    <div class="formula-callout">
+                        <strong>Master Cauchy Formula:</strong>
+                        Over a complete clockwise traversal of $\Gamma_s$, the net phase accumulated by $F(s)$ is:
+                        $$\Delta \angle F(s) = 2\pi(P - Z)$$
+                        Dividing by $2\pi$, the net number of <strong>counter-clockwise (CCW) encirclements</strong> $N_{\text{ccw}}$ of the origin by the locus of $F(s)$ is:
+                        $$\mathbf{N_{\text{ccw}} = P - Z \iff Z = P - N_{\text{ccw}}}$$
+                        <em>(Equivalently, in clockwise direction: $N_{\text{cw}} = Z - P$).</em>
+                    </div>
+
+                    <div class="solution-step">
+                        <span class="step-label">Why the Critical Point is $(-1 + j0)$ instead of $(0 + j0)$</span>
+                        <p>
+                            We apply Cauchy's Principle to the characteristic function:
+                            $$F(s) = 1 + G(s)H(s)$$
+                            Notice:
+                            <ul>
+                                <li>The <strong>zeros of $F(s)$</strong> are roots of $1 + G(s)H(s) = 0$, which are the <strong>closed-loop poles ($Z$)</strong>!</li>
+                                <li>The <strong>poles of $F(s)$</strong> are the open-loop poles ($P$) of $G(s)H(s)$!</li>
+                            </ul>
+                            Therefore, the locus of $1 + G(s)H(s)$ encircles the origin $(0 + j0)$ $N_{\text{ccw}} = P - Z$ times.<br>
+                            Subtracting $1$ shifts the entire complex plane to the left by $1$ unit:
+                            $$G(s)H(s) = [1 + G(s)H(s)] - 1$$
+                            The origin $(0 + j0)$ of the $F(s)$-plane shifts to the point <strong>$-1 + j0$</strong> in the $G(s)H(s)$-plane!<br>
+                            <em>Thus, we directly plot open-loop $G(s)H(s)$ and count encirclements around $(-1 + j0)$.</em>
+                        </p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- ========================================================================= -->
+            <!-- 3. THE 4 CONTOUR PATHS -->
+            <!-- ========================================================================= -->
+            <article class="problem-entry" id="contour">
+                <div class="problem-header">
+                    <div class="problem-tag">
+                        <span class="exam-badge">Topological Mapping</span>
+                        <span class="marks-badge">[The 4 Paths]</span>
+                    </div>
+                    <div class="meta-label">Nyquist Contour Definition &bull; Origin Indentations</div>
+                </div>
+
+                <h2 class="problem-title">3. The Canonical Nyquist Contour &amp; Its 4 Segments</h2>
+
+                <div class="solution-body">
+                    <p>
+                        To detect all possible unstable closed-loop poles, the contour $\Gamma_s$ must enclose the entire open Right-Half Plane ($\text{Re}(s) > 0$). It consists of 4 distinct continuous paths:
+                    </p>
+
+                    <div class="solution-step">
+                        <span class="step-label"><span class="path-pill">Path C₁</span> Positive Imaginary Axis ($s = +j\omega$, $\omega \in [0^+, +\infty)$)</span>
+                        <p>
+                            Traverses upward from just above the origin to $+j\infty$.<br>
+                            Substituting $s = j\omega$ yields the standard open-loop frequency response $G(j\omega)H(j\omega)$ &mdash; this is the familiar <strong>Polar Plot</strong>!
+                        </p>
+                    </div>
+
+                    <div class="solution-step">
+                        <span class="step-label"><span class="path-pill">Path C₂</span> Infinite Semicircular Arc ($s = R e^{j\theta}$, $R \to \infty$)</span>
+                        <p>
+                            Radius $R \to \infty$, sweeping clockwise from $\theta = +90^\circ \to 0^\circ \to -90^\circ$.<br>
+                            For any physical system with more poles than zeros ($n > m$):
+                            $$\lim_{R \to \infty} G(s)H(s) \approx \frac{K}{s^{n-m}} = \frac{K}{R^{n-m} e^{j(n-m)\theta}} \to 0$$
+                            <em>Path $C_2$ collapses to the exact origin $(0, 0)$ in the $G(s)H(s)$-plane!</em>
+                        </p>
+                    </div>
+
+                    <div class="solution-step">
+                        <span class="step-label"><span class="path-pill">Path C₃</span> Negative Imaginary Axis ($s = -j\omega$, $\omega$ from $-\infty \to 0^-$)</span>
+                        <p>
+                            Traverses from $-j\infty$ back toward the origin.<br>
+                            By complex conjugate symmetry:
+                            $$G(-j\omega)H(-j\omega) = [G(j\omega)H(j\omega)]^*$$
+                            <em>Path $C_3$ is the exact mirror reflection of Path $C_1$ across the horizontal real axis!</em>
+                        </p>
+                    </div>
+
+                    <div class="solution-step">
+                        <span class="step-label"><span class="path-pill">Path C₄</span> Origin Indentation ($s = \varepsilon e^{j\theta}$, $\varepsilon \to 0$)</span>
+                        <p>
+                            If the system has poles at the origin ($s = 0$), the contour cannot pass through them (it would make $G(s)H(s)$ singular). We bypass the origin with an infinitesimal semicircle of radius $\varepsilon \to 0$ into the right-half plane, sweeping from $\theta = -90^\circ \to 0^\circ \to +90^\circ$ (CCW in $s$-plane).
+                        </p>
+                        <p><strong>Behavior in the $G(s)H(s)$-Plane:</strong></p>
+                        <ul class="academic-list">
+                            <li>
+                                <strong>Type 1 System (Single Pole at Origin, $\frac{1}{s}$):</strong>
+                                $$G(s)H(s) \approx \frac{K}{\varepsilon e^{j\theta}} = \left(\frac{K}{\varepsilon}\right) e^{-j\theta} \quad (\text{Radius } \infty)$$
+                                As $\theta$ goes from $-90^\circ \to 0^\circ \to +90^\circ$, the angle of $G(s)H(s)$ sweeps from:
+                                $$\mathbf{+90^\circ \to 0^\circ \to -90^\circ \quad (180^\circ \text{ Clockwise Arc of Infinite Radius!})}$$
+                            </li>
+                            <li>
+                                <strong>Type 2 System (Double Pole at Origin, $\frac{1}{s^2}$):</strong>
+                                $$G(s)H(s) \approx \frac{K}{\varepsilon^2 e^{j2\theta}} = \left(\frac{K}{\varepsilon^2}\right) e^{-j2\theta} \quad (\text{Radius } \infty)$$
+                                As $\theta$ goes from $-90^\circ \to 0^\circ \to +90^\circ$, the angle sweeps:
+                                $$\mathbf{+180^\circ \to 0^\circ \to -180^\circ \quad (360^\circ \text{ Full Circle of Infinite Radius!})}$$
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+            <!-- ========================================================================= -->
+            <!-- 4. ENCIRCLEMENT COUNTING -->
+            <!-- ========================================================================= -->
+            <article class="problem-entry" id="encirclements">
+                <div class="problem-header">
+                    <div class="problem-tag">
+                        <span class="exam-badge">Evaluation Algorithm</span>
+                        <span class="marks-badge">[Zero-Error Technique]</span>
+                    </div>
+                    <div class="meta-label">Ray Method &bull; Encirclement Determination &bull; Stability Formula</div>
+                </div>
+
+                <h2 class="problem-title">4. How to Count Encirclements $N$ Without Error</h2>
+
+                <div class="solution-body">
+                    <p>
+                        Many students lose marks because they get confused about whether an encirclement is clockwise or counter-clockwise. Here is the foolproof <strong>Ray-Tracing Method</strong> taught by Prof. Madhubanti Maitra:
+                    </p>
+
+                    <div class="solution-step">
+                        <span class="step-label">The Ray-Tracing Rule</span>
+                        <ol class="academic-list">
+                            <li>Place a pencil at the critical point <strong>$-1 + j0$</strong>.</li>
+                            <li>Draw an imaginary ray from $-1 + j0$ extending out to infinity in any convenient direction (usually along the negative real axis to the left, or vertically upward).</li>
+                            <li>Observe every point where the Nyquist locus crosses this ray:
+                                <ul>
+                                    <li>If the curve crosses from right to left (counter-clockwise orientation relative to $-1+j0$), count <strong>$+1$</strong>.</li>
+                                    <li>If the curve crosses from left to right (clockwise orientation), count <strong>$-1$</strong>.</li>
+                                </ul>
+                            </li>
+                            <li>The algebraic sum of all crossings equals the net counter-clockwise encirclements: $\mathbf{N_{\text{ccw}}}$.</li>
+                        </ol>
+                    </div>
+
+                    <div class="formula-callout">
+                        <strong>The Universal Stability Equation:</strong>
+                        $$\mathbf{Z = P - N_{\text{ccw}}}$$
+                        <ul>
+                            <li><strong>$Z = 0$</strong> $\implies$ System is <strong>STABLE</strong>.</li>
+                            <li><strong>$Z > 0$</strong> $\implies$ System is <strong>UNSTABLE</strong> with $Z$ closed-loop poles in the right-half plane.</li>
+                            <li><strong>$Z < 0$</strong> $\implies$ Mathematical contradiction! You counted $N$ or $P$ incorrectly.</li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+            <!-- ========================================================================= -->
+            <!-- 5. INTERACTIVE NYQUIST LABORATORY -->
+            <!-- ========================================================================= -->
+            <article class="problem-entry" id="interactive-lab">
+                <div class="problem-header">
+                    <div class="problem-tag">
+                        <span class="exam-badge">Interactive Visualizer</span>
+                        <span class="marks-badge">[Real-Time Simulation]</span>
+                    </div>
+                    <div class="meta-label">Hands-On Laboratory &bull; Dynamic Nyquist Engine</div>
+                </div>
+
+                <h2 class="problem-title">5. Interactive Nyquist Laboratory &amp; Stability Engine</h2>
+
+                <div class="solution-body">
+                    <p>
+                        Use this interactive visualizer to see how the Nyquist plot evolves as frequency $\omega$ changes, and how adjusting the loop gain $K$ shifts the real-axis crossings relative to the critical point $(-1 + j0)$.
+                    </p>
+
+                    <div class="lab-container">
+                        <div class="lab-controls">
+                            <div class="control-group">
+                                <label for="plantSelect">Select University Plant:</label>
+                                <select id="plantSelect" class="control-select" onchange="updatePlant()">
+                                    <option value="p1">Plant 1: G(s)H(s) = (s+2)/((s+1)(s-1)) [JU 2024 Supp Q3, P=1]</option>
+                                    <option value="p2" selected>Plant 2: G(s)H(s) = K(s+3)/(s(s-1)) [Class Test 2024-25 Q4, P=1]</option>
+                                    <option value="p3">Plant 3: G(s)H(s) = K/(s(2s+1)(s+1)) [JU 2017 Q7, P=0, Type 1]</option>
+                                </select>
+                            </div>
+
+                            <div class="control-group" id="gainControlGroup">
+                                <label for="gainSlider">Loop Gain K: <span id="gainVal" class="slider-readout">1.50</span></label>
+                                <input type="range" id="gainSlider" class="control-slider" min="0.2" max="4.0" step="0.05" value="1.5" oninput="updateGain()">
+                            </div>
+
+                            <div class="control-group">
+                                <label for="freqSlider">Frequency $\omega$: <span id="freqVal" class="slider-readout">1.00 rad/s</span></label>
+                                <input type="range" id="freqSlider" class="control-slider" min="0.05" max="8.0" step="0.05" value="1.0" oninput="updateFreq()">
+                            </div>
+                        </div>
+
+                        <div class="canvas-grid">
+                            <div class="canvas-box">
+                                <div class="canvas-title">s-PLANE NYQUIST CONTOUR (Input Domain)</div>
+                                <canvas id="sPlaneCanvas" class="nyquist-canvas" width="400" height="320"></canvas>
+                            </div>
+                            <div class="canvas-box">
+                                <div class="canvas-title">G(s)H(s)-PLANE NYQUIST PLOT (Output Domain)</div>
+                                <canvas id="ghPlaneCanvas" class="nyquist-canvas" width="400" height="320"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="lab-readouts">
+                            <div class="metric-card">
+                                <div class="metric-title">Open-Loop Poles (P)</div>
+                                <div id="readoutP" class="metric-value">1</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">CCW Encirclements (N)</div>
+                                <div id="readoutN" class="metric-value">+1</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Closed-Loop RHP Poles (Z)</div>
+                                <div id="readoutZ" class="metric-value">0</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-title">Closed-Loop Stability</div>
+                                <div id="readoutStability"><span class="metric-badge badge-stable">STABLE (Z=0)</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- ========================================================================= -->
+            <!-- 6. THREE REAL UNIVERSITY ARCHETYPES -->
+            <!-- ========================================================================= -->
+            <article class="problem-entry" id="exam-cases">
+                <div class="problem-header">
+                    <div class="problem-tag">
+                        <span class="exam-badge">JU Semester Classics</span>
+                        <span class="marks-badge">[16M / 12M / 10M]</span>
+                    </div>
+                    <div class="meta-label">Master Archetypes &bull; Worked Solutions</div>
+                </div>
+
+                <h2 class="problem-title">6. The 3 Master University Examination Archetypes</h2>
+
+                <div class="solution-body">
+                    <!-- Archetype 1 -->
+                    <div class="solution-step">
+                        <span class="step-label">Archetype 1: Open-Loop Unstable Plant with $P=1$ [JU 2024 Supplementary Q3, 16 Marks]</span>
+                        <p>
+                            <strong>Transfer Function:</strong>
+                            $$G(s)H(s) = \frac{s+2}{(s+1)(s-1)}$$
+                        </p>
+                        <ul class="academic-list">
+                            <li><strong>Open-Loop RHP Poles:</strong> Root at $s = +1 \implies \mathbf{P = 1}$.</li>
+                            <li><strong>Frequency Response on $s=j\omega$:</strong>
+                            $$G(j\omega)H(j\omega) = -\frac{2}{1+\omega^2} - j \frac{\omega}{1+\omega^2}$$
+                            Both real and imaginary parts are strictly negative for $\omega > 0$. The locus lies entirely in the <strong>3rd quadrant</strong>!
+                            </li>
+                            <li><strong>Negative Real-Axis Intercept:</strong> At $\omega = 0$, $G(j0)H(j0) = -2 + j0$.</li>
+                            <li><strong>Encirclement of Critical Point $(-1+j0)$:</strong> Since $-2 < -1$, the closed contour encompasses $(-1+j0)$ in the counter-clockwise direction:
+                            $$\mathbf{N_{\text{ccw}} = +1}$$
+                            </li>
+                            <li><strong>Stability:</strong> $Z = P - N_{\text{ccw}} = 1 - 1 = \mathbf{0}$. The closed-loop system is <strong>STABLE</strong>!</li>
+                        </ul>
+                    </div>
+
+                    <!-- Archetype 2 -->
+                    <div class="solution-step">
+                        <span class="step-label">Archetype 2: Plant with Origin Pole &amp; RHP Pole [Class Test 2024-25 Q4 &bull; JU 2023, 12 Marks]</span>
+                        <p>
+                            <strong>Transfer Function:</strong>
+                            $$G(s)H(s) = \frac{K(s+3)}{s(s-1)}$$
+                        </p>
+                        <ul class="academic-list">
+                            <li><strong>Open-Loop RHP Poles:</strong> Root at $s = +1 \implies \mathbf{P = 1}$.</li>
+                            <li><strong>Origin Indentation ($s = \varepsilon e^{j\theta}$, $\theta: -90^\circ \to +90^\circ$):</strong>
+                            $$G(s)H(s) \approx \frac{3K}{\varepsilon e^{j\theta}(-1)} = \left(\frac{3K}{\varepsilon}\right) e^{j(180^\circ - \theta)}$$
+                            Sweeps from $+270^\circ \to 180^\circ \to +90^\circ$ (a $180^\circ$ clockwise arc through the left-half plane!).
+                            </li>
+                            <li><strong>Real-Axis Intercept:</strong> Solving $\text{Im}[G(j\omega)H(j\omega)] = 0$ yields $\omega_{pc} = \sqrt{3}\text{ rad/s}$.
+                            $$\text{Re}[G(j\sqrt{3})H(j\sqrt{3})] = -K$$
+                            </li>
+                            <li><strong>Stability Condition:</strong> For stability with $P=1$, we must have $N_{\text{ccw}} = 1$. The locus encircles $-1+j0$ counter-clockwise if and only if the intercept $-K$ lies to the left of $-1$:
+                            $$-K < -1 \iff \mathbf{K > 1}$$
+                            </li>
+                            <li><strong>Conclusion:</strong> Closed-loop system is STABLE for $K > 1$; UNSTABLE for $K < 1$.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Archetype 3 -->
+                    <div class="solution-step">
+                        <span class="step-label">Archetype 3: Type 1 Third-Order System [JU 2017 Q7, 16 Marks]</span>
+                        <p>
+                            <strong>Transfer Function:</strong>
+                            $$G(s)H(s) = \frac{1}{s(2s+1)(s+1)}$$
+                        </p>
+                        <ul class="academic-list">
+                            <li><strong>Open-Loop RHP Poles:</strong> $P = 0$ (All poles at $s=0, -0.5, -1$ are in LHP or origin).</li>
+                            <li><strong>Phase Crossover Frequency:</strong>
+                            $$\angle G(j\omega)H(j\omega) = -90^\circ - \tan^{-1}(2\omega) - \tan^{-1}(\omega) = -180^\circ \implies \mathbf{\omega_{pc} = \frac{1}{\sqrt{2}} \approx 0.707\text{ rad/s}}$$
+                            </li>
+                            <li><strong>Magnitude at $\omega_{pc}$:</strong>
+                            $$|G(j\omega_{pc})H(j\omega_{pc})| = \frac{1}{\frac{1}{\sqrt{2}} \cdot \sqrt{1 + 2} \cdot \sqrt{1 + 0.5}} = \frac{1}{\frac{1}{\sqrt{2}} \cdot \sqrt{3} \cdot \sqrt{1.5}} = \frac{1}{1.5} = \mathbf{\frac{2}{3} \approx 0.667}$$
+                            The locus crosses the negative real axis at coordinate $\mathbf{-0.667 + j0}$.
+                            </li>
+                            <li><strong>Stability:</strong> Since $-0.667 > -1$, the critical point $(-1+j0)$ is NOT enclosed!
+                            $$N_{\text{ccw}} = 0 \implies Z = P - N_{\text{ccw}} = 0 - 0 = \mathbf{0}$$
+                            The closed-loop system is strictly <strong>STABLE</strong>!
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+            <!-- ========================================================================= -->
+            <!-- 7. GAIN MARGIN AND PHASE MARGIN -->
+            <!-- ========================================================================= -->
+            <article class="problem-entry" id="margins">
+                <div class="problem-header">
+                    <div class="problem-tag">
+                        <span class="exam-badge">JU 2024 Supplementary Q5(iii)</span>
+                        <span class="marks-badge">[08 Marks]</span>
+                    </div>
+                    <div class="meta-label">Short Note Topic &bull; Relative Stability Metrics</div>
+                </div>
+
+                <h2 class="problem-title">7. Ascertaining Gain Margin and Phase Margin from the Open-Loop Polar Plot</h2>
+
+                <div class="solution-body">
+                    <p>
+                        In examination papers (e.g. JU 2024 Supplementary Q5(iii) for 8 Marks), students are asked to explain how Gain Margin and Phase Margin are ascertained directly from the polar plot.
+                    </p>
+
+                    <div class="solution-step">
+                        <span class="step-label">1. Gain Crossover Frequency ($\omega_{gc}$) &amp; Phase Margin ($PM$)</span>
+                        <ul class="academic-list">
+                            <li><strong>Definition of $\omega_{gc}$:</strong> The frequency at which the open-loop magnitude equals unity ($1.0$):
+                            $$|G(j\omega_{gc})H(j\omega_{gc})| = 1.0$$
+                            <em>Graphical Representation:</em> It is the intersection point of the polar plot with the <strong>Unit Circle</strong> centered at the origin.
+                            </li>
+                            <li><strong>Phase Margin ($PM$):</strong> The additional phase lag that can be introduced into the system at $\omega_{gc}$ before it becomes unstable:
+                            $$\mathbf{PM = 180^\circ + \angle G(j\omega_{gc})H(j\omega_{gc})}$$
+                            <em>Graphical Measurement:</em> Draw a radial line from the origin to the unit-circle intersection point. The angle measured counter-clockwise from the negative real axis ($-180^\circ$) to this line is the Phase Margin.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="solution-step">
+                        <span class="step-label">2. Phase Crossover Frequency ($\omega_{pc}$) &amp; Gain Margin ($GM$)</span>
+                        <ul class="academic-list">
+                            <li><strong>Definition of $\omega_{pc}$:</strong> The frequency at which the open-loop phase angle is $-180^\circ$:
+                            $$\angle G(j\omega_{pc})H(j\omega_{pc}) = -180^\circ \iff \text{Im}[G(j\omega_{pc})H(j\omega_{pc})] = 0$$
+                            <em>Graphical Representation:</em> It is the intersection point of the polar plot with the <strong>negative real axis</strong>. Let the distance from the origin to this point be $a = |G(j\omega_{pc})H(j\omega_{pc})|$.
+                            </li>
+                            <li><strong>Gain Margin ($GM$):</strong> The reciprocal of the magnitude at the phase crossover frequency:
+                            $$\mathbf{GM = \frac{1}{|G(j\omega_{pc})H(j\omega_{pc})|} = \frac{1}{a}}$$
+                            $$\mathbf{GM_{\text{dB}} = 20 \log_{10}(GM) = -20 \log_{10}(a)}$$
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="formula-callout">
+                        <strong>Stability Criterion from Margins:</strong>
+                        For an open-loop stable, minimum-phase system:
+                        <ul>
+                            <li><strong>Stable:</strong> $\omega_{gc} < \omega_{pc} \implies GM > 1\text{ (positive in dB)}$ and $PM > 0^\circ$.</li>
+                            <li><strong>Marginally Stable:</strong> $\omega_{gc} = \omega_{pc} \implies GM = 1\text{ (0 dB)}$ and $PM = 0^\circ$.</li>
+                            <li><strong>Unstable:</strong> $\omega_{gc} > \omega_{pc} \implies GM < 1\text{ (negative in dB)}$ and $PM < 0^\circ$.</li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+        </main>
+
+        <footer class="site-footer">
+            <p>Jadavpur University &bull; Department of Electrical Engineering &bull; Linear Control Systems (EE313) Masterclass</p>
+            <p>Designed for Rigorous Visual &amp; Pedagogical Retention &bull; Session 2024–2026</p>
+        </footer>
+    </div>
+
+    <!-- Interactive Simulation Scripts -->
+    <script>
+        // Interactive Canvas Engine for Nyquist Lab
+        const sCanvas = document.getElementById('sPlaneCanvas');
+        const ghCanvas = document.getElementById('ghPlaneCanvas');
+        const sCtx = sCanvas.getContext('2d');
+        const ghCtx = ghCanvas.getContext('2d');
+
+        let currentPlant = 'p2';
+        let currentK = 1.5;
+        let currentOmega = 1.0;
+
+        function updatePlant() {
+            currentPlant = document.getElementById('plantSelect').value;
+            const gainGroup = document.getElementById('gainControlGroup');
+            if (currentPlant === 'p1') {
+                gainGroup.style.display = 'none';
+            } else {
+                gainGroup.style.display = 'flex';
+            }
+            render();
+        }
+
+        function updateGain() {
+            currentK = parseFloat(document.getElementById('gainSlider').value);
+            document.getElementById('gainVal').textContent = currentK.toFixed(2);
+            render();
+        }
+
+        function updateFreq() {
+            currentOmega = parseFloat(document.getElementById('freqSlider').value);
+            document.getElementById('freqVal').textContent = currentOmega.toFixed(2) + ' rad/s';
+            render();
+        }
+
+        function evaluateGH(plant, K, w) {
+            if (plant === 'p1') {
+                // G(s)H(s) = (s+2)/((s+1)(s-1))
+                // G(jw) = -2/(1+w^2) - j*w/(1+w^2)
+                const denom = 1 + w * w;
+                return { re: -2 / denom, im: -w / denom };
+            } else if (plant === 'p2') {
+                // G(s)H(s) = K(s+3)/(s(s-1))
+                // s(s-1) = -w^2 - jw
+                // numerator = K*(3 + jw)
+                // GH(jw) = K(3+jw)/(-w^2 - jw) = K(3+jw)(-w^2 + jw)/(w^4 + w^2)
+                // = K [ -3w^2 - w^2 + j(3w - w^3) ] / (w^2(w^2 + 1))
+                // re = K * (-4) / (w^2 + 1)
+                // im = K * (3 - w^2) / (w * (w^2 + 1))
+                const d = w * w + 1;
+                return { re: K * (-4) / d, im: K * (3 - w * w) / (w * d) };
+            } else if (plant === 'p3') {
+                // G(s)H(s) = K / (s(2s+1)(s+1))
+                // s=jw: jw(1 + 2jw)(1 + jw) = jw(1 - 2w^2 + 3jw) = -3w^2 + jw(1 - 2w^2)
+                // GH(jw) = K / [ -3w^2 + jw(1 - 2w^2) ]
+                // = K [ -3w^2 - jw(1 - 2w^2) ] / [ 9w^4 + w^2(1 - 2w^2)^2 ]
+                const denom = 9 * Math.pow(w, 4) + (w * w) * Math.pow(1 - 2 * w * w, 2);
+                return { re: K * (-3 * w * w) / denom, im: K * (-w * (1 - 2 * w * w)) / denom };
+            }
+            return { re: 0, im: 0 };
+        }
+
+        function render() {
+            drawSPlane();
+            drawGHPlane();
+            updateMetrics();
+        }
+
+        function drawSPlane() {
+            const w = sCanvas.width;
+            const h = sCanvas.height;
+            sCtx.clearRect(0, 0, w, h);
+
+            const ox = w * 0.45;
+            const oy = h * 0.5;
+            const scale = 50;
+
+            // Grid & Axes
+            sCtx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--rule') || '#ccc';
+            sCtx.lineWidth = 1;
+            sCtx.beginPath();
+            sCtx.moveTo(0, oy); sCtx.lineTo(w, oy);
+            sCtx.moveTo(ox, 0); sCtx.lineTo(ox, h);
+            sCtx.stroke();
+
+            // Right-half plane shading
+            sCtx.fillStyle = 'rgba(239, 68, 68, 0.06)';
+            sCtx.fillRect(ox, 0, w - ox, h);
+
+            // Labels
+            sCtx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--ink') || '#222';
+            sCtx.font = '11px JetBrains Mono';
+            sCtx.fillText('Re(s)', w - 45, oy - 8);
+            sCtx.fillText('jIm(s)', ox + 8, 16);
+            sCtx.fillText('RHP (Unstable)', ox + 20, 35);
+
+            // Contour Path C1 (positive jw)
+            sCtx.strokeStyle = '#1d4ed8';
+            sCtx.lineWidth = 2.5;
+            sCtx.beginPath();
+            sCtx.moveTo(ox, oy);
+            sCtx.lineTo(ox, 0);
+            sCtx.stroke();
+
+            // Active s point
+            const curY = oy - currentOmega * (scale * 0.5);
+            sCtx.fillStyle = '#b44029';
+            sCtx.beginPath();
+            sCtx.arc(ox, curY, 6, 0, 2 * Math.PI);
+            sCtx.fill();
+
+            sCtx.fillStyle = '#b44029';
+            sCtx.font = 'bold 11px JetBrains Mono';
+            sCtx.fillText('s = +j' + currentOmega.toFixed(1), ox + 10, curY + 4);
+
+            // Open-loop poles markers
+            if (currentPlant === 'p1') {
+                // pole at s = -1 and s = +1
+                drawCross(sCtx, ox - 1 * scale, oy, '#16a34a', 'p=-1');
+                drawCross(sCtx, ox + 1 * scale, oy, '#dc2626', 'p=+1 (RHP)');
+            } else if (currentPlant === 'p2') {
+                drawCross(sCtx, ox, oy, '#d97706', 'p=0');
+                drawCross(sCtx, ox + 1 * scale, oy, '#dc2626', 'p=+1 (RHP)');
+            } else if (currentPlant === 'p3') {
+                drawCross(sCtx, ox, oy, '#d97706', 'p=0');
+                drawCross(sCtx, ox - 0.5 * scale, oy, '#16a34a', 'p=-0.5');
+                drawCross(sCtx, ox - 1 * scale, oy, '#16a34a', 'p=-1');
+            }
+        }
+
+        function drawCross(ctx, x, y, color, label) {
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(x - 5, y - 5); ctx.lineTo(x + 5, y + 5);
+            ctx.moveTo(x + 5, y - 5); ctx.lineTo(x - 5, y + 5);
+            ctx.stroke();
+            if (label) {
+                ctx.fillStyle = color;
+                ctx.font = '10px JetBrains Mono';
+                ctx.fillText(label, x - 12, y - 8);
+            }
+        }
+
+        function drawGHPlane() {
+            const w = ghCanvas.width;
+            const h = ghCanvas.height;
+            ghCtx.clearRect(0, 0, w, h);
+
+            const ox = w * 0.65;
+            const oy = h * 0.5;
+            const scale = 55;
+
+            // Grid & Axes
+            ghCtx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--rule') || '#ccc';
+            ghCtx.lineWidth = 1;
+            ghCtx.beginPath();
+            ghCtx.moveTo(0, oy); ghCtx.lineTo(w, oy);
+            ghCtx.moveTo(ox, 0); ghCtx.lineTo(ox, h);
+            ghCtx.stroke();
+
+            // Unit circle (|GH| = 1.0)
+            ghCtx.strokeStyle = 'rgba(100, 100, 100, 0.35)';
+            ghCtx.setLineDash([4, 4]);
+            ghCtx.beginPath();
+            ghCtx.arc(ox, oy, scale, 0, 2 * Math.PI);
+            ghCtx.stroke();
+            ghCtx.setLineDash([]);
+
+            // Critical Point (-1 + j0)
+            const critX = ox - 1 * scale;
+            ghCtx.fillStyle = '#dc2626';
+            ghCtx.beginPath();
+            ghCtx.arc(critX, oy, 5.5, 0, 2 * Math.PI);
+            ghCtx.fill();
+            ghCtx.font = 'bold 11px JetBrains Mono';
+            ghCtx.fillText('-1+j0', critX - 16, oy - 10);
+
+            // Labels
+            ghCtx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--ink') || '#222';
+            ghCtx.font = '11px JetBrains Mono';
+            ghCtx.fillText('Re[GH]', w - 50, oy - 8);
+            ghCtx.fillText('jIm[GH]', ox + 8, 16);
+
+            // Draw full Polar Plot for w: 0.05 to 15
+            ghCtx.strokeStyle = '#1d4ed8';
+            ghCtx.lineWidth = 2.2;
+            ghCtx.beginPath();
+
+            let first = true;
+            for (let omega = 0.05; omega <= 15; omega += 0.05) {
+                const pt = evaluateGH(currentPlant, currentK, omega);
+                const px = ox + pt.re * scale;
+                const py = oy - pt.im * scale;
+                if (px > -100 && px < w + 100 && py > -100 && py < h + 100) {
+                    if (first) { ghCtx.moveTo(px, py); first = false; }
+                    else { ghCtx.lineTo(px, py); }
+                }
+            }
+            ghCtx.stroke();
+
+            // Draw negative frequencies (mirror conjugate in dashed red)
+            ghCtx.strokeStyle = '#ef4444';
+            ghCtx.lineWidth = 1.6;
+            ghCtx.setLineDash([4, 3]);
+            ghCtx.beginPath();
+            first = true;
+            for (let omega = 15; omega >= 0.05; omega -= 0.05) {
+                const pt = evaluateGH(currentPlant, currentK, omega);
+                const px = ox + pt.re * scale;
+                const py = oy + pt.im * scale; // negated imaginary part
+                if (px > -100 && px < w + 100 && py > -100 && py < h + 100) {
+                    if (first) { ghCtx.moveTo(px, py); first = false; }
+                    else { ghCtx.lineTo(px, py); }
+                }
+            }
+            ghCtx.stroke();
+            ghCtx.setLineDash([]);
+
+            // Current Operating Point for chosen currentOmega
+            const curPt = evaluateGH(currentPlant, currentK, currentOmega);
+            const curX = ox + curPt.re * scale;
+            const curY = oy - curPt.im * scale;
+
+            // Vector from -1+j0 to current point
+            ghCtx.strokeStyle = '#16a34a';
+            ghCtx.lineWidth = 1.8;
+            ghCtx.beginPath();
+            ghCtx.moveTo(critX, oy);
+            ghCtx.lineTo(curX, curY);
+            ghCtx.stroke();
+
+            // Point marker
+            ghCtx.fillStyle = '#b44029';
+            ghCtx.beginPath();
+            ghCtx.arc(curX, curY, 6, 0, 2 * Math.PI);
+            ghCtx.fill();
+
+            ghCtx.fillStyle = '#b44029';
+            ghCtx.font = 'bold 11px JetBrains Mono';
+            ghCtx.fillText('G(j' + currentOmega.toFixed(1) + ')', curX + 8, curY + 4);
+        }
+
+        function updateMetrics() {
+            let pVal = 0;
+            let nVal = 0;
+            let zVal = 0;
+            let isStable = false;
+
+            if (currentPlant === 'p1') {
+                pVal = 1;
+                nVal = 1; // Always crosses at -2, encircles -1 CCW
+                zVal = 0;
+                isStable = true;
+            } else if (currentPlant === 'p2') {
+                pVal = 1;
+                // crosses real axis at w = sqrt(3) with Re = -K
+                if (currentK > 1.0) {
+                    nVal = 1;
+                    zVal = 0;
+                    isStable = true;
+                } else {
+                    nVal = 0;
+                    zVal = 1;
+                    isStable = false;
+                }
+            } else if (currentPlant === 'p3') {
+                pVal = 0;
+                // crosses at w = 1/sqrt(2) = 0.707 with Re = -2K/3
+                // For K < 1.5, Re > -1 => N = 0 => Z = 0 (stable)
+                // For K > 1.5, Re < -1 => N = -2 (encircles CW twice) => Z = 2 (unstable)
+                if (currentK < 1.5) {
+                    nVal = 0;
+                    zVal = 0;
+                    isStable = true;
+                } else {
+                    nVal = -2;
+                    zVal = 2;
+                    isStable = false;
+                }
+            }
+
+            document.getElementById('readoutP').textContent = pVal;
+            document.getElementById('readoutN').textContent = (nVal >= 0 ? '+' : '') + nVal;
+            document.getElementById('readoutZ').textContent = zVal;
+
+            const stabContainer = document.getElementById('readoutStability');
+            if (isStable) {
+                stabContainer.innerHTML = '<span class="metric-badge badge-stable">STABLE (Z=0)</span>';
+            } else {
+                stabContainer.innerHTML = '<span class="metric-badge badge-unstable">UNSTABLE (Z=' + zVal + ')</span>';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            updatePlant();
+        });
+    </script>
+</body>
+</html>
