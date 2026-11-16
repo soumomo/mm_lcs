@@ -475,14 +475,173 @@ hr {
     margin: 1em 0 !important;
 }
 
-/* Footer */
+/* Footer & Kitty Interactive */
 .site-footer {
-    padding: 48px 0;
-    border-top: 1px solid var(--ink);
+    padding: 40px 0 60px;
+    border-top: 1px solid var(--rule);
     margin-top: 60px;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 20px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
     color: var(--muted);
+    text-align: center;
+}
+
+.kitty-wrapper {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    user-select: none;
+    -webkit-user-select: none;
+    margin: 0 auto;
+}
+
+.kitty-container {
+    position: relative;
+    width: 130px;
+    height: 100px;
+    cursor: pointer;
+    touch-action: manipulation;
+}
+
+.kitty-svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    transition: transform 0.18s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.kitty-container:hover .kitty-svg {
+    transform: scale(1.05);
+}
+
+.kitty-container:active .kitty-svg {
+    transform: scale(0.95) translateY(3px);
+}
+
+/* Tail Animation */
+.kitty-tail {
+    transform-origin: 115px 95px;
+    animation: kittyTailWiggle 3.8s ease-in-out infinite;
+}
+
+@keyframes kittyTailWiggle {
+    0%, 100% { transform: rotate(0deg); }
+    30% { transform: rotate(14deg); }
+    70% { transform: rotate(-8deg); }
+}
+
+/* Ear Twitches */
+.kitty-ear-left {
+    transform-origin: 58px 40px;
+    animation: kittyEarLeft 6s ease-in-out infinite;
+}
+.kitty-ear-right {
+    transform-origin: 102px 40px;
+    animation: kittyEarRight 7.5s ease-in-out infinite 1.2s;
+}
+
+@keyframes kittyEarLeft {
+    0%, 90%, 100% { transform: rotate(0deg); }
+    93% { transform: rotate(-8deg); }
+    96% { transform: rotate(4deg); }
+}
+
+@keyframes kittyEarRight {
+    0%, 92%, 100% { transform: rotate(0deg); }
+    95% { transform: rotate(8deg); }
+    98% { transform: rotate(-3deg); }
+}
+
+/* Eyes Blinking & Happy */
+.kitty-eye-open {
+    opacity: 1;
+    transition: opacity 0.08s ease;
+}
+.kitty-eye-closed {
+    opacity: 0;
+    transition: opacity 0.08s ease;
+}
+
+.is-blinking .kitty-eye-open,
+.is-happy .kitty-eye-open {
+    opacity: 0;
+}
+
+.is-blinking .kitty-eye-closed,
+.is-happy .kitty-eye-closed {
+    opacity: 1;
+}
+
+/* Speech / Purr Bubble */
+.kitty-bubble {
+    position: absolute;
+    top: -26px;
+    left: 50%;
+    transform: translateX(-50%) translateY(4px);
+    background: var(--card-bg);
+    border: 1px solid var(--rule);
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+    z-index: 10;
+}
+
+.kitty-bubble.visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-6px);
+}
+
+/* Floating Hearts on Pet */
+.kitty-heart {
+    position: absolute;
+    color: var(--accent);
+    font-size: 15px;
+    pointer-events: none;
+    animation: kittyFloatHeart 0.9s ease-out forwards;
+    z-index: 12;
+}
+
+@keyframes kittyFloatHeart {
+    0% {
+      opacity: 1;
+      transform: translateY(0) scale(0.6);
+    }
+    50% {
+      opacity: 0.9;
+      transform: translateY(-24px) scale(1.2) rotate(-10deg);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-44px) scale(0.9) rotate(15deg);
+    }
+}
+
+/* Caption / Counter */
+.kitty-caption {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 4px;
+    opacity: 0.75;
+    transition: opacity 0.2s ease, color 0.2s ease;
+}
+
+.kitty-wrapper:hover .kitty-caption {
+    opacity: 1;
+    color: var(--accent);
 }
