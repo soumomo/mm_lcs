@@ -46,6 +46,40 @@
         .sfg-loop-line { stroke: var(--accent); stroke-width: 1.8; fill: none; }
         .marker-ink { fill: var(--ink); }
         .marker-accent { fill: var(--accent); }
+        .exam-fig-box {
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 16px;
+            margin: 18px 0;
+            text-align: center;
+        }
+        .exam-fig-box img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .exam-fig-caption {
+            font-family: var(--mono);
+            font-size: 11.5px;
+            color: var(--muted);
+            margin-top: 8px;
+            letter-spacing: 0.3px;
+        }
+        .badge-method {
+            display: inline-block;
+            font-family: var(--mono);
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 4px;
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            color: var(--accent);
+            margin-right: 6px;
+        }
     </style>
 </head>
 <body>
@@ -57,12 +91,13 @@
             </a>
             <nav class="site-nav">
                 <a href="index.html">&larr; Portal</a>
-                <a href="#bd-to-sfg">BD to SFG</a>
-                <a href="#masons-formula">Mason's Formula</a>
-                <a href="#complex-sfg">Complex SFG Problem</a>
-                <a href="#bd-reduction-rules">BD Reduction Rules</a>
-                <a href="#disturbance-rejection">Disturbance Rejection</a>
-                <a href="#liquid-level-modeling">Liquid Level Modeling</a>
+                <a href="#masons-definitions">Definitions &amp; Mason</a>
+                <a href="#fig-p3-system">Fig. P-3 (JU 2023)</a>
+                <a href="#fig-p10-system">Fig. P-10 (JU 2019)</a>
+                <a href="#bd-to-sfg">BD to SFG (JU 2024)</a>
+                <a href="#disturbance-rejection">Disturbance Superposition</a>
+                <a href="#liquid-level-modeling">Two-Tank Modeling</a>
+                <a href="#bd-rules-summary">BD Rules Summary</a>
                 <div class="reading-progress-pill" title="Line-by-line reading progress">
                     <span class="progress-track-mini"><span class="progress-fill-mini"></span></span>
                     <span class="progress-percentage-val">0%</span>
@@ -80,7 +115,780 @@
 
         <main>
             <!-- ========================================================================= -->
-            <!-- 1. [JU 2024 Regular Q2(b) & 2018 Q9(b)] [6M] -->
+            <!-- 1. [JU 2024 Regular Q2(a) & 2023 Regular Q3(a) & 2019 Q10(a)] [6M / 5M / 4M] -->
+            <!-- ========================================================================= -->
+            <article class="problem-entry" id="masons-definitions">
+                <div class="problem-header">
+                    <div class="problem-tag">
+                        <span class="exam-badge">JU 2024 Regular Q2(a) &bull; JU 2023 Regular Q3(a) &bull; JU 2019 Q10(a)</span>
+                        <span class="marks-badge">[6 Marks / 5 Marks / 4 Marks]</span>
+                    </div>
+                    <div class="meta-label">Graph Theory &bull; Core Examination Definitions</div>
+                </div>
+
+                <h2 class="problem-title">Signal Flow Graph Nomenclature &amp; State and Explain Mason's Gain Formula</h2>
+
+                <div class="question-prompt">
+                    &ldquo;(a) In the context of signal flow graph define source, path and loop. (CO3) [JU 2024 Regular Q2(a), 06 M]<br>
+                    (b) State and explain Mason's Gain formula with definitions of all associated topological symbols. (CO3) [JU 2023 Regular Q3(a), 05 M &amp; JU 2019 Q10(a), 04 M]&rdquo;
+                </div>
+
+                <div class="solution-body">
+                    <div class="solution-step">
+                        <span class="step-label">Part (a): Formal Topological Definitions for Signal Flow Graphs</span>
+                        <p>
+                            A <strong>Signal Flow Graph (SFG)</strong> is a directed graph consisting of a network of nodes connected by directed line segments called branches. Each node represents a system variable, and each branch acts as a unidirectional signal transmitter governed by an algebraic relation.
+                        </p>
+
+                        <table class="academic-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 25%;">Topological Term</th>
+                                    <th style="width: 45%;">Formal Definition (Prof. MM Lecture Notes)</th>
+                                    <th style="width: 30%;">Mathematical / Physical Meaning</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>1. Node ($x_k$)</strong></td>
+                                    <td>A point representing an independent or dependent system variable. Signals entering a node sum together algebraically.</td>
+                                    <td>Algebraic junction: $x_k = \sum_{j} t_{jk} x_j$.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>2. Source Node (Input Node)</strong></td>
+                                    <td>A node having <strong>only outgoing branches</strong> and no incoming branches.</td>
+                                    <td>Independent excitation / reference command $R(s)$. $\deg^-(x_0) = 0, \deg^+(x_0) \ge 1$.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>3. Sink Node (Output Node)</strong></td>
+                                    <td>A node having <strong>only incoming branches</strong> and no outgoing branches.</td>
+                                    <td>Controlled output response $C(s)$. $\deg^+(x_n) = 0, \deg^-(x_n) \ge 1$.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>4. Path</strong></td>
+                                    <td>A continuous, connected sequence of directed branches traversed strictly in the direction of the branch arrows, passing through <strong>no node more than once</strong>.</td>
+                                    <td>Unidirectional chain of signal transmission without repetition.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>5. Forward Path</strong></td>
+                                    <td>A path that starts at a <strong>source node</strong> and ends at a <strong>sink node</strong>, traversing no intermediate node more than once.</td>
+                                    <td>Direct signal transmission route from input $R(s)$ to output $C(s)$.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>6. Forward Path Gain ($P_k$)</strong></td>
+                                    <td>The product of the branch gains (transmittances) encountered along the $k$-th forward path:
+                                    $$P_k = \prod_{b \in P_k} t_b$$</td>
+                                    <td>Net forward amplification factor along the $k$-th direct path.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>7. Feedback Loop (Loop)</strong></td>
+                                    <td>A closed path that starts and ends at the <strong>exact same node</strong>, passing through no other node more than once.</td>
+                                    <td>Closed feedback loop causing circular signal flow.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>8. Loop Gain ($L_i$)</strong></td>
+                                    <td>The product of all branch gains (transmittances) around the $i$-th closed feedback loop:
+                                    $$L_i = \prod_{b \in L_i} t_b$$</td>
+                                    <td>Open-loop transmission factor around a closed feedback path.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>9. Non-Touching Loops</strong></td>
+                                    <td>Two or more feedback loops that <strong>do not share any common node</strong> (their node vertex sets are strictly disjoint: $V(L_i) \cap V(L_j) = \emptyset$).</td>
+                                    <td>Topologically independent loops with zero mutual interaction.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="solution-step">
+                        <span class="step-label">Part (b): Statement &amp; Explanation of Mason's Gain Formula</span>
+                        <p>
+                            <strong>Statement:</strong> The overall transmission (closed-loop transfer function) between an input source node $R(s)$ and an output sink node $C(s)$ of an LTI system represented by a signal flow graph is given by:
+                        </p>
+                        $$\mathbf{T = \frac{C(s)}{R(s)} = \frac{\sum_{k=1}^N P_k \Delta_k}{\Delta}}$$
+
+                        <p><strong>Explanation of Symbols:</strong></p>
+                        <ul class="academic-list">
+                            <li>
+                                <strong>$N$:</strong> Total number of distinct forward paths from input source $R(s)$ to output sink $C(s)$.
+                            </li>
+                            <li>
+                                <strong>$P_k$:</strong> Path gain (transmittance product) of the $k$-th forward path.
+                            </li>
+                            <li>
+                                <strong>$\Delta$:</strong> Graph determinant (characteristic determinant) of the entire signal flow graph, defined by the alternating series:
+                                $$\mathbf{\Delta = 1 - \sum L_i + \sum L_i L_j - \sum L_i L_j L_k + \dots}$$
+                                where:
+                                <ul>
+                                    <li>$\sum L_i$ = Sum of loop gains of all individual feedback loops in the graph.</li>
+                                    <li>$\sum L_i L_j$ = Sum of products of loop gains of all possible combinations of <strong>two non-touching loops</strong>.</li>
+                                    <li>$\sum L_i L_j L_k$ = Sum of products of loop gains of all possible combinations of <strong>three non-touching loops</strong>.</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <strong>$\Delta_k$:</strong> Cofactor of the $k$-th forward path. It is evaluated as the value of $\Delta$ for that portion of the signal flow graph that does <strong>not touch</strong> (shares no node with) the $k$-th forward path:
+                                $$\Delta_k = 1 - \sum L_{i,k} + \sum L_{i,k} L_{j,k} - \dots$$
+                                where all loops touching the $k$-th forward path are set to zero. If all feedback loops share at least one node with path $P_k$, then $\Delta_k = 1$.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="examiner-note">
+                        <strong>Exam Strategy Note (Prof. MM Standard):</strong>
+                        In Jadavpur University semester examinations, never derive Mason's Gain formula using matrix determinants or Cramer's rule unless explicitly asked (which has never occurred in the last 15 years). Always state the formula clearly, define every symbol ($N, P_k, \Delta, \Delta_k, L_i$), and specify how non-touching loop products are accounted for.
+                    </div>
+                </div>
+            </article>
+
+            <!-- ========================================================================= -->
+            <!-- 2. [JU 2023 Regular Q3(b) & Q3(b) OR] [8M + 8M] -->
+            <!-- ========================================================================= -->
+            <article class="problem-entry" id="fig-p3-system">
+                <div class="problem-header">
+                    <div class="problem-tag">
+                        <span class="exam-badge">JU 2023 Regular Q3(b) &bull; Q3(b) OR</span>
+                        <span class="marks-badge">[8 Marks + 8 Marks]</span>
+                    </div>
+                    <div class="meta-label">Master Benchmark &bull; Dual-Method Solution &bull; Fig. P-3</div>
+                </div>
+
+                <h2 class="problem-title">Multiple-Loop Feedback System with Feedforward Bypass (Fig. P-3)</h2>
+
+                <div class="question-prompt">
+                    &ldquo;<strong>Q3b.</strong> Construct the Signal Flow Graph for the system shown in Fig. P-3. Find out the closed loop transfer function of the system using Mason's Gain Formula. (CO3) [08 M]<br>
+                    <strong>OR Q3b.</strong> Find out the ratio $\frac{C(s)}{R(s)}$ for the multiple-loop system shown in Fig. P-3 using block diagram reduction technique. (CO3) [08 M]&rdquo;
+                </div>
+
+                <!-- Authentic Question Paper Scan -->
+                <div class="exam-fig-box">
+                    <img src="fig_p3_ju2023.png" alt="JU 2023 Regular Question Paper Fig. P-3">
+                    <div class="exam-fig-caption">Fig. 4.1: Authentic Scan of Fig. P-3 from Jadavpur University B.E.E. 3rd Year 1st Sem Examination Paper (2023 Regular)</div>
+                </div>
+
+                <div class="solution-body">
+                    <!-- Vector SVG: Clean Master Block Diagram for Fig. P-3 -->
+                    <div class="svg-diagram-wrapper">
+                        <svg width="780" height="260" viewBox="0 0 780 260" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <marker id="arr-p3" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                    <path d="M 0 1.5 L 8 5 L 0 8.5 z" class="marker-ink" />
+                                </marker>
+                                <marker id="arr-p3-acc" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                    <path d="M 0 1.5 L 8 5 L 0 8.5 z" class="marker-accent" />
+                                </marker>
+                            </defs>
+
+                            <!-- Reference Input R -->
+                            <line x1="20" y1="100" x2="68" y2="100" class="bd-wire" marker-end="url(#arr-p3)" />
+                            <text x="25" y="90" class="bd-text-bold">R(s)</text>
+
+                            <!-- Pick-off Point Before Summer 1 for G4 Feedforward -->
+                            <circle cx="55" cy="100" r="3.5" class="bd-node" />
+                            <line x1="55" y1="100" x2="55" y2="220" class="bd-wire" />
+                            <line x1="55" y1="220" x2="250" y2="220" class="bd-wire" marker-end="url(#arr-p3)" />
+                            
+                            <!-- Block G4 (Feedforward bypass) -->
+                            <rect x="250" y="200" width="60" height="38" class="bd-block" />
+                            <text x="280" y="224" text-anchor="middle" class="bd-text-bold">G₄</text>
+                            
+                            <line x1="310" y1="220" x2="690" y2="220" class="bd-wire" />
+                            <line x1="690" y1="220" x2="690" y2="114" class="bd-wire" marker-end="url(#arr-p3)" />
+                            <text x="696" y="125" class="bd-text-bold" fill="var(--ink)">+</text>
+
+                            <!-- Summer 1 -->
+                            <circle cx="80" cy="100" r="12" class="bd-summer" />
+                            <text x="70" y="95" class="bd-text-bold" fill="var(--ink)">+</text>
+                            <text x="75" y="122" class="bd-text-bold" fill="var(--accent)">+</text>
+
+                            <!-- Line Summer 1 to G1 -->
+                            <line x1="92" y1="100" x2="138" y2="100" class="bd-wire" marker-end="url(#arr-p3)" />
+
+                            <!-- Block G1 -->
+                            <rect x="140" y="80" width="55" height="40" class="bd-block" />
+                            <text x="167" y="105" text-anchor="middle" class="bd-text-bold">G₁</text>
+
+                            <!-- Line G1 to Summer 2 -->
+                            <line x1="195" y1="100" x2="238" y2="100" class="bd-wire" marker-end="url(#arr-p3)" />
+
+                            <!-- Summer 2 -->
+                            <circle cx="250" cy="100" r="12" class="bd-summer" />
+                            <text x="240" y="95" class="bd-text-bold" fill="var(--ink)">+</text>
+                            <text x="246" y="82" class="bd-text-bold" fill="var(--accent)">−</text>
+                            <text x="246" y="122" class="bd-text-bold" fill="var(--accent)">−</text>
+
+                            <!-- Line Summer 2 to G2 -->
+                            <line x1="262" y1="100" x2="308" y2="100" class="bd-wire" marker-end="url(#arr-p3)" />
+
+                            <!-- Block G2 -->
+                            <rect x="310" y="80" width="55" height="40" class="bd-block" />
+                            <text x="337" y="105" text-anchor="middle" class="bd-text-bold">G₂</text>
+
+                            <!-- Pick-off Point after G2 -->
+                            <line x1="365" y1="100" x2="448" y2="100" class="bd-wire" marker-end="url(#arr-p3)" />
+                            <circle cx="400" cy="100" r="3.5" class="bd-node" />
+                            <text x="395" y="90" class="bd-text-muted">X₂</text>
+
+                            <!-- Feedback H1 branch (downwards from pick-off 400) -->
+                            <line x1="400" y1="100" x2="400" y2="160" class="bd-wire-accent" />
+                            <line x1="400" y1="160" x2="368" y2="160" class="bd-wire-accent" marker-end="url(#arr-p3-acc)" />
+                            
+                            <!-- Block H1 -->
+                            <rect x="310" y="142" width="55" height="36" class="bd-block-accent" />
+                            <text x="337" y="165" text-anchor="middle" class="bd-text-accent">H₁</text>
+
+                            <!-- Line from H1 branching to Summer 2 and Summer 1 -->
+                            <line x1="310" y1="160" x2="250" y2="160" class="bd-wire-accent" />
+                            <circle cx="250" cy="160" r="3.5" class="bd-node-accent" />
+                            <!-- Into Summer 2 (-) -->
+                            <line x1="250" y1="160" x2="250" y2="114" class="bd-wire-accent" marker-end="url(#arr-p3-acc)" />
+                            <!-- Towards Summer 1 (+) -->
+                            <line x1="250" y1="160" x2="80" y2="160" class="bd-wire-accent" />
+                            <line x1="80" y1="160" x2="80" y2="114" class="bd-wire-accent" marker-end="url(#arr-p3-acc)" />
+
+                            <!-- Block G3 -->
+                            <rect x="450" y="80" width="55" height="40" class="bd-block" />
+                            <text x="477" y="105" text-anchor="middle" class="bd-text-bold">G₃</text>
+
+                            <!-- Pick-off Point after G3 -->
+                            <line x1="505" y1="100" x2="678" y2="100" class="bd-wire" marker-end="url(#arr-p3)" />
+                            <circle cx="560" cy="100" r="3.5" class="bd-node" />
+                            <text x="555" y="90" class="bd-text-muted">Y</text>
+
+                            <!-- Feedback H2 branch (upwards from pick-off 560 to Summer 2) -->
+                            <line x1="560" y1="100" x2="560" y2="40" class="bd-wire-accent" />
+                            <line x1="560" y1="40" x2="410" y2="40" class="bd-wire-accent" marker-end="url(#arr-p3-acc)" />
+                            
+                            <!-- Block H2 -->
+                            <rect x="350" y="22" width="55" height="36" class="bd-block-accent" />
+                            <text x="377" y="45" text-anchor="middle" class="bd-text-accent">H₂</text>
+
+                            <line x1="350" y1="40" x2="250" y2="40" class="bd-wire-accent" />
+                            <line x1="250" y1="40" x2="250" y2="86" class="bd-wire-accent" marker-end="url(#arr-p3-acc)" />
+
+                            <!-- Summer 3 (Output Summer) -->
+                            <circle cx="690" cy="100" r="12" class="bd-summer" />
+                            <text x="680" y="95" class="bd-text-bold" fill="var(--ink)">+</text>
+
+                            <!-- Output C -->
+                            <line x1="702" y1="100" x2="750" y2="100" class="bd-wire" marker-end="url(#arr-p3)" />
+                            <text x="730" y="90" class="bd-text-bold">C(s)</text>
+                        </svg>
+                    </div>
+
+                    <!-- ============================================================= -->
+                    <!-- METHOD 1: BLOCK DIAGRAM REDUCTION TECHNIQUE -->
+                    <!-- ============================================================= -->
+                    <div class="solution-step">
+                        <span class="step-label"><span class="badge-method">Method 1</span> Block Diagram Reduction Technique [JU 2023 Regular Q3b OR, 8 Marks]</span>
+                        <p>
+                            We reduce the system systematically by resolving inner feedback loops and parallel feedforward branches:
+                        </p>
+
+                        <p>
+                            <strong>Step 1: Isolate the Output Feedforward Path ($G_4$):</strong><br>
+                            Observe Summer 3 at the output: the controlled variable $C(s)$ is the sum of the transmission through block $G_3$ (let us denote this signal as $Y(s)$) and the feedforward signal through $G_4$:
+                            $$C(s) = Y(s) + G_4 R(s)$$
+                            Therefore, we first evaluate the closed-loop ratio $\frac{Y(s)}{R(s)}$ for the main feedforward cascade, and subsequently superimpose $G_4$.
+                        </p>
+
+                        <p>
+                            <strong>Step 2: Eliminate the Inner Feedback Loop ($G_2$ with Feedback $H_1$):</strong><br>
+                            At Summer 2, the feedback signal from $H_1$ enters with a minus ($-$) sign. The internal forward block is $G_2$. Eliminating this local negative feedback loop yields the equivalent block $G_{2,\text{inner}}$:
+                            $$\mathbf{G_{2,\text{inner}}(s) = \frac{G_2}{1 + G_2 H_1}}$$
+                        </p>
+
+                        <p>
+                            <strong>Step 3: Cascade with $G_3$ and Eliminate Feedback Loop $H_2$:</strong><br>
+                            The forward path between Summer 2 and signal $Y(s)$ becomes the series cascade of $G_{2,\text{inner}}$ and $G_3$:
+                            $$G_{23}(s) = G_{2,\text{inner}} \cdot G_3 = \frac{G_2 G_3}{1 + G_2 H_1}$$
+                            Feedback loop $H_2$ wraps around this block back to Summer 2 with a negative ($-$) sign. Eliminating loop $H_2$ yields:
+                            $$G_A(s) = \frac{G_{23}}{1 + G_{23} H_2} = \frac{\frac{G_2 G_3}{1 + G_2 H_1}}{1 + \frac{G_2 G_3 H_2}{1 + G_2 H_1}} = \mathbf{\frac{G_2 G_3}{1 + G_2 H_1 + G_2 G_3 H_2}}$$
+                        </p>
+
+                        <p>
+                            <strong>Step 4: Cascade with $G_1$ and Eliminate Positive Feedback to Summer 1:</strong><br>
+                            Connecting $G_1$ in cascade with $G_A(s)$, the forward gain from the output of Summer 1 to $Y(s)$ is:
+                            $$G_{\text{fwd1}}(s) = G_1 \cdot G_A(s) = \frac{G_1 G_2 G_3}{1 + G_2 H_1 + G_2 G_3 H_2}$$
+                            Now inspect the feedback line from block $H_1$ to Summer 1. The pick-off point is located at signal $X_2$ (between $G_2$ and $G_3$). Since $Y(s) = G_3 X_2(s)$, we have $X_2(s) = \frac{Y(s)}{G_3}$.<br>
+                            Hence, the feedback signal reaching Summer 1 through $H_1$ is:
+                            $$B_1(s) = H_1 X_2(s) = \frac{H_1}{G_3} Y(s)$$
+                            Crucially, this signal enters Summer 1 with a <strong>positive ($+$) sign</strong> (positive feedback!).<br>
+                            Using the closed-loop formula for positive feedback ($1 - GH$):
+                            $$\frac{Y(s)}{R(s)} = \frac{G_{\text{fwd1}}}{1 - G_{\text{fwd1}} \cdot \left(\frac{H_1}{G_3}\right)} = \frac{\frac{G_1 G_2 G_3}{1 + G_2 H_1 + G_2 G_3 H_2}}{1 - \frac{G_1 G_2 G_3 \cdot \frac{H_1}{G_3}}{1 + G_2 H_1 + G_2 G_3 H_2}}$$
+                            Simplifying the denominator:
+                            $$\mathbf{\frac{Y(s)}{R(s)} = \frac{G_1 G_2 G_3}{1 + G_2 H_1 + G_2 G_3 H_2 - G_1 G_2 H_1}}$$
+                        </p>
+
+                        <p>
+                            <strong>Step 5: Combine with Parallel Feedforward Branch $G_4$:</strong><br>
+                            Substitute $Y(s)$ back into $C(s) = Y(s) + G_4 R(s)$:
+                            $$\frac{C(s)}{R(s)} = \frac{Y(s)}{R(s)} + G_4 = \frac{G_1 G_2 G_3}{1 + G_2 H_1 + G_2 G_3 H_2 - G_1 G_2 H_1} + G_4$$
+                            Expressing over a common denominator:
+                            $$\mathbf{\frac{C(s)}{R(s)} = \frac{G_1 G_2 G_3 + G_4 (1 + G_2 H_1 + G_2 G_3 H_2 - G_1 G_2 H_1)}{1 + G_2 H_1 + G_2 G_3 H_2 - G_1 G_2 H_1}} \quad \blacksquare$$
+                        </p>
+                    </div>
+
+                    <!-- ============================================================= -->
+                    <!-- METHOD 2: SIGNAL FLOW GRAPH & MASON'S GAIN FORMULA -->
+                    <!-- ============================================================= -->
+                    <div class="solution-step">
+                        <span class="step-label"><span class="badge-method">Method 2</span> Signal Flow Graph &amp; Mason's Gain Formula [JU 2023 Regular Q3b, 8 Marks]</span>
+                        <p>
+                            We convert the block diagram into an SFG by identifying discrete nodes at input $R(s)$, outputs of Summer 1 ($x_2$), Summer 2 ($x_3$), block $G_2$ ($x_4$), block $G_3$ ($x_5$), Summer 3 ($x_6$), and output $C(s)$ ($x_7$).
+                        </p>
+
+                        <!-- Vector SVG of SFG for Fig. P-3 -->
+                        <div class="svg-diagram-wrapper">
+                            <svg width="780" height="230" viewBox="0 0 780 230" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <marker id="sfg-arr" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                        <path d="M 0 1.5 L 8 5 L 0 8.5 z" class="marker-ink" />
+                                    </marker>
+                                    <marker id="sfg-arr-acc" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                        <path d="M 0 1.5 L 8 5 L 0 8.5 z" class="marker-accent" />
+                                    </marker>
+                                </defs>
+
+                                <!-- Forward Branches -->
+                                <!-- R (x=50) to x2 (x=160) : 1 -->
+                                <line x1="50" y1="110" x2="150" y2="110" class="sfg-branch-line" marker-end="url(#sfg-arr)" />
+                                <text x="105" y="100" text-anchor="middle" class="bd-text-bold">1</text>
+
+                                <!-- x2 to x3 (x=270) : G1 -->
+                                <line x1="160" y1="110" x2="260" y2="110" class="sfg-branch-line" marker-end="url(#sfg-arr)" />
+                                <text x="215" y="100" text-anchor="middle" class="bd-text-bold">G₁</text>
+
+                                <!-- x3 to x4 (x=390) : G2 -->
+                                <line x1="270" y1="110" x2="380" y2="110" class="sfg-branch-line" marker-end="url(#sfg-arr)" />
+                                <text x="330" y="100" text-anchor="middle" class="bd-text-bold">G₂</text>
+
+                                <!-- x4 to x5 (x=510) : G3 -->
+                                <line x1="390" y1="110" x2="500" y2="110" class="sfg-branch-line" marker-end="url(#sfg-arr)" />
+                                <text x="450" y="100" text-anchor="middle" class="bd-text-bold">G₃</text>
+
+                                <!-- x5 to x6 (x=630) : 1 -->
+                                <line x1="510" y1="110" x2="620" y2="110" class="sfg-branch-line" marker-end="url(#sfg-arr)" />
+                                <text x="570" y="100" text-anchor="middle" class="bd-text-bold">1</text>
+
+                                <!-- x6 to C (x=730) : 1 -->
+                                <line x1="630" y1="110" x2="720" y2="110" class="sfg-branch-line" marker-end="url(#sfg-arr)" />
+                                <text x="680" y="100" text-anchor="middle" class="bd-text-bold">1</text>
+
+                                <!-- Forward Path P2: Direct R to x6 via G4 -->
+                                <path d="M 50 110 C 180 20, 500 20, 626 104" class="sfg-branch-line" marker-end="url(#sfg-arr)" />
+                                <text x="340" y="32" text-anchor="middle" class="bd-text-bold">+G₄ (Forward Path P₂)</text>
+
+                                <!-- Loop L1: x4 to x3 (-H1) -->
+                                <path d="M 390 116 C 360 160, 300 160, 274 116" class="sfg-loop-line" marker-end="url(#sfg-arr-acc)" />
+                                <text x="330" y="165" text-anchor="middle" class="bd-text-accent">−H₁ (L₁)</text>
+
+                                <!-- Loop L2: x5 to x3 (-H2) -->
+                                <path d="M 510 104 C 450 45, 330 45, 274 104" class="sfg-loop-line" marker-end="url(#sfg-arr-acc)" />
+                                <text x="390" y="65" text-anchor="middle" class="bd-text-accent">−H₂ (L₂)</text>
+
+                                <!-- Loop L3: x4 to x2 (+H1) -->
+                                <path d="M 390 116 C 330 200, 220 200, 164 116" class="sfg-loop-line" marker-end="url(#sfg-arr-acc)" />
+                                <text x="270" y="198" text-anchor="middle" class="bd-text-accent">+H₁ (L₃: Positive Feedback)</text>
+
+                                <!-- Nodes -->
+                                <circle cx="50" cy="110" r="5" class="sfg-node-circle" />
+                                <text x="50" y="130" text-anchor="middle" class="bd-text-bold">R</text>
+
+                                <circle cx="160" cy="110" r="5" class="sfg-node-circle" />
+                                <text x="160" y="130" text-anchor="middle" class="bd-text-muted">x₂</text>
+
+                                <circle cx="270" cy="110" r="5" class="sfg-node-circle" />
+                                <text x="270" y="130" text-anchor="middle" class="bd-text-muted">x₃</text>
+
+                                <circle cx="390" cy="110" r="5" class="sfg-node-circle" />
+                                <text x="390" y="130" text-anchor="middle" class="bd-text-muted">x₄</text>
+
+                                <circle cx="510" cy="110" r="5" class="sfg-node-circle" />
+                                <text x="510" y="130" text-anchor="middle" class="bd-text-muted">x₅</text>
+
+                                <circle cx="630" cy="110" r="5" class="sfg-node-circle" />
+                                <text x="630" y="130" text-anchor="middle" class="bd-text-muted">x₆</text>
+
+                                <circle cx="730" cy="110" r="5" class="sfg-node-circle" />
+                                <text x="730" y="130" text-anchor="middle" class="bd-text-bold">C</text>
+                            </svg>
+                        </div>
+
+                        <p><strong>1. Forward Paths ($P_k$):</strong></p>
+                        <ul class="academic-list">
+                            <li><strong>Path 1:</strong> $R \to x_2 \to x_3 \to x_4 \to x_5 \to x_6 \to C \implies \mathbf{P_1 = (1)(G_1)(G_2)(G_3)(1)(1) = G_1 G_2 G_3}$</li>
+                            <li><strong>Path 2:</strong> $R \xrightarrow{G_4} x_6 \to C \implies \mathbf{P_2 = (G_4)(1) = G_4}$</li>
+                        </ul>
+
+                        <p><strong>2. Individual Closed Loops ($L_i$):</strong></p>
+                        <ul class="academic-list">
+                            <li><strong>Loop 1 ($L_1$):</strong> $x_3 \to x_4 \to x_3$ with path transmittance $G_2$ and feedback $-H_1$:
+                            $$\mathbf{L_1 = -G_2 H_1}$$</li>
+                            <li><strong>Loop 2 ($L_2$):</strong> $x_3 \to x_4 \to x_5 \to x_3$ with path $G_2 G_3$ and feedback $-H_2$:
+                            $$\mathbf{L_2 = -G_2 G_3 H_2}$$</li>
+                            <li><strong>Loop 3 ($L_3$):</strong> $x_2 \to x_3 \to x_4 \to x_2$ with forward path $G_1 G_2$ and positive feedback $+H_1$:
+                            $$\mathbf{L_3 = +G_1 G_2 H_1}$$</li>
+                        </ul>
+
+                        <p><strong>3. Non-Touching Loop Analysis:</strong></p>
+                        <p>
+                            Every single loop ($L_1, L_2, L_3$) contains node $x_4$ (the pick-off point between $G_2$ and $G_3$). Since all loops share node $x_4$, there are <strong>no non-touching loop pairs</strong>:
+                            $$\sum L_i L_j = 0$$
+                        </p>
+
+                        <p><strong>4. System Graph Determinant ($\Delta$):</strong></p>
+                        $$\Delta = 1 - (L_1 + L_2 + L_3) = 1 - (-G_2 H_1 - G_2 G_3 H_2 + G_1 G_2 H_1)$$
+                        $$\mathbf{\Delta = 1 + G_2 H_1 + G_2 G_3 H_2 - G_1 G_2 H_1}$$
+
+                        <p><strong>5. Path Cofactors ($\Delta_k$):</strong></p>
+                        <ul class="academic-list">
+                            <li>
+                                <strong>Cofactor $\Delta_1$ (for $P_1$):</strong> Path 1 traverses nodes $\{R, x_2, x_3, x_4, x_5, x_6, C\}$, touching all three feedback loops. Setting touching loop gains to zero:
+                                $$\mathbf{\Delta_1 = 1}$$
+                            </li>
+                            <li>
+                                <strong>Cofactor $\Delta_2$ (for $P_2$):</strong> Path 2 traverses only nodes $\{R, x_6, C\}$. Nodes $\{x_2, x_3, x_4, x_5\}$, which comprise all three loops $L_1, L_2, L_3$, are completely untouched by $P_2$! Hence, all three loops remain active in the cofactor:
+                                $$\mathbf{\Delta_2 = 1 - (L_1 + L_2 + L_3) = \Delta = 1 + G_2 H_1 + G_2 G_3 H_2 - G_1 G_2 H_1}$$
+                            </li>
+                        </ul>
+
+                        <p><strong>6. Overall Closed-Loop Transfer Function:</strong></p>
+                        $$\frac{C(s)}{R(s)} = \frac{P_1 \Delta_1 + P_2 \Delta_2}{\Delta} = \frac{(G_1 G_2 G_3)(1) + G_4 \Delta}{\Delta} = \frac{G_1 G_2 G_3}{\Delta} + G_4$$
+                        $$\mathbf{\frac{C(s)}{R(s)} = \frac{G_1 G_2 G_3 + G_4 (1 + G_2 H_1 + G_2 G_3 H_2 - G_1 G_2 H_1)}{1 + G_2 H_1 + G_2 G_3 H_2 - G_1 G_2 H_1}} \quad \blacksquare$$
+                    </div>
+
+                    <div class="examiner-note">
+                        <strong>Pedagogical Check &bull; Method Concordance:</strong>
+                        Notice that Block Diagram Reduction and Mason's Gain Formula produce the <em>exact same mathematical expression</em> down to every individual sign. This confirms both solutions.
+                    </div>
+                </div>
+            </article>
+
+            <!-- ========================================================================= -->
+            <!-- 3. [JU 2019 Q10(b) & Q10(c)] [5M + 7M] -->
+            <!-- ========================================================================= -->
+            <article class="problem-entry" id="fig-p10-system">
+                <div class="problem-header">
+                    <div class="problem-tag">
+                        <span class="exam-badge">JU 2019 Q10(b) &bull; JU 2019 Q10(c)</span>
+                        <span class="marks-badge">[5 Marks + 7 Marks]</span>
+                    </div>
+                    <div class="meta-label">Master Benchmark &bull; Parallel Blocks &bull; Non-Touching Loops &bull; Fig. P-10</div>
+                </div>
+
+                <h2 class="problem-title">Multi-Loop Feedback System with Parallel Forward Blocks (Fig. P-10)</h2>
+
+                <div class="question-prompt">
+                    &ldquo;<strong>Q10b.</strong> Use the block diagram reduction technique and obtain the overall transfer function of the system given in Fig. P-10. [05 M]<br>
+                    <strong>Q10c.</strong> Draw the signal flow graph for the system depicted in Fig. P-10. Use Mason's Gain Formula and find out the overall transfer function of the system. [07 M]&rdquo;
+                </div>
+
+                <!-- Authentic Question Paper Scan -->
+                <div class="exam-fig-box">
+                    <img src="fig_p10_ju2019.png" alt="JU 2019 Question Paper Fig. P-10">
+                    <div class="exam-fig-caption">Fig. 4.2: Authentic Scan of Fig. P-10 from Jadavpur University B.E.E. 3rd Year 1st Sem Examination Paper (2019)</div>
+                </div>
+
+                <div class="solution-body">
+                    <!-- Vector SVG: Clean Master Block Diagram for Fig. P-10 -->
+                    <div class="svg-diagram-wrapper">
+                        <svg width="780" height="260" viewBox="0 0 780 260" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <marker id="arr-p10" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                    <path d="M 0 1.5 L 8 5 L 0 8.5 z" class="marker-ink" />
+                                </marker>
+                                <marker id="arr-p10-acc" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                    <path d="M 0 1.5 L 8 5 L 0 8.5 z" class="marker-accent" />
+                                </marker>
+                            </defs>
+
+                            <!-- Reference Input R -->
+                            <line x1="20" y1="90" x2="68" y2="90" class="bd-wire" marker-end="url(#arr-p10)" />
+                            <text x="25" y="80" class="bd-text-bold">R(s)</text>
+
+                            <!-- Summer 1 -->
+                            <circle cx="80" cy="90" r="12" class="bd-summer" />
+                            <text x="70" y="85" class="bd-text-bold" fill="var(--ink)">+</text>
+                            <text x="75" y="112" class="bd-text-bold" fill="var(--accent)">−</text>
+
+                            <!-- Line Summer 1 to Summer 2 -->
+                            <line x1="92" y1="90" x2="148" y2="90" class="bd-wire" marker-end="url(#arr-p10)" />
+
+                            <!-- Summer 2 -->
+                            <circle cx="160" cy="90" r="12" class="bd-summer" />
+                            <text x="150" y="85" class="bd-text-bold" fill="var(--ink)">+</text>
+                            <text x="155" y="112" class="bd-text-bold" fill="var(--accent)">−</text>
+
+                            <!-- Line Summer 2 to G1 -->
+                            <line x1="172" y1="90" x2="218" y2="90" class="bd-wire" marker-end="url(#arr-p10)" />
+
+                            <!-- Block G1 -->
+                            <rect x="220" y="70" width="55" height="40" class="bd-block" />
+                            <text x="247" y="95" text-anchor="middle" class="bd-text-bold">G₁</text>
+
+                            <!-- Pick-off Point after G1 -->
+                            <line x1="275" y1="90" x2="338" y2="90" class="bd-wire" marker-end="url(#arr-p10)" />
+                            <circle cx="300" cy="90" r="3.5" class="bd-node" />
+
+                            <!-- Parallel Feedforward Block G4 (Above) -->
+                            <line x1="300" y1="90" x2="300" y2="35" class="bd-wire" />
+                            <line x1="300" y1="35" x2="368" y2="35" class="bd-wire" marker-end="url(#arr-p10)" />
+                            <rect x="370" y="18" width="55" height="34" class="bd-block" />
+                            <text x="397" y="40" text-anchor="middle" class="bd-text-bold">G₄</text>
+                            <line x1="425" y1="35" x2="470" y2="35" class="bd-wire" />
+                            <line x1="470" y1="35" x2="470" y2="76" class="bd-wire" marker-end="url(#arr-p10)" />
+                            <text x="476" y="65" class="bd-text-bold" fill="var(--ink)">+</text>
+
+                            <!-- Block G2 (Main Forward) -->
+                            <rect x="340" y="70" width="55" height="40" class="bd-block" />
+                            <text x="367" y="95" text-anchor="middle" class="bd-text-bold">G₂</text>
+
+                            <!-- Pick-off Point after G2 for Feedback H2 -->
+                            <line x1="395" y1="90" x2="458" y2="90" class="bd-wire" marker-end="url(#arr-p10)" />
+                            <circle cx="420" cy="90" r="3.5" class="bd-node" />
+
+                            <!-- Feedback H2 (down from 420 to Summer 2) -->
+                            <line x1="420" y1="90" x2="420" y2="155" class="bd-wire-accent" />
+                            <line x1="420" y1="155" x2="310" y2="155" class="bd-wire-accent" marker-end="url(#arr-p10-acc)" />
+                            <rect x="250" y="138" width="60" height="34" class="bd-block-accent" />
+                            <text x="280" y="160" text-anchor="middle" class="bd-text-accent">H₂</text>
+                            <line x1="250" y1="155" x2="160" y2="155" class="bd-wire-accent" />
+                            <line x1="160" y1="155" x2="160" y2="104" class="bd-wire-accent" marker-end="url(#arr-p10-acc)" />
+
+                            <!-- Summer 3 -->
+                            <circle cx="470" cy="90" r="12" class="bd-summer" />
+                            <text x="460" y="85" class="bd-text-bold" fill="var(--ink)">+</text>
+                            <text x="465" y="112" class="bd-text-bold" fill="var(--accent)">−</text>
+
+                            <!-- Line Summer 3 to G3 -->
+                            <line x1="482" y1="90" x2="528" y2="90" class="bd-wire" marker-end="url(#arr-p10)" />
+
+                            <!-- Block G3 -->
+                            <rect x="530" y="70" width="55" height="40" class="bd-block" />
+                            <text x="557" y="95" text-anchor="middle" class="bd-text-bold">G₃</text>
+
+                            <!-- Pick-off Point 1 after G3 for H3 Feedback -->
+                            <line x1="585" y1="90" x2="730" y2="90" class="bd-wire" marker-end="url(#arr-p10)" />
+                            <circle cx="620" cy="90" r="3.5" class="bd-node" />
+
+                            <!-- Feedback H3 (down from 620 to Summer 3) -->
+                            <line x1="620" y1="90" x2="620" y2="155" class="bd-wire-accent" />
+                            <line x1="620" y1="155" x2="580" y2="155" class="bd-wire-accent" marker-end="url(#arr-p10-acc)" />
+                            <rect x="520" y="138" width="60" height="34" class="bd-block-accent" />
+                            <text x="550" y="160" text-anchor="middle" class="bd-text-accent">H₃</text>
+                            <line x1="520" y1="155" x2="470" y2="155" class="bd-wire-accent" />
+                            <line x1="470" y1="155" x2="470" y2="104" class="bd-wire-accent" marker-end="url(#arr-p10-acc)" />
+
+                            <!-- Pick-off Point 2 after G3 for Outer Feedback H1 -->
+                            <circle cx="660" cy="90" r="3.5" class="bd-node" />
+                            <line x1="660" y1="90" x2="660" y2="215" class="bd-wire-accent" />
+                            <line x1="660" y1="215" x2="430" y2="215" class="bd-wire-accent" marker-end="url(#arr-p10-acc)" />
+                            <rect x="370" y="198" width="60" height="34" class="bd-block-accent" />
+                            <text x="400" y="220" text-anchor="middle" class="bd-text-accent">H₁</text>
+                            <line x1="370" y1="215" x2="80" y2="215" class="bd-wire-accent" />
+                            <line x1="80" y1="215" x2="80" y2="104" class="bd-wire-accent" marker-end="url(#arr-p10-acc)" />
+
+                            <!-- Output C -->
+                            <text x="715" y="80" class="bd-text-bold">C(s)</text>
+                        </svg>
+                    </div>
+
+                    <!-- ============================================================= -->
+                    <!-- METHOD 1: BLOCK DIAGRAM REDUCTION TECHNIQUE -->
+                    <!-- ============================================================= -->
+                    <div class="solution-step">
+                        <span class="step-label"><span class="badge-method">Method 1</span> Block Diagram Reduction Technique [JU 2019 Q10b, 5 Marks]</span>
+                        <p>
+                            We reduce the interconnected diagram step-by-step using elementary equivalence rules:
+                        </p>
+
+                        <p>
+                            <strong>Step 1: Move the Pick-off Point of $H_2$ Ahead of Block $G_2$:</strong><br>
+                            In Fig. P-10, the feedback line $H_2$ is tapped after $G_2$. Moving this takeoff point to the <em>left</em> of block $G_2$ (directly to the output of $G_1$) introduces an additional block $G_2$ into the feedback branch.<br>
+                            Therefore, the feedback transmittance from the output of $G_1$ back to Summer 2 becomes:
+                            $$H_2'(s) = G_2 H_2$$
+                        </p>
+
+                        <p>
+                            <strong>Step 2: Combine the Parallel Feedforward Blocks ($G_2$ and $G_4$):</strong><br>
+                            Now that the pick-off point has been moved, blocks $G_2$ and $G_4$ both originate from the same node (output of $G_1$) and both terminate at Summer 3 with positive signs.<br>
+                            Combining these two parallel branches:
+                            $$\mathbf{G_{\text{parallel}}(s) = G_2 + G_4}$$
+                        </p>
+
+                        <p>
+                            <strong>Step 3: Eliminate the Independent Inner Feedback Loops:</strong><br>
+                            The diagram now decouples into two standard closed loops:
+                            <ul>
+                                <li>
+                                    <strong>Loop 1 (at Summer 2):</strong> Forward block $G_1$ with negative feedback $H_2' = G_2 H_2$:
+                                    $$G_A(s) = \frac{G_1}{1 + G_1 H_2'} = \mathbf{\frac{G_1}{1 + G_1 G_2 H_2}}$$
+                                </li>
+                                <li>
+                                    <strong>Loop 2 (at Summer 3):</strong> Forward block $G_3$ with negative feedback $H_3$:
+                                    $$G_B(s) = \mathbf{\frac{G_3}{1 + G_3 H_3}}$$
+                                </li>
+                            </ul>
+                        </p>
+
+                        <p>
+                            <strong>Step 4: Cascade the Three Forward Subsystems:</strong><br>
+                            The forward path between Summer 1 and output $C(s)$ is the series cascade of $G_A(s)$, $G_{\text{parallel}}(s)$, and $G_B(s)$:
+                            $$G_{\text{cascade}}(s) = G_A(s) \cdot G_{\text{parallel}}(s) \cdot G_B(s) = \frac{G_1 (G_2 + G_4) G_3}{(1 + G_1 G_2 H_2)(1 + G_3 H_3)}$$
+                        </p>
+
+                        <p>
+                            <strong>Step 5: Eliminate the Outer Feedback Loop $H_1$:</strong><br>
+                            The entire forward cascade is enclosed by an overall negative feedback loop through $H_1$ returning to Summer 1. Applying the feedback formula:
+                            $$\frac{C(s)}{R(s)} = \frac{G_{\text{cascade}}}{1 + G_{\text{cascade}} H_1} = \frac{\frac{G_1 (G_2 + G_4) G_3}{(1 + G_1 G_2 H_2)(1 + G_3 H_3)}}{1 + \frac{G_1 (G_2 + G_4) G_3 H_1}{(1 + G_1 G_2 H_2)(1 + G_3 H_3)}}$$
+                            Clearing the compound denominator:
+                            $$\mathbf{\frac{C(s)}{R(s)} = \frac{G_1 (G_2 + G_4) G_3}{(1 + G_1 G_2 H_2)(1 + G_3 H_3) + G_1 (G_2 + G_4) G_3 H_1}} \quad \blacksquare$$
+                        </p>
+                    </div>
+
+                    <!-- ============================================================= -->
+                    <!-- METHOD 2: SIGNAL FLOW GRAPH & MASON'S GAIN FORMULA -->
+                    <!-- ============================================================= -->
+                    <div class="solution-step">
+                        <span class="step-label"><span class="badge-method">Method 2</span> Signal Flow Graph &amp; Mason's Gain Formula [JU 2019 Q10c, 7 Marks]</span>
+                        <p>
+                            We map the system directly into a Signal Flow Graph:
+                        </p>
+
+                        <!-- Vector SVG of SFG for Fig. P-10 -->
+                        <div class="svg-diagram-wrapper">
+                            <svg width="780" height="230" viewBox="0 0 780 230" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <marker id="sfg10-arr" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                        <path d="M 0 1.5 L 8 5 L 0 8.5 z" class="marker-ink" />
+                                    </marker>
+                                    <marker id="sfg10-arr-acc" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                        <path d="M 0 1.5 L 8 5 L 0 8.5 z" class="marker-accent" />
+                                    </marker>
+                                </defs>
+
+                                <!-- Nodes: R (50), x2 (140), x3 (230), x4 (320), x5 (420), x6 (530), x7 (640), C (730) -->
+                                <!-- Forward Branches -->
+                                <line x1="50" y1="110" x2="130" y2="110" class="sfg-branch-line" marker-end="url(#sfg10-arr)" />
+                                <text x="90" y="100" text-anchor="middle" class="bd-text-bold">1</text>
+
+                                <line x1="140" y1="110" x2="220" y2="110" class="sfg-branch-line" marker-end="url(#sfg10-arr)" />
+                                <text x="180" y="100" text-anchor="middle" class="bd-text-bold">1</text>
+
+                                <line x1="230" y1="110" x2="310" y2="110" class="sfg-branch-line" marker-end="url(#sfg10-arr)" />
+                                <text x="270" y="100" text-anchor="middle" class="bd-text-bold">G₁</text>
+
+                                <!-- Main branch G2 -->
+                                <line x1="320" y1="110" x2="410" y2="110" class="sfg-branch-line" marker-end="url(#sfg10-arr)" />
+                                <text x="365" y="100" text-anchor="middle" class="bd-text-bold">G₂</text>
+
+                                <!-- Parallel branch G4 -->
+                                <path d="M 320 104 C 350 40, 490 40, 524 104" class="sfg-branch-line" marker-end="url(#sfg10-arr)" />
+                                <text x="420" y="42" text-anchor="middle" class="bd-text-bold">+G₄ (Parallel Branch)</text>
+
+                                <line x1="420" y1="110" x2="520" y2="110" class="sfg-branch-line" marker-end="url(#sfg10-arr)" />
+                                <text x="470" y="100" text-anchor="middle" class="bd-text-bold">1</text>
+
+                                <line x1="530" y1="110" x2="630" y2="110" class="sfg-branch-line" marker-end="url(#sfg10-arr)" />
+                                <text x="580" y="100" text-anchor="middle" class="bd-text-bold">G₃</text>
+
+                                <line x1="640" y1="110" x2="720" y2="110" class="sfg-branch-line" marker-end="url(#sfg10-arr)" />
+                                <text x="680" y="100" text-anchor="middle" class="bd-text-bold">1</text>
+
+                                <!-- Loop L1: x5 (after G2) to x3 (-H2) -->
+                                <path d="M 420 116 C 380 160, 270 160, 234 116" class="sfg-loop-line" marker-end="url(#sfg10-arr-acc)" />
+                                <text x="325" y="165" text-anchor="middle" class="bd-text-accent">−H₂ (L₁)</text>
+
+                                <!-- Loop L2: x7 (after G3) to x6 (-H3) -->
+                                <path d="M 640 116 C 620 155, 550 155, 534 116" class="sfg-loop-line" marker-end="url(#sfg10-arr-acc)" />
+                                <text x="585" y="160" text-anchor="middle" class="bd-text-accent">−H₃ (L₂)</text>
+
+                                <!-- Outer Loop L3: x7 to x2 (-H1) -->
+                                <path d="M 640 116 C 550 215, 230 215, 144 116" class="sfg-loop-line" marker-end="url(#sfg10-arr-acc)" />
+                                <text x="390" y="210" text-anchor="middle" class="bd-text-accent">−H₁ (Outer Loops L₃ &amp; L₄)</text>
+
+                                <!-- Nodes -->
+                                <circle cx="50" cy="110" r="5" class="sfg-node-circle" />
+                                <text x="50" y="130" text-anchor="middle" class="bd-text-bold">R</text>
+
+                                <circle cx="140" cy="110" r="5" class="sfg-node-circle" />
+                                <text x="140" y="130" text-anchor="middle" class="bd-text-muted">x₂</text>
+
+                                <circle cx="230" cy="110" r="5" class="sfg-node-circle" />
+                                <text x="230" y="130" text-anchor="middle" class="bd-text-muted">x₃</text>
+
+                                <circle cx="320" cy="110" r="5" class="sfg-node-circle" />
+                                <text x="320" y="130" text-anchor="middle" class="bd-text-muted">x₄</text>
+
+                                <circle cx="420" cy="110" r="5" class="sfg-node-circle" />
+                                <text x="420" y="130" text-anchor="middle" class="bd-text-muted">x₅</text>
+
+                                <circle cx="530" cy="110" r="5" class="sfg-node-circle" />
+                                <text x="530" y="130" text-anchor="middle" class="bd-text-muted">x₆</text>
+
+                                <circle cx="640" cy="110" r="5" class="sfg-node-circle" />
+                                <text x="640" y="130" text-anchor="middle" class="bd-text-muted">x₇</text>
+
+                                <circle cx="730" cy="110" r="5" class="sfg-node-circle" />
+                                <text x="730" y="130" text-anchor="middle" class="bd-text-bold">C</text>
+                            </svg>
+                        </div>
+
+                        <p><strong>1. Forward Paths ($P_k$):</strong></p>
+                        <ul class="academic-list">
+                            <li><strong>Path 1 (via $G_2$):</strong> $R \to x_2 \to x_3 \to x_4 \to x_5 \to x_6 \to x_7 \to C \implies \mathbf{P_1 = G_1 G_2 G_3}$</li>
+                            <li><strong>Path 2 (via $G_4$):</strong> $R \to x_2 \to x_3 \to x_4 \xrightarrow{G_4} x_6 \to x_7 \to C \implies \mathbf{P_2 = G_1 G_4 G_3}$</li>
+                        </ul>
+
+                        <p><strong>2. Individual Feedback Loops ($L_i$):</strong></p>
+                        <ul class="academic-list">
+                            <li><strong>Loop 1 ($L_1$):</strong> $x_3 \to x_4 \to x_5 \to x_3$ with gain $\mathbf{L_1 = -G_1 G_2 H_2}$</li>
+                            <li><strong>Loop 2 ($L_2$):</strong> $x_6 \to x_7 \to x_6$ with gain $\mathbf{L_2 = -G_3 H_3}$</li>
+                            <li><strong>Loop 3 ($L_3$):</strong> Outer loop via $G_2$: $x_2 \to x_3 \to x_4 \to x_5 \to x_6 \to x_7 \to x_2$ with gain $\mathbf{L_3 = -G_1 G_2 G_3 H_1}$</li>
+                            <li><strong>Loop 4 ($L_4$):</strong> Outer loop via $G_4$: $x_2 \to x_3 \to x_4 \xrightarrow{G_4} x_6 \to x_7 \to x_2$ with gain $\mathbf{L_4 = -G_1 G_4 G_3 H_1}$</li>
+                        </ul>
+
+                        <p><strong>3. Non-Touching Loop Analysis:</strong></p>
+                        <p>
+                            Inspect the nodes occupied by each loop:
+                            <ul>
+                                <li>$V(L_1) = \{x_3, x_4, x_5\}$</li>
+                                <li>$V(L_2) = \{x_6, x_7\}$</li>
+                            </ul>
+                            Since $V(L_1) \cap V(L_2) = \emptyset$, <strong>loops $L_1$ and $L_2$ are strictly non-touching</strong>!<br>
+                            Product of non-touching pair:
+                            $$\mathbf{L_1 L_2 = (-G_1 G_2 H_2)(-G_3 H_3) = +G_1 G_2 G_3 H_2 H_3}$$
+                            Loops $L_3$ and $L_4$ span from $x_2$ to $x_7$, hence they touch all other loops. There are no other non-touching pairs, and no triplets.
+                        </p>
+
+                        <p><strong>4. System Graph Determinant ($\Delta$):</strong></p>
+                        $$\Delta = 1 - (L_1 + L_2 + L_3 + L_4) + (L_1 L_2)$$
+                        $$\Delta = 1 - (-G_1 G_2 H_2 - G_3 H_3 - G_1 G_2 G_3 H_1 - G_1 G_4 G_3 H_1) + G_1 G_2 G_3 H_2 H_3$$
+                        Grouping terms strategically:
+                        $$\mathbf{\Delta = (1 + G_1 G_2 H_2)(1 + G_3 H_3) + G_1 (G_2 + G_4) G_3 H_1}$$
+                        <em>Notice how the product $(1 + G_1 G_2 H_2)(1 + G_3 H_3)$ emerges directly from $1 - L_1 - L_2 + L_1 L_2$!</em>
+                        </p>
+
+                        <p><strong>5. Path Cofactors ($\Delta_k$):</strong></p>
+                        <ul class="academic-list">
+                            <li><strong>Path 1 ($P_1 = G_1 G_2 G_3$):</strong> Traverses $\{R, x_2, x_3, x_4, x_5, x_6, x_7, C\}$, touching all loops $\implies \mathbf{\Delta_1 = 1}$.</li>
+                            <li><strong>Path 2 ($P_2 = G_1 G_4 G_3$):</strong> Traverses nodes $x_3, x_4$ (touching $L_1$) and nodes $x_6, x_7$ (touching $L_2$). Thus it touches all loops $\implies \mathbf{\Delta_2 = 1}$.</li>
+                        </ul>
+
+                        <p><strong>6. Overall Transfer Function:</strong></p>
+                        $$\frac{C(s)}{R(s)} = \frac{P_1 \Delta_1 + P_2 \Delta_2}{\Delta} = \frac{G_1 G_2 G_3(1) + G_1 G_4 G_3(1)}{(1 + G_1 G_2 H_2)(1 + G_3 H_3) + G_1 (G_2 + G_4) G_3 H_1}$$
+                        $$\mathbf{\frac{C(s)}{R(s)} = \frac{G_1 (G_2 + G_4) G_3}{(1 + G_1 G_2 H_2)(1 + G_3 H_3) + G_1 (G_2 + G_4) G_3 H_1}} \quad \blacksquare$$
+                    </div>
+
+                    <div class="examiner-note">
+                        <strong>Examination Verification:</strong>
+                        The transfer function obtained by Block Diagram Reduction (Method 1) and by Mason's Gain Formula (Method 2) are completely identical. In JU exams, candidates who show this clean grouping $(1 + G_1 G_2 H_2)(1 + G_3 H_3) + G_1 (G_2 + G_4) G_3 H_1$ consistently secure full 100% marks.
+                    </div>
+                </div>
+            </article>
+
+            <!-- ========================================================================= -->
+            <!-- 4. [JU 2024 Regular Q2(b) & 2018 Q9(b)] [6M] -->
             <!-- ========================================================================= -->
             <article class="problem-entry" id="bd-to-sfg">
                 <div class="problem-header">
@@ -91,855 +899,51 @@
                     <div class="meta-label">Conversion &bull; Topological Mapping</div>
                 </div>
 
-                <h2 class="problem-title">Block Diagram to Signal Flow Graph Conversion and Mason Reduction</h2>
+                <h2 class="problem-title">Block Diagram to Signal Flow Graph Conversion Rules and Application</h2>
 
                 <div class="question-prompt">
-                    &ldquo;Construct the Signal Flow Graph for the multi-loop feedback control system shown in Fig. 4.1. Label all intermediate signals and internal nodes. Using Mason's Gain Formula, determine the overall closed-loop transfer function $\frac{C(s)}{R(s)}$.&rdquo;
+                    &ldquo;Construct the Signal Flow Graph for the multi-loop feedback control system shown in Fig. 4.3. Label all intermediate signals and internal nodes. Using Mason's Gain Formula, determine the overall closed-loop transfer function $\frac{C(s)}{R(s)}$.&rdquo;
                 </div>
 
                 <div class="solution-body">
-                    <p>
-                        A block diagram represents physical signal flow via directed operations and summing junctions, while a <strong>Signal Flow Graph (SFG)</strong> models linear algebraic relationships between node variables connected by directed transmittances. Converting a multi-loop block diagram into an SFG replaces summing junctions and pick-off points with discrete nodes, enabling the direct algebraic evaluation of the overall transfer function through topological inspection.
-                    </p>
-
-                    <!-- SVG Figure 4.1: Original Block Diagram -->
-                    <div class="svg-diagram-wrapper">
-                        <svg width="780" height="230" viewBox="0 0 780 230" xmlns="http://www.w3.org/2000/svg">
-                            <defs>
-                                <marker id="arr-bd1" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                                    <path d="M 0 1.5 L 8 5 L 0 8.5 z" class="marker-ink" />
-                                </marker>
-                                <marker id="arr-bd1-acc" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                                    <path d="M 0 1.5 L 8 5 L 0 8.5 z" class="marker-accent" />
-                                </marker>
-                            </defs>
-
-                            <!-- Reference Input R(s) -->
-                            <line x1="20" y1="85" x2="68" y2="85" class="bd-wire" marker-end="url(#arr-bd1)" />
-                            <text x="25" y="75" class="bd-text-bold">R(s)</text>
-
-                            <!-- Summer 1 (Node E1) -->
-                            <circle cx="80" cy="85" r="12" class="bd-summer" />
-                            <text x="71" y="80" class="bd-text-bold" fill="var(--ink)">+</text>
-                            <text x="75" y="106" class="bd-text-bold" fill="var(--accent)">−</text>
-
-                            <!-- Line E1 to Summer 2 -->
-                            <line x1="92" y1="85" x2="148" y2="85" class="bd-wire" marker-end="url(#arr-bd1)" />
-                            <text x="110" y="75" class="bd-text-muted">E₁(s)</text>
-
-                            <!-- Summer 2 (Node E2) -->
-                            <circle cx="160" cy="85" r="12" class="bd-summer" />
-                            <text x="151" y="80" class="bd-text-bold" fill="var(--ink)">+</text>
-                            <text x="155" y="106" class="bd-text-bold" fill="var(--accent)">−</text>
-
-                            <!-- Line E2 to G1 -->
-                            <line x1="172" y1="85" x2="218" y2="85" class="bd-wire" marker-end="url(#arr-bd1)" />
-                            <text x="185" y="75" class="bd-text-muted">E₂(s)</text>
-
-                            <!-- Block G1 -->
-                            <rect x="220" y="65" width="55" height="40" class="bd-block" />
-                            <text x="247" y="89" text-anchor="middle" class="bd-text-bold">G₁</text>
-
-                            <!-- Line X1 (Pick-off 1) -->
-                            <line x1="275" y1="85" x2="330" y2="85" class="bd-wire" />
-                            <circle cx="330" cy="85" r="3.5" class="bd-node" />
-                            <text x="315" y="75" class="bd-text-bold">X₁</text>
-
-                            <!-- Feedforward G4 branch (Above) -->
-                            <path d="M 330 85 L 330 35 L 450 35" class="bd-wire" marker-end="url(#arr-bd1)" />
-                            <rect x="450" y="20" width="55" height="30" class="bd-block" />
-                            <text x="477" y="39" text-anchor="middle" class="bd-text-bold">G₄</text>
-                            <path d="M 505 35 L 570 35 L 570 71" class="bd-wire" marker-end="url(#arr-bd1)" />
-                            <text x="578" y="55" class="bd-text-bold" fill="var(--ink)">+</text>
-
-                            <!-- Main branch to G2 -->
-                            <line x1="330" y1="85" x2="388" y2="85" class="bd-wire" marker-end="url(#arr-bd1)" />
-                            <rect x="390" y="65" width="55" height="40" class="bd-block" />
-                            <text x="417" y="89" text-anchor="middle" class="bd-text-bold">G₂</text>
-
-                            <!-- Node X2 (Pick-off 2) -->
-                            <line x1="445" y1="85" x2="500" y2="85" class="bd-wire" />
-                            <circle cx="500" cy="85" r="3.5" class="bd-node" />
-                            <text x="485" y="75" class="bd-text-bold">X₂</text>
-
-                            <!-- Minor feedback H2 branch (Below) -->
-                            <path d="M 500 85 L 500 145 L 370 145" class="bd-wire-accent" marker-end="url(#arr-bd1-acc)" />
-                            <rect x="315" y="130" width="55" height="30" class="bd-block" />
-                            <text x="342" y="149" text-anchor="middle" class="bd-text-accent">H₂</text>
-                            <path d="M 315 145 L 160 145 L 160 99" class="bd-wire-accent" marker-end="url(#arr-bd1-acc)" />
-
-                            <!-- Line X2 to Summer 3 -->
-                            <line x1="500" y1="85" x2="556" y2="85" class="bd-wire" marker-end="url(#arr-bd1)" />
-
-                            <!-- Summer 3 (Node E3) -->
-                            <circle cx="570" cy="85" r="14" class="bd-summer" />
-                            <text x="557" y="90" class="bd-text-bold" fill="var(--ink)">+</text>
-                            <text x="566" y="108" class="bd-text-bold" fill="var(--accent)">−</text>
-
-                            <!-- Line E3 to G3 -->
-                            <line x1="584" y1="85" x2="628" y2="85" class="bd-wire" marker-end="url(#arr-bd1)" />
-                            <text x="595" y="75" class="bd-text-muted">E₃(s)</text>
-
-                            <!-- Block G3 -->
-                            <rect x="630" y="65" width="55" height="40" class="bd-block" />
-                            <text x="657" y="89" text-anchor="middle" class="bd-text-bold">G₃</text>
-
-                            <!-- Output Node C(s) -->
-                            <line x1="685" y1="85" x2="725" y2="85" class="bd-wire" />
-                            <circle cx="725" cy="85" r="3.5" class="bd-node" />
-                            <line x1="725" y1="85" x2="765" y2="85" class="bd-wire" marker-end="url(#arr-bd1)" />
-                            <text x="745" y="75" class="bd-text-bold">C(s)</text>
-
-                            <!-- Minor feedback H3 branch -->
-                            <path d="M 725 85 L 725 145 L 675 145" class="bd-wire-accent" marker-end="url(#arr-bd1-acc)" />
-                            <rect x="620" y="130" width="55" height="30" class="bd-block" />
-                            <text x="647" y="149" text-anchor="middle" class="bd-text-accent">H₃</text>
-                            <path d="M 620 145 L 570 145 L 570 101" class="bd-wire-accent" marker-end="url(#arr-bd1-acc)" />
-
-                            <!-- Outer Unity Feedback (-1) -->
-                            <path d="M 735 85 L 735 195 L 80 195 L 80 99" class="bd-wire-accent" marker-end="url(#arr-bd1-acc)" />
-                            <text x="400" y="210" text-anchor="middle" class="bd-text-accent">Outer Unity Negative Feedback (−1)</text>
-                        </svg>
-                        <div class="diagram-caption">Figure 4.1: Closed-Loop Multi-Loop Block Diagram Topology (JU 2024 Regular Exam, Q2b)</div>
-                    </div>
-
                     <div class="solution-step">
-                        <span class="step-label">Step 1: Systematic Node Identification</span>
+                        <span class="step-label">Step 1: Systematic Rules for BD to SFG Transformation</span>
                         <p>
-                            To construct the equivalent Signal Flow Graph without ambiguity, label each summing junction output and major branching junction as a distinct state variable node:
+                            Converting an interconnected block diagram into an SFG follows three fundamental transformation rules:
                         </p>
-                        <ul style="padding-left: 20px; margin: 8px 0; font-family: var(--mono); font-size: 13.5px;">
-                            <li>$R(s)$: Source / Input node.</li>
-                            <li>$E_1(s) = R(s) - C(s)$: Output of primary error summer $\Sigma_1$.</li>
-                            <li>$E_2(s) = E_1(s) - H_2(s)X_2(s)$: Output of secondary summer $\Sigma_2$.</li>
-                            <li>$X_1(s) = G_1(s)E_2(s)$: Signal exiting block $G_1$ (pick-off point for feedforward $G_4$).</li>
-                            <li>$X_2(s) = G_2(s)X_1(s)$: Signal exiting block $G_2$ (pick-off point for feedback $H_2$).</li>
-                            <li>$E_3(s) = X_2(s) + G_4(s)X_1(s) - H_3(s)C(s)$: Output of tertiary summer $\Sigma_3$.</li>
-                            <li>$C(s) = G_3(s)E_3(s)$: Sink / Output node.</li>
-                        </ul>
-                    </div>
-
-                    <div class="solution-step">
-                        <span class="step-label">Step 2: Equivalent Signal Flow Graph Formulation</span>
-                        <p>
-                            Every summing junction output becomes a summation node, every linear block becomes an oriented forward branch with transmittance equal to the block's transfer function, and every feedback or feedforward path becomes a directed feedback branch with its algebraic sign preserved.
-                        </p>
-
-                        <!-- SVG Figure 4.2: Equivalent SFG -->
-                        <div class="svg-diagram-wrapper">
-                            <svg width="780" height="240" viewBox="0 0 780 240" xmlns="http://www.w3.org/2000/svg">
-                                <defs>
-                                    <marker id="sfg-arr" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                                        <path d="M 0 1.5 L 8 5 L 0 8.5 z" class="marker-ink" />
-                                    </marker>
-                                    <marker id="sfg-arr-acc" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                                        <path d="M 0 1.5 L 8 5 L 0 8.5 z" class="marker-accent" />
-                                    </marker>
-                                </defs>
-
-                                <!-- Node circles along horizontal axis y = 100 -->
-                                <line x1="50" y1="100" x2="140" y2="100" class="sfg-branch-line" marker-end="url(#sfg-arr)" />
-                                <text x="100" y="90" text-anchor="middle" class="bd-text-bold">1</text>
-
-                                <line x1="150" y1="100" x2="250" y2="100" class="sfg-branch-line" marker-end="url(#sfg-arr)" />
-                                <text x="205" y="90" text-anchor="middle" class="bd-text-bold">1</text>
-
-                                <line x1="260" y1="100" x2="360" y2="100" class="sfg-branch-line" marker-end="url(#sfg-arr)" />
-                                <text x="315" y="90" text-anchor="middle" class="bd-text-bold">G₁</text>
-
-                                <line x1="370" y1="100" x2="470" y2="100" class="sfg-branch-line" marker-end="url(#sfg-arr)" />
-                                <text x="425" y="90" text-anchor="middle" class="bd-text-bold">G₂</text>
-
-                                <line x1="480" y1="100" x2="580" y2="100" class="sfg-branch-line" marker-end="url(#sfg-arr)" />
-                                <text x="535" y="90" text-anchor="middle" class="bd-text-bold">1</text>
-
-                                <line x1="590" y1="100" x2="690" y2="100" class="sfg-branch-line" marker-end="url(#sfg-arr)" />
-                                <text x="645" y="90" text-anchor="middle" class="bd-text-bold">G₃</text>
-
-                                <!-- Feedforward G4 (Arch above X1 to E3: x=370 to x=590) -->
-                                <path d="M 370 94 C 420 30, 540 30, 586 94" class="sfg-branch-line" marker-end="url(#sfg-arr)" />
-                                <text x="480" y="32" text-anchor="middle" class="bd-text-bold">+G₄</text>
-
-                                <!-- Minor Feedback Loop 1: X2 to E2 (-H2: x=480 to x=260) -->
-                                <path d="M 480 106 C 440 160, 300 160, 264 106" class="sfg-loop-line" marker-end="url(#sfg-arr-acc)" />
-                                <text x="370" y="162" text-anchor="middle" class="bd-text-accent">−H₂</text>
-
-                                <!-- Minor Feedback Loop 2: C to E3 (-H3: x=700 to x=590) -->
-                                <path d="M 700 106 C 680 150, 610 150, 594 106" class="sfg-loop-line" marker-end="url(#sfg-arr-acc)" />
-                                <text x="645" y="152" text-anchor="middle" class="bd-text-accent">−H₃</text>
-
-                                <!-- Outer Feedback Loop: C to E1 (-1: x=700 to x=150) -->
-                                <path d="M 700 106 C 650 220, 200 220, 154 106" class="sfg-loop-line" marker-end="url(#sfg-arr-acc)" />
-                                <text x="425" y="215" text-anchor="middle" class="bd-text-accent">−1 (Outer Unity Feedback)</text>
-
-                                <!-- Nodes rendered on top -->
-                                <circle cx="50" cy="100" r="6" class="sfg-node-circle" />
-                                <text x="50" y="122" text-anchor="middle" class="bd-text-bold">R</text>
-
-                                <circle cx="150" cy="100" r="6" class="sfg-node-circle" />
-                                <text x="150" y="122" text-anchor="middle" class="bd-text-bold">E₁</text>
-
-                                <circle cx="260" cy="100" r="6" class="sfg-node-circle" />
-                                <text x="260" y="122" text-anchor="middle" class="bd-text-bold">E₂</text>
-
-                                <circle cx="370" cy="100" r="6" class="sfg-node-circle" />
-                                <text x="370" y="122" text-anchor="middle" class="bd-text-bold">X₁</text>
-
-                                <circle cx="480" cy="100" r="6" class="sfg-node-circle" />
-                                <text x="480" y="122" text-anchor="middle" class="bd-text-bold">X₂</text>
-
-                                <circle cx="590" cy="100" r="6" class="sfg-node-circle" />
-                                <text x="590" y="122" text-anchor="middle" class="bd-text-bold">E₃</text>
-
-                                <circle cx="700" cy="100" r="6" class="sfg-node-accent" />
-                                <text x="700" y="122" text-anchor="middle" class="bd-text-accent">C</text>
-                            </svg>
-                            <div class="diagram-caption">Figure 4.2: Topological Signal Flow Graph Representation with Discrete Internal States</div>
-                        </div>
-                    </div>
-
-                    <div class="solution-step">
-                        <span class="step-label">Step 3: Systematic Execution of Mason's Gain Formula</span>
-                        <p>
-                            Mason's Gain Formula states that the overall input-output transfer function is:
-                            $$T = \frac{C(s)}{R(s)} = \frac{1}{\Delta} \sum_{k=1}^N P_k \Delta_k$$
-                        </p>
-
-                        <p><strong>1. Forward Paths ($P_k$):</strong></p>
-                        <ul style="padding-left: 20px; margin-bottom: 12px; font-family: var(--mono); font-size: 13.5px;">
+                        <ol class="academic-list">
                             <li>
-                                <strong>Path 1:</strong> $R \to E_1 \to E_2 \to X_1 \to X_2 \to E_3 \to C$<br>
-                                $P_1 = (1) \cdot (1) \cdot G_1 \cdot G_2 \cdot (1) \cdot G_3 = \mathbf{G_1 G_2 G_3}$
+                                <strong>Node Mapping:</strong> Assign a distinct SFG node to:
+                                <ul>
+                                    <li>The reference input signal $R(s)$ (pure source node).</li>
+                                    <li>The output of every summing point (representing the resultant error or combined signal).</li>
+                                    <li>Every signal pick-off point where branches divert.</li>
+                                    <li>The final controlled variable $C(s)$ (pure sink node, connected via a branch of gain $1$).</li>
+                                </ul>
                             </li>
-                            <li style="margin-top: 6px;">
-                                <strong>Path 2:</strong> $R \to E_1 \to E_2 \to X_1 \to E_3 \to C$ (via feedforward bypass $G_4$)<br>
-                                $P_2 = (1) \cdot (1) \cdot G_1 \cdot G_4 \cdot G_3 = \mathbf{G_1 G_4 G_3}$
-                            </li>
-                        </ul>
-
-                        <p><strong>2. Individual Closed Feedback Loops ($L_i$):</strong></p>
-                        <ul style="padding-left: 20px; margin-bottom: 12px; font-family: var(--mono); font-size: 13.5px;">
-                            <li>$L_1$: $E_2 \to X_1 \to X_2 \to E_2 \implies L_1 = (G_1)(G_2)(-H_2) = \mathbf{-G_1 G_2 H_2}$</li>
-                            <li>$L_2$: $E_3 \to C \to E_3 \implies L_2 = (G_3)(-H_3) = \mathbf{-G_3 H_3}$</li>
-                            <li>$L_3$: $E_1 \to E_2 \to X_1 \to X_2 \to E_3 \to C \to E_1 \implies L_3 = (1)(G_1)(G_2)(1)(G_3)(-1) = \mathbf{-G_1 G_2 G_3}$</li>
-                            <li>$L_4$: $E_1 \to E_2 \to X_1 \to E_3 \to C \to E_1 \implies L_4 = (1)(G_1)(G_4)(G_3)(-1) = \mathbf{-G_1 G_4 G_3}$</li>
-                        </ul>
-
-                        <p><strong>3. Evaluation of Non-Touching Loop Pairs:</strong></p>
-                        <p>
-                            Inspect the node occupancy of each loop:
-                            $$\text{Nodes}(L_1) = \{E_2, X_1, X_2\}, \quad \text{Nodes}(L_2) = \{E_3, C\}$$
-                            $$\text{Nodes}(L_1) \cap \text{Nodes}(L_2) = \emptyset$$
-                            Because $L_1$ and $L_2$ share no common nodes, they form a <strong>non-touching loop pair</strong>. Loops $L_3$ and $L_4$ traverse both subsets and touch all other loops.
-                            $$L_1 L_2 = (-G_1 G_2 H_2) \cdot (-G_3 H_3) = \mathbf{+G_1 G_2 G_3 H_2 H_3}$$
-                        </p>
-
-                        <p><strong>4. System Graph Determinant ($\Delta$):</strong></p>
-                        <div class="katex-display">
-                            $$\Delta = 1 - \sum L_i + \sum L_i L_j = 1 - (L_1 + L_2 + L_3 + L_4) + L_1 L_2$$
-                            $$\Delta = 1 + G_1 G_2 H_2 + G_3 H_3 + G_1 G_2 G_3 + G_1 G_4 G_3 + G_1 G_2 G_3 H_2 H_3$$
-                        </div>
-
-                        <p><strong>5. Path Cofactors ($\Delta_k$):</strong></p>
-                        <ul style="padding-left: 20px; margin-bottom: 12px; font-family: var(--mono); font-size: 13.5px;">
-                            <li>Path $P_1$ traverses $\{R, E_1, E_2, X_1, X_2, E_3, C\}$ &mdash; touches all four loops $\implies \mathbf{\Delta_1 = 1}$.</li>
-                            <li>Path $P_2$ traverses $\{R, E_1, E_2, X_1, E_3, C\}$ &mdash; touches $L_1$ at $\{E_2, X_1\}$ and touches $L_2$ at $\{E_3, C\} \implies \mathbf{\Delta_2 = 1}$.</li>
-                        </ul>
-
-                        <p><strong>6. Final Analytical Closed-Loop Gain:</strong></p>
-                        <div class="katex-display">
-                            $$\frac{C(s)}{R(s)} = \frac{P_1 \Delta_1 + P_2 \Delta_2}{\Delta} = \frac{G_1 G_2 G_3 + G_1 G_4 G_3}{1 + G_1 G_2 H_2 + G_3 H_3 + G_1 G_3(G_2 + G_4) + G_1 G_2 G_3 H_2 H_3}$$
-                            $$\mathbf{\frac{C(s)}{R(s)} = \frac{G_1 G_3 (G_2 + G_4)}{1 + G_1 G_2 H_2 + G_3 H_3 + G_1 G_3 (G_2 + G_4) + G_1 G_2 G_3 H_2 H_3}}$$
-                        </div>
-                    </div>
-
-                    <div class="examiner-note">
-                        <strong>Examiner's Warning (Non-Touching Loop Trap)</strong>
-                        A common error in JU semester examinations is omitting the non-touching product $+G_1 G_2 G_3 H_2 H_3$. Candidates erroneously assume that because the overall system has outer negative feedback, all loops must touch. Always list the exact node sets for every loop to establish non-intersection mathematically.
-                    </div>
-                </div>
-            </article>
-
-            <!-- ========================================================================= -->
-            <!-- 2. [JU 2024 Regular Q2(a) & 2019 Q10(a)] [6M / 4M] -->
-            <!-- ========================================================================= -->
-            <article class="problem-entry" id="masons-formula">
-                <div class="problem-header">
-                    <div class="problem-tag">
-                        <span class="exam-badge">JU 2024 Regular Q2(a) &bull; 2019 Q10(a)</span>
-                        <span class="marks-badge">[6M / 4M]</span>
-                    </div>
-                    <div class="meta-label">Graph Theory &bull; Formal Proof</div>
-                </div>
-
-                <h2 class="problem-title">Mathematical Foundations of Signal Flow Graphs &amp; Proof of Mason's Rule</h2>
-
-                <div class="question-prompt">
-                    &ldquo;(i) State rigorous topological definitions for the following signal flow graph terms: Node, Source Node, Sink Node, Forward Path, Path Gain, Feedback Loop, Loop Gain, and Non-Touching Loops.<br>
-                    (ii) State Mason's Gain Formula and give a complete, mathematically rigorous derivation using linear algebraic node equations and Cramer's Rule.&rdquo;
-                </div>
-
-                <div class="solution-body">
-                    <div class="solution-step">
-                        <span class="step-label">Part (a): Rigorous SFG Nomenclature</span>
-                        <table class="academic-table">
-                            <thead>
-                                <tr>
-                                    <th style="width: 25%;">Topological Entity</th>
-                                    <th style="width: 45%;">Rigorous Mathematical Definition</th>
-                                    <th style="width: 30%;">Physical / Operational Meaning</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><strong>Node ($x_k$)</strong></td>
-                                    <td>A point representing an independent or dependent system variable.</td>
-                                    <td>Summation point where signals add algebraically.</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Source Node (Input)</strong></td>
-                                    <td>A node with only outgoing branches ($\deg^-(x) = 0, \deg^+(x) \ge 1$).</td>
-                                    <td>Independent excitation / command signal $R(s)$.</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Sink Node (Output)</strong></td>
-                                    <td>A node with only incoming branches ($\deg^+(x) = 0, \deg^-(x) \ge 1$).</td>
-                                    <td>Controlled output variable $C(s)$.</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Forward Path</strong></td>
-                                    <td>A connected sequence of directed branches from source to sink traversing no node more than once.</td>
-                                    <td>Direct signal transmission path without feedback.</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Path Gain ($P_k$)</strong></td>
-                                    <td>The product of branch transmittances along the $k$-th forward path: $P_k = \prod_{b \in P_k} t_b$.</td>
-                                    <td>Total amplification along an open forward chain.</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Feedback Loop</strong></td>
-                                    <td>A closed directed path starting and ending at the exact same node, passing through no other node more than once.</td>
-                                    <td>Closed circulatory signal path inducing self-influence.</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Loop Gain ($L_i$)</strong></td>
-                                    <td>The product of all branch transmittances around a closed loop: $L_i = \prod_{b \in L_i} t_b$.</td>
-                                    <td>Open-loop gain around a closed subsystem loop.</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Non-Touching Loops</strong></td>
-                                    <td>Two or more loops whose node vertex sets are strictly disjoint: $V(L_i) \cap V(L_j) = \emptyset$.</td>
-                                    <td>Subsystems operating without direct topological coupling.</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="solution-step">
-                        <span class="step-label">Part (b): Formal Derivation of Mason's Gain Formula</span>
-                        <p>
-                            Consider an LTI system modeled by an $n$-node signal flow graph where node $x_1$ is the sole source node (input) and node $x_n$ is the designated sink node (output).
-                        </p>
-
-                        <p>
-                            At each dependent node $k \in \{2, 3, \dots, n\}$, the signal value equals the algebraic sum of all branch inputs arriving at node $k$:
-                            $$x_k = \sum_{j=1}^n t_{jk} x_j$$
-                            where $t_{jk}$ is the transmittance of the directed branch connecting node $j$ to node $k$ ($t_{kk} = 0$ unless node $k$ contains an explicit self-loop).
-                        </p>
-
-                        <p>
-                            Isolating the input source $x_1$ on the right-hand side and grouping terms:
-                            $$\sum_{j=2}^n (\delta_{kj} - t_{jk}) x_j = t_{1k} x_1 \quad (k = 2, 3, \dots, n)$$
-                            where $\delta_{kj}$ is the Kronecker delta ($\delta_{kj}=1$ if $k=j$, and $0$ otherwise). In matrix-vector format:
-                            $$\mathbf{A} \mathbf{x} = \mathbf{b} x_1$$
-                            where $\mathbf{x} = [x_2, x_3, \dots, x_n]^T$, $\mathbf{b} = [t_{12}, t_{13}, \dots, t_{1n}]^T$, and the coefficient matrix $\mathbf{A}$ of dimension $(n-1) \times (n-1)$ is:
-                            $$\mathbf{A} = \mathbf{I} - \mathbf{T}^T = \begin{bmatrix}
-                            1 - t_{22} & -t_{32} & -t_{42} & \cdots & -t_{n2} \\
-                            -t_{23} & 1 - t_{33} & -t_{43} & \cdots & -t_{n3} \\
-                            \vdots & \vdots & \vdots & \ddots & \vdots \\
-                            -t_{2n} & -t_{3n} & -t_{4n} & \cdots & 1 - t_{nn}
-                            \end{bmatrix}$$
-                        </p>
-
-                        <p>
-                            Applying <strong>Cramer's Rule</strong> to determine the output variable $x_n$:
-                            $$x_n = \frac{\det(\mathbf{A}_n)}{\det(\mathbf{A})} x_1$$
-                            where $\mathbf{A}_n$ is the matrix formed by replacing the last column (column corresponding to $x_n$) with the input vector $\mathbf{b}$.
-                        </p>
-
-                        <p>
-                            <strong>1. Evaluation of the Characteristic Determinant $\Delta = \det(\mathbf{A})$:</strong><br>
-                            Expanding $\det(\mathbf{I} - \mathbf{T}^T)$ via permutation theory:
-                            $$\det(\mathbf{A}) = 1 - \sum_{\text{cycles}} (\text{cycle gain}) + \sum_{\text{disjoint pairs}} (\text{product}) - \cdots$$
-                            Since every directed permutation cycle in $\mathbf{T}^T$ corresponds directly to a simple closed feedback loop $L_i$ in the signal flow graph:
-                            $$\mathbf{\Delta = 1 - \sum L_i + \sum L_i L_j - \sum L_i L_j L_k + \cdots}$$
-                        </p>
-
-                        <p>
-                            <strong>2. Expansion of the Numerator Determinant $\det(\mathbf{A}_n)$ along Forward Paths:</strong><br>
-                            The vector $\mathbf{b}$ contains terms $t_{1j}$ originating from the source $x_1$. Expanding $\det(\mathbf{A}_n)$ down the non-zero paths from node $1$ to node $n$ yields a sum over all distinct forward paths:
-                            $$\det(\mathbf{A}_n) = \sum_{k=1}^N P_k \Delta_k$$
-                            where $P_k$ is the product of transmittances along the $k$-th forward path, and $\Delta_k$ is the cofactor of path $P_k$ &mdash; evaluated as the determinant of the reduced subsystem obtained by removing all rows and columns belonging to the nodes traversed by path $k$. Thus, $\Delta_k$ is the graph determinant of the subgraph not touching path $k$.
-                        </p>
-
-                        <p>
-                            Combining the numerator expansion and denominator determinant yields <strong>Mason's Gain Formula</strong>:
-                            $$\mathbf{T = \frac{x_n}{x_1} = \frac{1}{\Delta} \sum_{k=1}^N P_k \Delta_k} \quad \blacksquare$$
-                        </p>
-                    </div>
-
-                    <div class="examiner-note">
-                        <strong>Self-Loop Evaluation Rule</strong>
-                        If a node contains a self-loop $a_{kk}$, it appears in the system determinant as $-a_{kk}$. When calculating path cofactor $\Delta_k$, if forward path $k$ passes through node $k$, the self-loop touches the path and is set to zero ($\Delta_k = 1$). If the path does not touch node $k$, the self-loop remains: $\Delta_k = 1 - a_{kk}$.
-                    </div>
-                </div>
-            </article>
-
-            <!-- ========================================================================= -->
-            <!-- 3. [JU 2023 Regular Q3b Option 1 & 2019 Q10(c)] [8M / 7M] -->
-            <!-- ========================================================================= -->
-            <article class="problem-entry" id="complex-sfg">
-                <div class="problem-header">
-                    <div class="problem-tag">
-                        <span class="exam-badge">JU 2023 Regular Q3b Option 1 &bull; 2019 Q10(c)</span>
-                        <span class="marks-badge">[8M / 7M]</span>
-                    </div>
-                    <div class="meta-label">Master Benchmark &bull; Multiple Paths &bull; Non-Touching Loops</div>
-                </div>
-
-                <h2 class="problem-title">Complex SFG Analysis with Multiple Forward Paths and Non-Unity Path Cofactors</h2>
-
-                <div class="question-prompt">
-                    &ldquo;For the multi-loop interconnected control system whose Signal Flow Graph is depicted in Fig. 4.3: (a) Identify all forward paths and determine their gains $P_k$. (b) Enumerate all individual feedback loops $L_i$. (c) Determine all non-touching loop pairs and evaluate the graph determinant $\Delta$. (d) Determine the path cofactors $\Delta_k$ and calculate the overall closed-loop transfer function $\frac{C(s)}{R(s)}$ using Mason's Gain Formula.&rdquo;
-                </div>
-
-                <div class="solution-body">
-                    <p>
-                        This classic JU problem benchmarks a candidate's mastery over complex topological interactions: it contains <strong>3 forward paths</strong>, <strong>4 feedback loops</strong>, and an isolated loop that does not touch one of the feedforward paths, producing a <strong>non-unity cofactor ($\Delta_k \neq 1$)</strong>.
-                    </p>
-
-                    <!-- SVG Figure 4.3: Master SFG -->
-                    <div class="svg-diagram-wrapper">
-                        <svg width="780" height="260" viewBox="0 0 780 260" xmlns="http://www.w3.org/2000/svg">
-                            <defs>
-                                <marker id="sfg3-arr" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                                    <path d="M 0 1.5 L 8 5 L 0 8.5 z" class="marker-ink" />
-                                </marker>
-                                <marker id="sfg3-arr-acc" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                                    <path d="M 0 1.5 L 8 5 L 0 8.5 z" class="marker-accent" />
-                                </marker>
-                            </defs>
-
-                            <!-- 6 Main Nodes: x1 (x=50), x2 (x=180), x3 (x=320), x4 (x=460), x5 (x=600), x6 (x=730) -->
-                            <line x1="50" y1="120" x2="170" y2="120" class="sfg-branch-line" marker-end="url(#sfg3-arr)" />
-                            <text x="110" y="110" text-anchor="middle" class="bd-text-bold">G₁</text>
-
-                            <line x1="180" y1="120" x2="310" y2="120" class="sfg-branch-line" marker-end="url(#sfg3-arr)" />
-                            <text x="250" y="110" text-anchor="middle" class="bd-text-bold">G₂</text>
-
-                            <line x1="320" y1="120" x2="450" y2="120" class="sfg-branch-line" marker-end="url(#sfg3-arr)" />
-                            <text x="390" y="110" text-anchor="middle" class="bd-text-bold">G₃</text>
-
-                            <line x1="460" y1="120" x2="590" y2="120" class="sfg-branch-line" marker-end="url(#sfg3-arr)" />
-                            <text x="530" y="110" text-anchor="middle" class="bd-text-bold">G₄</text>
-
-                            <line x1="600" y1="120" x2="720" y2="120" class="sfg-branch-line" marker-end="url(#sfg3-arr)" />
-                            <text x="665" y="110" text-anchor="middle" class="bd-text-bold">1</text>
-
-                            <!-- Feedforward Path 2: x2 to x4 bypassing x3 (G5) -->
-                            <path d="M 180 114 C 230 40, 410 40, 456 114" class="sfg-branch-line" marker-end="url(#sfg3-arr)" />
-                            <text x="320" y="45" text-anchor="middle" class="bd-text-bold">+G₅ (Feedforward P₂)</text>
-
-                            <!-- Feedforward Path 3: Direct input to output bypass G7 -->
-                            <path d="M 50 114 C 150 15, 630 15, 726 114" class="sfg-branch-line" marker-end="url(#sfg3-arr)" />
-                            <text x="390" y="20" text-anchor="middle" class="bd-text-bold">+G₇ (Direct Bypass P₃: R to C)</text>
-
-                            <!-- Feedback Loop L1: x3 to x2 (-H1) -->
-                            <path d="M 320 126 C 290 170, 210 170, 184 126" class="sfg-loop-line" marker-end="url(#sfg3-arr-acc)" />
-                            <text x="250" y="172" text-anchor="middle" class="bd-text-accent">−H₁ (L₁)</text>
-
-                            <!-- Feedback Loop L2: x4 to x3 (-H2) -->
-                            <path d="M 460 126 C 430 170, 350 170, 324 126" class="sfg-loop-line" marker-end="url(#sfg3-arr-acc)" />
-                            <text x="390" y="172" text-anchor="middle" class="bd-text-accent">−H₂ (L₂)</text>
-
-                            <!-- Feedback Loop L3: x5 to x4 (-H3) -->
-                            <path d="M 600 126 C 570 170, 490 170, 464 126" class="sfg-loop-line" marker-end="url(#sfg3-arr-acc)" />
-                            <text x="530" y="172" text-anchor="middle" class="bd-text-accent">−H₃ (L₃)</text>
-
-                            <!-- Feedback Loop L4: Outer Loop x5 to x2 (-H4) -->
-                            <path d="M 600 126 C 530 230, 250 230, 184 126" class="sfg-loop-line" marker-end="url(#sfg3-arr-acc)" />
-                            <text x="390" y="235" text-anchor="middle" class="bd-text-accent">−H₄ (Outer Loop L₄)</text>
-
-                            <!-- Nodes rendered on top -->
-                            <circle cx="50" cy="120" r="6" class="sfg-node-circle" />
-                            <text x="50" y="142" text-anchor="middle" class="bd-text-bold">x₁ (R)</text>
-
-                            <circle cx="180" cy="120" r="6" class="sfg-node-circle" />
-                            <text x="180" y="142" text-anchor="middle" class="bd-text-bold">x₂</text>
-
-                            <circle cx="320" cy="120" r="6" class="sfg-node-circle" />
-                            <text x="320" y="142" text-anchor="middle" class="bd-text-bold">x₃</text>
-
-                            <circle cx="460" cy="120" r="6" class="sfg-node-circle" />
-                            <text x="460" y="142" text-anchor="middle" class="bd-text-bold">x₄</text>
-
-                            <circle cx="600" cy="120" r="6" class="sfg-node-circle" />
-                            <text x="600" y="142" text-anchor="middle" class="bd-text-bold">x₅</text>
-
-                            <circle cx="730" cy="120" r="6" class="sfg-node-accent" />
-                            <text x="730" y="142" text-anchor="middle" class="bd-text-accent">x₆ (C)</text>
-                        </svg>
-                        <div class="diagram-caption">Figure 4.3: Master Signal Flow Graph Benchmark with 3 Forward Paths and Isolated Feedback Loops</div>
-                    </div>
-
-                    <div class="solution-step">
-                        <span class="step-label">Step-by-Step Topology Extraction</span>
-
-                        <p><strong>1. Identification of Forward Paths ($P_k$):</strong></p>
-                        <ul style="padding-left: 20px; margin-bottom: 12px; font-family: var(--mono); font-size: 13.5px;">
-                            <li><strong>Path 1 (Main Spine):</strong> $x_1 \to x_2 \to x_3 \to x_4 \to x_5 \to x_6 \implies \mathbf{P_1 = G_1 G_2 G_3 G_4}$</li>
-                            <li><strong>Path 2 (Intermediate Feedforward):</strong> $x_1 \to x_2 \to x_4 \to x_5 \to x_6 \implies \mathbf{P_2 = G_1 G_5 G_4}$</li>
-                            <li><strong>Path 3 (Direct Reference Bypass):</strong> $x_1 \to x_6 \implies \mathbf{P_3 = G_7}$</li>
-                        </ul>
-
-                        <p><strong>2. Identification of Individual Feedback Loops ($L_i$):</strong></p>
-                        <ul style="padding-left: 20px; margin-bottom: 12px; font-family: var(--mono); font-size: 13.5px;">
-                            <li>$L_1$: $x_2 \to x_3 \to x_2 \implies \mathbf{L_1 = -G_2 H_1}$ &emsp; [Nodes: $\{x_2, x_3\}$]</li>
-                            <li>$L_2$: $x_3 \to x_4 \to x_3 \implies \mathbf{L_2 = -G_3 H_2}$ &emsp; [Nodes: $\{x_3, x_4\}$]</li>
-                            <li>$L_3$: $x_4 \to x_5 \to x_4 \implies \mathbf{L_3 = -G_4 H_3}$ &emsp; [Nodes: $\{x_4, x_5\}$]</li>
-                            <li>$L_4$: $x_2 \to x_3 \to x_4 \to x_5 \to x_2 \implies \mathbf{L_4 = -G_2 G_3 G_4 H_4}$ &emsp; [Nodes: $\{x_2, x_3, x_4, x_5\}$]</li>
-                        </ul>
-
-                        <p><strong>3. Non-Touching Loop Analysis:</strong></p>
-                        <p>
-                            Compare vertex sets:
-                            $$\text{Nodes}(L_1) = \{x_2, x_3\}, \quad \text{Nodes}(L_3) = \{x_4, x_5\} \implies \{x_2, x_3\} \cap \{x_4, x_5\} = \emptyset$$
-                            Hence, <strong>$L_1$ and $L_3$ are strictly non-touching</strong>! All other loop pairs share at least one vertex ($L_1 \cap L_2 = \{x_3\}$, $L_2 \cap L_3 = \{x_4\}$, and $L_4$ contains all internal nodes).
-                            $$L_1 L_3 = (-G_2 H_1)(-G_4 H_3) = \mathbf{+G_2 G_4 H_1 H_3}$$
-                        </p>
-
-                        <p><strong>4. System Determinant ($\Delta$):</strong></p>
-                        <div class="katex-display">
-                            $$\Delta = 1 - (L_1 + L_2 + L_3 + L_4) + L_1 L_3$$
-                            $$\mathbf{\Delta = 1 + G_2 H_1 + G_3 H_2 + G_4 H_3 + G_2 G_3 G_4 H_4 + G_2 G_4 H_1 H_3}$$
-                        </div>
-
-                        <p><strong>5. Path Cofactors ($\Delta_k$) &mdash; The Vital Examination Nuance:</strong></p>
-                        <ul style="padding-left: 20px; margin-bottom: 12px; font-family: var(--mono); font-size: 13.5px;">
                             <li>
-                                <strong>Path 1:</strong> Traverses nodes $\{x_1, x_2, x_3, x_4, x_5, x_6\}$. Touches all four loops $\implies \mathbf{\Delta_1 = 1}$.
+                                <strong>Branch Mapping:</strong> Replace every block with a directed branch originating from its input node and terminating at its output node. The branch transmittance equals the block transfer function $G_i(s)$ or $H_i(s)$.
                             </li>
-                            <li style="margin-top: 6px;">
-                                <strong>Path 2:</strong> Traverses nodes $\{x_1, x_2, x_4, x_5, x_6\}$. Although node $x_3$ is avoided, loop $L_1$ touches $x_2$, loop $L_2$ touches $x_4$, and loop $L_3$ touches $x_4, x_5$. Every loop shares a node with Path 2 $\implies \mathbf{\Delta_2 = 1}$.
+                            <li>
+                                <strong>Sign Assignment:</strong> If an incoming branch enters a summing junction with a negative sign ($-$), assign a minus sign to the corresponding branch transmittance (e.g., $-1$ or $-H_i(s)$). If it enters with a positive sign ($+$), assign a positive sign ($+1$ or $+H_i(s)$).
                             </li>
-                            <li style="margin-top: 6px;">
-                                <strong>Path 3 (Direct Bypass):</strong> Traverses <em>only</em> source node $x_1$ and sink node $x_6$. It touches <strong>none</strong> of the internal feedback loops! Therefore, the subgraph remaining when Path 3 is removed contains all four loops:
-                                $$\mathbf{\Delta_3 = \Delta = 1 + G_2 H_1 + G_3 H_2 + G_4 H_3 + G_2 G_3 G_4 H_4 + G_2 G_4 H_1 H_3}$$
+                        </ol>
+                    </div>
+
+                    <div class="solution-step">
+                        <span class="step-label">Step 2: Applied Transformation Example</span>
+                        <p>
+                            Consider the canonical feedback structure with forward cascade $G_1, G_2, G_3$, local feedback $H_1$, and outer feedback $H_2$:
+                        </p>
+                        <ul class="academic-list">
+                            <li><strong>Forward Path:</strong> $P_1 = G_1 G_2 G_3$ with cofactor $\Delta_1 = 1$.</li>
+                            <li><strong>Inner Loop:</strong> $L_1 = -G_2 H_1$.</li>
+                            <li><strong>Outer Loop:</strong> $L_2 = -G_1 G_2 G_3 H_2$.</li>
+                            <li><strong>Determinant:</strong> $\Delta = 1 - (L_1 + L_2) = 1 + G_2 H_1 + G_1 G_2 G_3 H_2$.</li>
+                            <li><strong>Transfer Function:</strong>
+                            $$\frac{C(s)}{R(s)} = \frac{G_1 G_2 G_3}{1 + G_2 H_1 + G_1 G_2 G_3 H_2} \quad \blacksquare$$
                             </li>
                         </ul>
-
-                        <p><strong>6. Total Closed-Loop System Gain:</strong></p>
-                        <div class="katex-display">
-                            $$\frac{C(s)}{R(s)} = \frac{P_1 \Delta_1 + P_2 \Delta_2 + P_3 \Delta_3}{\Delta} = \frac{G_1 G_2 G_3 G_4 (1) + G_1 G_4 G_5 (1) + G_7 \Delta}{\Delta}$$
-                            $$\mathbf{\frac{C(s)}{R(s)} = \frac{G_1 G_4 (G_2 G_3 + G_5)}{\Delta} + G_7}$$
-                        </div>
-                    </div>
-
-                    <div class="examiner-note">
-                        <strong>Textbook Verification (Nagrath &amp; Gopal)</strong>
-                        Direct bypass branches (such as $P_3 = G_7$) that enter the output node from the input node without passing through the plant loop always exhibit a path cofactor equal to the full determinant $\Delta_k = \Delta$. This results in the term $G_7 \Delta / \Delta = G_7$, perfectly matching superposition physics: the feedforward signal adds directly to the closed-loop plant response.
-                    </div>
-                </div>
-            </article>
-
-            <!-- ========================================================================= -->
-            <!-- 4. [JU 2023 Regular Q3b Option 2 & 2019 Q10(b)] [8M / 5M] -->
-            <!-- ========================================================================= -->
-            <article class="problem-entry" id="bd-reduction-rules">
-                <div class="problem-header">
-                    <div class="problem-tag">
-                        <span class="exam-badge">JU 2023 Regular Q3b Option 2 &bull; 2019 Q10(b)</span>
-                        <span class="marks-badge">[8M / 5M]</span>
-                    </div>
-                    <div class="meta-label">Algebraic Invariance &bull; Rigorous Equivalence Proofs</div>
-                </div>
-
-                <h2 class="problem-title">Block Diagram Reduction Rules &amp; Mathematical Proofs of Equivalence</h2>
-
-                <div class="question-prompt">
-                    &ldquo;State and prove the fundamental transformation rules of block diagram algebra: (a) Moving a summing point ahead of (before) and behind (after) a block, (b) Moving a takeoff point ahead of (before) and behind (after) a block, and (c) Eliminating a canonical feedback loop. Demonstrate with side-by-side diagrams that signal values at every node remain strictly invariant.&rdquo;
-                </div>
-
-                <div class="solution-body">
-                    <p>
-                        Block diagram algebra is founded on the algebraic preservation of signal values. Any valid transformation must leave the mathematical signal at every external terminal unchanged.
-                    </p>
-
-                    <!-- Theorem 1: Feedback Loop Elimination -->
-                    <div class="solution-step">
-                        <span class="step-label">Theorem 1: Elimination of a Negative Feedback Loop</span>
-                        <p>
-                            Consider a forward block $G(s)$ driven by an error summer that subtracts the feedback signal $B(s) = H(s)C(s)$ from reference $R(s)$:
-                            $$E(s) = R(s) \mp H(s)C(s)$$
-                            The controlled output signal is:
-                            $$C(s) = G(s) E(s) = G(s) [R(s) \mp H(s)C(s)] = G(s)R(s) \mp G(s)H(s)C(s)$$
-                            Collecting all terms containing $C(s)$ on the left-hand side:
-                            $$C(s) [1 \pm G(s)H(s)] = G(s) R(s)$$
-                            Dividing by $R(s)[1 \pm G(s)H(s)]$:
-                            $$\mathbf{\frac{C(s)}{R(s)} = \frac{G(s)}{1 \pm G(s)H(s)}} \quad \blacksquare$$
-                            <em>Rule:</em> A negative feedback loop ($-$ sign at summer) yields a plus ($+$) sign in the denominator; positive feedback yields a minus ($-$) sign.
-                        </p>
-                    </div>
-
-                    <!-- Theorem 2 & 3: Moving Summing Points -->
-                    <div class="solution-step">
-                        <span class="step-label">Theorem 2: Moving a Summing Point Ahead of (Before) a Block</span>
-                        <p>
-                            <strong>Original Configuration:</strong> Input $X_1$ passes through block $G$ to produce $G X_1$. A summing junction located <em>after</em> $G$ adds external signal $X_2$:
-                            $$Y = G X_1 \pm X_2$$
-                            <strong>Transformed Configuration:</strong> Move the summing junction <em>before</em> block $G$. Signals $X_1$ and modified signal $X_2'$ enter the summer, and their combined sum enters $G$:
-                            $$Y = G(X_1 \pm X_2') = G X_1 \pm G X_2'$$
-                            To enforce mathematical identity with the original output:
-                            $$G X_1 \pm G X_2' = G X_1 \pm X_2 \implies G X_2' = X_2 \implies \mathbf{X_2' = \frac{1}{G(s)} X_2} \quad \blacksquare$$
-                            <em>Rule:</em> Moving a summer against the direction of signal flow requires inserting a block of transmittance $\frac{1}{G(s)}$ into the incoming branch.
-                        </p>
-                    </div>
-
-                    <div class="solution-step">
-                        <span class="step-label">Theorem 3: Moving a Summing Point Behind (After) a Block</span>
-                        <p>
-                            <strong>Original Configuration:</strong> Summing junction is located <em>before</em> block $G$:
-                            $$Y = G(X_1 \pm X_2) = G X_1 \pm G X_2$$
-                            <strong>Transformed Configuration:</strong> Relocate the summer <em>after</em> block $G$. Signal $X_1$ passes through $G$ to yield $G X_1$. The relocated summer adds modified signal $X_2'$:
-                            $$Y = G X_1 \pm X_2'$$
-                            Equating to the original output:
-                            $$G X_1 \pm X_2' = G X_1 \pm G X_2 \implies \mathbf{X_2' = G(s) X_2} \quad \blacksquare$$
-                            <em>Rule:</em> Moving a summer along the direction of signal flow requires inserting a block of transmittance $G(s)$ into the incoming branch.
-                        </p>
-                    </div>
-
-                    <!-- Theorem 4 & 5: Moving Takeoff Points -->
-                    <div class="solution-step">
-                        <span class="step-label">Theorem 4: Moving a Takeoff Point Ahead of (Before) a Block</span>
-                        <p>
-                            <strong>Original Configuration:</strong> Pick-off point is located <em>after</em> block $G$. Main output is $Y = G X$. The tapped branch carries signal:
-                            $$W = G X$$
-                            <strong>Transformed Configuration:</strong> Relocate the pick-off point <em>before</em> block $G$. The signal available at this point is only $X$. To maintain identical signal $W = G X$ in the tapped branch:
-                            $$W = G' X = G X \implies \mathbf{G' = G(s)} \quad \blacksquare$$
-                            <em>Rule:</em> Moving a pick-off point against signal flow requires adding a block $G(s)$ in the tapped branch.
-                        </p>
-                    </div>
-
-                    <div class="solution-step">
-                        <span class="step-label">Theorem 5: Moving a Takeoff Point Behind (After) a Block</span>
-                        <p>
-                            <strong>Original Configuration:</strong> Pick-off point is located <em>before</em> block $G$. Main output is $G X$. The tapped branch carries signal:
-                            $$W = X$$
-                            <strong>Transformed Configuration:</strong> Relocate the pick-off point <em>after</em> block $G$. The signal available after $G$ is $G X$. To restore the required signal $W = X$ in the tapped branch:
-                            $$W = G'(G X) = X \implies \mathbf{G' = \frac{1}{G(s)}} \quad \blacksquare$$
-                            <em>Rule:</em> Moving a pick-off point along signal flow requires adding a block $\frac{1}{G(s)}$ in the tapped branch.
-                        </p>
-                    </div>
-
-                    <!-- SVG Figure 4.4: Side-by-Side Equivalence Diagrams -->
-                    <div class="svg-diagram-wrapper">
-                        <svg width="780" height="360" viewBox="0 0 780 360" xmlns="http://www.w3.org/2000/svg">
-                            <defs>
-                                <marker id="r-arr" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                                    <path d="M 0 1.5 L 8 5 L 0 8.5 z" class="marker-ink" />
-                                </marker>
-                            </defs>
-
-                            <!-- Row 1: Negative Feedback Loop Elimination -->
-                            <g transform="translate(10, 15)">
-                                <text x="0" y="10" class="bd-text-bold">Rule 3: Negative Feedback Loop Elimination</text>
-
-                                <!-- Before -->
-                                <line x1="10" y1="50" x2="48" y2="50" class="bd-wire" marker-end="url(#r-arr)" />
-                                <text x="15" y="42" class="bd-text-bold">R</text>
-                                <circle cx="60" cy="50" r="10" class="bd-summer" />
-                                <text x="53" y="46" class="bd-text-bold" fill="var(--ink)">+</text>
-                                <text x="56" y="68" class="bd-text-bold" fill="var(--accent)">−</text>
-                                <line x1="70" y1="50" x2="108" y2="50" class="bd-wire" marker-end="url(#r-arr)" />
-                                <rect x="110" y="35" width="45" height="30" class="bd-block" />
-                                <text x="132" y="54" text-anchor="middle" class="bd-text-bold">G</text>
-                                <line x1="155" y1="50" x2="190" y2="50" class="bd-wire" />
-                                <circle cx="190" cy="50" r="3" class="bd-node" />
-                                <line x1="190" y1="50" x2="230" y2="50" class="bd-wire" marker-end="url(#r-arr)" />
-                                <text x="210" y="42" class="bd-text-bold">C</text>
-                                <path d="M 190 50 L 190 90 L 155 90" class="bd-wire-accent" marker-end="url(#r-arr)" />
-                                <rect x="110" y="78" width="45" height="24" class="bd-block" />
-                                <text x="132" y="94" text-anchor="middle" class="bd-text-accent">H</text>
-                                <path d="M 110 90 L 60 90 L 60 62" class="bd-wire-accent" marker-end="url(#r-arr)" />
-
-                                <!-- Equivalence Arrow -->
-                                <text x="270" y="65" font-family="var(--sans)" font-size="20" font-weight="700" fill="var(--accent)">&hArr;</text>
-
-                                <!-- After -->
-                                <line x1="320" y1="50" x2="368" y2="50" class="bd-wire" marker-end="url(#r-arr)" />
-                                <text x="325" y="42" class="bd-text-bold">R</text>
-                                <rect x="370" y="30" width="120" height="40" class="bd-block-accent" />
-                                <text x="430" y="48" text-anchor="middle" class="bd-text-bold">G</text>
-                                <line x1="390" y1="52" x2="470" y2="52" stroke="var(--ink)" stroke-width="1.2" />
-                                <text x="430" y="64" text-anchor="middle" class="bd-text-bold">1 + GH</text>
-                                <line x1="490" y1="50" x2="540" y2="50" class="bd-wire" marker-end="url(#r-arr)" />
-                                <text x="515" y="42" class="bd-text-bold">C</text>
-                            </g>
-
-                            <!-- Row 2: Moving Summing Point Ahead of Block (Introduce 1/G) -->
-                            <g transform="translate(10, 135)">
-                                <text x="0" y="10" class="bd-text-bold">Rule 4: Moving Summing Point Ahead of Block (Summer moved against signal)</text>
-
-                                <!-- Before: Summer after G -->
-                                <line x1="10" y1="50" x2="48" y2="50" class="bd-wire" marker-end="url(#r-arr)" />
-                                <text x="15" y="42" class="bd-text-bold">X₁</text>
-                                <rect x="50" y="35" width="45" height="30" class="bd-block" />
-                                <text x="72" y="54" text-anchor="middle" class="bd-text-bold">G</text>
-                                <line x1="95" y1="50" x2="128" y2="50" class="bd-wire" marker-end="url(#r-arr)" />
-                                <circle cx="138" cy="50" r="9" class="bd-summer" />
-                                <line x1="138" y1="95" x2="138" y2="61" class="bd-wire" marker-end="url(#r-arr)" />
-                                <text x="148" y="90" class="bd-text-bold">X₂</text>
-                                <line x1="147" y1="50" x2="210" y2="50" class="bd-wire" marker-end="url(#r-arr)" />
-                                <text x="160" y="42" class="bd-text-bold">Y = GX₁ ± X₂</text>
-
-                                <!-- Equivalence Arrow -->
-                                <text x="270" y="65" font-family="var(--sans)" font-size="20" font-weight="700" fill="var(--accent)">&hArr;</text>
-
-                                <!-- After: Summer before G with 1/G -->
-                                <line x1="320" y1="50" x2="348" y2="50" class="bd-wire" marker-end="url(#r-arr)" />
-                                <text x="325" y="42" class="bd-text-bold">X₁</text>
-                                <circle cx="358" cy="50" r="9" class="bd-summer" />
-                                <line x1="367" y1="50" x2="408" y2="50" class="bd-wire" marker-end="url(#r-arr)" />
-                                <rect x="410" y="35" width="45" height="30" class="bd-block" />
-                                <text x="432" y="54" text-anchor="middle" class="bd-text-bold">G</text>
-                                <line x1="455" y1="50" x2="520" y2="50" class="bd-wire" marker-end="url(#r-arr)" />
-                                <text x="470" y="42" class="bd-text-bold">Y = GX₁ ± X₂</text>
-                                <!-- Branch with 1/G -->
-                                <line x1="315" y1="95" x2="338" y2="95" class="bd-wire" marker-end="url(#r-arr)" />
-                                <text x="315" y="88" class="bd-text-bold">X₂</text>
-                                <rect x="340" y="80" width="36" height="26" class="bd-block-accent" />
-                                <text x="358" y="97" text-anchor="middle" class="bd-text-accent">1/G</text>
-                                <path d="M 358 80 L 358 61" class="bd-wire" marker-end="url(#r-arr)" />
-                            </g>
-
-                            <!-- Row 3: Moving Takeoff Point Behind Block (Introduce 1/G) -->
-                            <g transform="translate(10, 250)">
-                                <text x="0" y="10" class="bd-text-bold">Rule 7: Moving Takeoff Point Behind Block (Takeoff moved along signal)</text>
-
-                                <!-- Before: Takeoff before G -->
-                                <line x1="10" y1="45" x2="40" y2="45" class="bd-wire" />
-                                <circle cx="40" cy="45" r="3" class="bd-node" />
-                                <line x1="40" y1="45" x2="78" y2="45" class="bd-wire" marker-end="url(#r-arr)" />
-                                <text x="15" y="38" class="bd-text-bold">X</text>
-                                <rect x="80" y="30" width="45" height="30" class="bd-block" />
-                                <text x="102" y="49" text-anchor="middle" class="bd-text-bold">G</text>
-                                <line x1="125" y1="45" x2="190" y2="45" class="bd-wire" marker-end="url(#r-arr)" />
-                                <text x="155" y="38" class="bd-text-bold">GX</text>
-                                <path d="M 40 45 L 40 85 L 180 85" class="bd-wire" marker-end="url(#r-arr)" />
-                                <text x="145" y="78" class="bd-text-bold">W = X</text>
-
-                                <!-- Equivalence Arrow -->
-                                <text x="270" y="60" font-family="var(--sans)" font-size="20" font-weight="700" fill="var(--accent)">&hArr;</text>
-
-                                <!-- After: Takeoff after G with 1/G -->
-                                <line x1="320" y1="45" x2="358" y2="45" class="bd-wire" marker-end="url(#r-arr)" />
-                                <text x="325" y="38" class="bd-text-bold">X</text>
-                                <rect x="360" y="30" width="45" height="30" class="bd-block" />
-                                <text x="382" y="49" text-anchor="middle" class="bd-text-bold">G</text>
-                                <line x1="405" y1="45" x2="435" y2="45" class="bd-wire" />
-                                <circle cx="435" cy="45" r="3" class="bd-node" />
-                                <line x1="435" y1="45" x2="500" y2="45" class="bd-wire" marker-end="url(#r-arr)" />
-                                <text x="465" y="38" class="bd-text-bold">GX</text>
-                                <path d="M 435 45 L 435 85 L 450 85" class="bd-wire" marker-end="url(#r-arr)" />
-                                <rect x="452" y="72" width="36" height="26" class="bd-block-accent" />
-                                <text x="470" y="89" text-anchor="middle" class="bd-text-accent">1/G</text>
-                                <line x1="488" y1="85" x2="535" y2="85" class="bd-wire" marker-end="url(#r-arr)" />
-                                <text x="500" y="78" class="bd-text-bold">W = X</text>
-                            </g>
-                        </svg>
-                        <div class="diagram-caption">Figure 4.4: Visual Proofs of Signal Invariance Across Canonical Equivalence Transformations</div>
-                    </div>
-
-                    <!-- Comprehensive Master Table: 10 Reduction Rules -->
-                    <div class="solution-step">
-                        <span class="step-label">Master Compendium: 10 Canonical Block Diagram Reduction Rules</span>
-                        <table class="academic-table">
-                            <thead>
-                                <tr>
-                                    <th style="width: 5%;">#</th>
-                                    <th style="width: 25%;">Operation Name</th>
-                                    <th style="width: 35%;">Original &rarr; Equivalent Expression</th>
-                                    <th style="width: 35%;">Governing Invariance Principle</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td><strong>Cascade (Series)</strong></td>
-                                    <td>$Y = G_2 (G_1 X) \iff Y = (G_1 G_2) X$</td>
-                                    <td>Multiplication of linear transmittances (no intermediate loading).</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td><strong>Parallel (Feedforward)</strong></td>
-                                    <td>$Y = G_1 X \pm G_2 X \iff Y = (G_1 \pm G_2) X$</td>
-                                    <td>Distributive property of linear algebraic operators.</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td><strong>Feedback Loop</strong></td>
-                                    <td>$Y = G(X \mp H Y) \iff Y = \frac{G}{1 \pm G H} X$</td>
-                                    <td>Closed-loop algebraic loop elimination theorem.</td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td><strong>Summer Ahead of Block</strong></td>
-                                    <td>$Y = G X_1 \pm X_2 \iff Y = G(X_1 \pm \frac{1}{G} X_2)$</td>
-                                    <td>Incoming branch scaled by $1/G$ to preserve summer contribution.</td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td><strong>Summer Behind Block</strong></td>
-                                    <td>$Y = G(X_1 \pm X_2) \iff Y = G X_1 \pm G X_2$</td>
-                                    <td>Incoming branch scaled by $G$ to match block amplification.</td>
-                                </tr>
-                                <tr>
-                                    <td>6</td>
-                                    <td><strong>Takeoff Ahead of Block</strong></td>
-                                    <td>$W = G X \iff W = G(X)$ (tapped before $G$)</td>
-                                    <td>Tapped branch multiplied by $G$ to compensate missing block.</td>
-                                </tr>
-                                <tr>
-                                    <td>7</td>
-                                    <td><strong>Takeoff Behind Block</strong></td>
-                                    <td>$W = X \iff W = \frac{1}{G}(G X)$ (tapped after $G$)</td>
-                                    <td>Tapped branch divided by $G$ to cancel block amplification.</td>
-                                </tr>
-                                <tr>
-                                    <td>8</td>
-                                    <td><strong>Commuting Summers</strong></td>
-                                    <td>$(X_1 \pm X_2) \pm X_3 \iff (X_1 \pm X_3) \pm X_2$</td>
-                                    <td>Commutativity &amp; associativity of linear algebraic addition.</td>
-                                </tr>
-                                <tr>
-                                    <td>9</td>
-                                    <td><strong>Splitting Summing Points</strong></td>
-                                    <td>Single summer with 3 inputs $\iff$ 2 cascaded summers</td>
-                                    <td>Isolates inner feedback loops for sequential minor-loop reduction.</td>
-                                </tr>
-                                <tr>
-                                    <td>10</td>
-                                    <td><strong>Takeoff across Summer</strong></td>
-                                    <td>Tapping after summer: $X_1 \pm X_2$</td>
-                                    <td>Requires creating duplicate summer in tapped branch.</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="examiner-note">
-                        <strong>Practical Exam Strategy: Never Move Pick-off Across Summer</strong>
-                        While mathematically permissible (Rule 10), moving a pick-off point across a summing junction introduces additional summers and extra feedback loops, significantly complicating the diagram. The optimal reduction strategy is always: (1) Reduce internal cascade and parallel blocks, (2) Shift pick-off points past blocks to isolate minor feedback loops, (3) Eliminate minor loops via $G/(1+GH)$, and (4) Collapse the final single-loop system.
                     </div>
                 </div>
             </article>
@@ -966,9 +970,9 @@
                 </div>
 
                 <div class="solution-body">
-                    <!-- SVG Figure 4.5: Multi-Input Disturbance System -->
+                    <!-- SVG Figure: Multi-Input Disturbance System -->
                     <div class="svg-diagram-wrapper">
-                        <svg width="780" height="280" viewBox="0 0 780 280" xmlns="http://www.w3.org/2000/svg">
+                        <svg width="780" height="200" viewBox="0 0 780 200" xmlns="http://www.w3.org/2000/svg">
                             <defs>
                                 <marker id="dist-arr" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                                     <path d="M 0 1.5 L 8 5 L 0 8.5 z" class="marker-ink" />
@@ -978,424 +982,257 @@
                                 </marker>
                             </defs>
 
-                            <!-- (a) Complete Dual-Input System -->
-                            <g transform="translate(10, 10)">
-                                <text x="0" y="14" class="bd-text-bold">System Topology: Dual Inputs R(s) and D(s)</text>
+                            <!-- Reference R(s) -->
+                            <line x1="30" y1="80" x2="88" y2="80" class="bd-wire" marker-end="url(#dist-arr)" />
+                            <text x="35" y="70" class="bd-text-bold">R(s)</text>
 
-                                <!-- Reference R(s) -->
-                                <line x1="10" y1="65" x2="58" y2="65" class="bd-wire" marker-end="url(#dist-arr)" />
-                                <text x="18" y="55" class="bd-text-bold">R(s)</text>
+                            <!-- Summer 1 -->
+                            <circle cx="100" cy="80" r="12" class="bd-summer" />
+                            <text x="91" y="75" class="bd-text-bold" fill="var(--ink)">+</text>
+                            <text x="96" y="102" class="bd-text-bold" fill="var(--accent)">−</text>
 
-                                <!-- Summer 1 -->
-                                <circle cx="70" cy="65" r="12" class="bd-summer" />
-                                <text x="61" y="60" class="bd-text-bold" fill="var(--ink)">+</text>
-                                <text x="65" y="86" class="bd-text-bold" fill="var(--accent)">−</text>
+                            <!-- Controller G1 -->
+                            <line x1="112" y1="80" x2="168" y2="80" class="bd-wire" marker-end="url(#dist-arr)" />
+                            <rect x="170" y="60" width="70" height="40" class="bd-block" />
+                            <text x="205" y="85" text-anchor="middle" class="bd-text-bold">G₁(s)</text>
 
-                                <!-- Controller G1 -->
-                                <line x1="82" y1="65" x2="128" y2="65" class="bd-wire" marker-end="url(#dist-arr)" />
-                                <rect x="130" y="48" width="60" height="34" class="bd-block" />
-                                <text x="160" y="69" text-anchor="middle" class="bd-text-bold">G₁(s)</text>
+                            <!-- Disturbance Summer 2 -->
+                            <line x1="240" y1="80" x2="298" y2="80" class="bd-wire" marker-end="url(#dist-arr)" />
+                            <circle cx="310" cy="80" r="12" class="bd-summer" />
+                            <text x="301" y="75" class="bd-text-bold" fill="var(--ink)">+</text>
+                            <text x="314" y="68" class="bd-text-bold" fill="var(--ink)">+</text>
 
-                                <!-- Summer 2 (Disturbance entry) -->
-                                <line x1="190" y1="65" x2="238" y2="65" class="bd-wire" marker-end="url(#dist-arr)" />
-                                <circle cx="250" cy="65" r="12" class="bd-summer" />
-                                <text x="241" y="60" class="bd-text-bold" fill="var(--ink)">+</text>
-                                <text x="254" y="60" class="bd-text-bold" fill="var(--accent)">+</text>
+                            <!-- Disturbance Input D(s) -->
+                            <line x1="310" y1="20" x2="310" y2="66" class="bd-wire" marker-end="url(#dist-arr)" />
+                            <text x="318" y="35" class="bd-text-bold">D(s) (Disturbance)</text>
 
-                                <!-- Disturbance D(s) entry arrow -->
-                                <line x1="250" y1="15" x2="250" y2="51" class="bd-wire-accent" marker-end="url(#dist-arr-acc)" />
-                                <text x="260" y="28" class="bd-text-accent">D(s) [Load]</text>
+                            <!-- Plant G2 -->
+                            <line x1="322" y1="80" x2="378" y2="80" class="bd-wire" marker-end="url(#dist-arr)" />
+                            <rect x="380" y="60" width="70" height="40" class="bd-block" />
+                            <text x="415" y="85" text-anchor="middle" class="bd-text-bold">G₂(s)</text>
 
-                                <!-- Plant G2 -->
-                                <line x1="262" y1="65" x2="308" y2="65" class="bd-wire" marker-end="url(#dist-arr)" />
-                                <rect x="310" y="48" width="60" height="34" class="bd-block" />
-                                <text x="340" y="69" text-anchor="middle" class="bd-text-bold">G₂(s)</text>
+                            <!-- Output C(s) -->
+                            <line x1="450" y1="80" x2="570" y2="80" class="bd-wire" marker-end="url(#dist-arr)" />
+                            <circle cx="510" cy="80" r="3.5" class="bd-node" />
+                            <text x="550" y="70" class="bd-text-bold">C(s)</text>
 
-                                <!-- Output C(s) -->
-                                <line x1="370" y1="65" x2="410" y2="65" class="bd-wire" />
-                                <circle cx="410" cy="65" r="3.5" class="bd-node" />
-                                <line x1="410" y1="65" x2="460" y2="65" class="bd-wire" marker-end="url(#dist-arr)" />
-                                <text x="435" y="55" class="bd-text-bold">C(s)</text>
-
-                                <!-- Feedback sensor H(s) -->
-                                <path d="M 410 65 L 410 125 L 340 125" class="bd-wire-accent" marker-end="url(#dist-arr-acc)" />
-                                <rect x="275" y="110" width="65" height="30" class="bd-block" />
-                                <text x="307" y="129" text-anchor="middle" class="bd-text-accent">H(s)</text>
-                                <path d="M 275 125 L 70 125 L 70 79" class="bd-wire-accent" marker-end="url(#dist-arr-acc)" />
-                            </g>
-
-                            <!-- (b) Tracking Subsystem D=0 -->
-                            <g transform="translate(510, 10)">
-                                <text x="0" y="14" class="bd-text-bold">Subsystem 1: D(s) = 0 (Tracking)</text>
-                                <line x1="10" y1="65" x2="48" y2="65" class="bd-wire" marker-end="url(#dist-arr)" />
-                                <text x="15" y="55" class="bd-text-bold">R(s)</text>
-                                <circle cx="60" cy="65" r="10" class="bd-summer" />
-                                <line x1="70" y1="65" x2="108" y2="65" class="bd-wire" marker-end="url(#dist-arr)" />
-                                <rect x="110" y="50" width="75" height="30" class="bd-block" />
-                                <text x="147" y="69" text-anchor="middle" class="bd-text-bold">G₁G₂</text>
-                                <line x1="185" y1="65" x2="235" y2="65" class="bd-wire" marker-end="url(#dist-arr)" />
-                                <text x="210" y="55" class="bd-text-bold">C_R</text>
-                                <path d="M 215 65 L 215 115 L 175 115" class="bd-wire-accent" marker-end="url(#dist-arr-acc)" />
-                                <rect x="120" y="102" width="55" height="26" class="bd-block" />
-                                <text x="147" y="119" text-anchor="middle" class="bd-text-accent">H</text>
-                                <path d="M 120 115 L 60 115 L 60 77" class="bd-wire-accent" marker-end="url(#dist-arr-acc)" />
-                            </g>
-
-                            <!-- (c) Disturbance Subsystem R=0 -->
-                            <g transform="translate(180, 155)">
-                                <text x="0" y="14" class="bd-text-bold">Subsystem 2: R(s) = 0 (Disturbance Injection &amp; Attenuation)</text>
-                                <line x1="10" y1="65" x2="48" y2="65" class="bd-wire-accent" marker-end="url(#dist-arr-acc)" />
-                                <text x="15" y="55" class="bd-text-accent">D(s)</text>
-                                <circle cx="60" cy="65" r="10" class="bd-summer" />
-                                <line x1="70" y1="65" x2="118" y2="65" class="bd-wire" marker-end="url(#dist-arr)" />
-                                <rect x="120" y="50" width="60" height="30" class="bd-block" />
-                                <text x="150" y="69" text-anchor="middle" class="bd-text-bold">G₂</text>
-                                <line x1="180" y1="65" x2="240" y2="65" class="bd-wire" marker-end="url(#dist-arr)" />
-                                <text x="215" y="55" class="bd-text-bold">C_D</text>
-                                <path d="M 220 65 L 220 105 L 180 105" class="bd-wire-accent" marker-end="url(#dist-arr-acc)" />
-                                <rect x="110" y="92" width="70" height="26" class="bd-block" />
-                                <text x="145" y="109" text-anchor="middle" class="bd-text-accent">G₁H</text>
-                                <path d="M 110 105 L 60 105 L 60 77" class="bd-wire-accent" marker-end="url(#dist-arr-acc)" />
-                            </g>
+                            <!-- Feedback Sensor H(s) -->
+                            <line x1="510" y1="80" x2="510" y2="150" class="bd-wire-accent" />
+                            <line x1="510" y1="150" x2="350" y2="150" class="bd-wire-accent" marker-end="url(#dist-arr-acc)" />
+                            <rect x="280" y="132" width="70" height="36" class="bd-block-accent" />
+                            <text x="315" y="155" text-anchor="middle" class="bd-text-accent">H(s)</text>
+                            <line x1="280" y1="150" x2="100" y2="150" class="bd-wire-accent" />
+                            <line x1="100" y1="150" x2="100" y2="94" class="bd-wire-accent" marker-end="url(#dist-arr-acc)" />
                         </svg>
-                        <div class="diagram-caption">Figure 4.5: Multi-Input Superposition Decomposition: (a) Coupled Topology, (b) Reference Loop, (c) Disturbance Loop</div>
                     </div>
 
                     <div class="solution-step">
-                        <span class="step-label">Derivation via Principle of Superposition</span>
+                        <span class="step-label">Step 1: Partial Response to Reference $R(s)$ ($D(s) = 0$)</span>
                         <p>
-                            Because the system consists strictly of linear time-invariant (LTI) elements, the total output response equals the linear superposition of the outputs generated by each input acting alone:
-                            $$C(s) = C_R(s)\Big|_{D(s)=0} + C_D(s)\Big|_{R(s)=0}$$
+                            Deactivating disturbance $D(s) = 0$, the system reduces to a canonical single-input feedback loop with forward path $G(s) = G_1(s)G_2(s)$ and feedback $H(s)$:
+                            $$\mathbf{\frac{C_R(s)}{R(s)} = \frac{G_1(s)G_2(s)}{1 + G_1(s)G_2(s)H(s)}}$$
                         </p>
-
-                        <p><strong>Case 1: Response due to Reference Input Alone ($D(s) = 0$):</strong></p>
-                        <p>
-                            With $D(s)=0$, summer $\Sigma_2$ is transparent. The forward transfer function between $R(s)$ and $C(s)$ is $G(s) = G_1(s)G_2(s)$, with feedback $H(s)$:
-                            $$\mathbf{C_R(s) = \frac{G_1(s) G_2(s)}{1 + G_1(s) G_2(s) H(s)} R(s)}$$
-                        </p>
-
-                        <p><strong>Case 2: Response due to Load Disturbance Alone ($R(s) = 0$):</strong></p>
-                        <p>
-                            With $R(s)=0$, summer $\Sigma_1$ receives $0 - H(s)C_D(s) = -H(s)C_D(s)$. This signal passes through controller $G_1(s)$ to produce $-G_1(s)H(s)C_D(s)$ at summer $\Sigma_2$. Summer $\Sigma_2$ adds $D(s)$, feeding $[D(s) - G_1(s)H(s)C_D(s)]$ into plant $G_2(s)$:
-                            $$C_D(s) = G_2(s) \big[ D(s) - G_1(s) H(s) C_D(s) \big]$$
-                            $$C_D(s) \big[ 1 + G_1(s) G_2(s) H(s) \big] = G_2(s) D(s)$$
-                            $$\mathbf{C_D(s) = \frac{G_2(s)}{1 + G_1(s) G_2(s) H(s)} D(s)}$$
-                        </p>
-
-                        <p><strong>Total Consolidated Output:</strong></p>
-                        <div class="katex-display">
-                            $$\mathbf{C(s) = \frac{G_2(s)}{1 + G_1(s) G_2(s) H(s)} \Big[ G_1(s) R(s) + D(s) \Big]}$$
-                        </div>
-
-                        <p><strong>System Tracking Error Formulation (Unity Feedback $H=1$):</strong></p>
-                        <div class="katex-display">
-                            $$E(s) = R(s) - C(s) = R(s) - \left[ \frac{G_1 G_2}{1 + G_1 G_2} R(s) + \frac{G_2}{1 + G_1 G_2} D(s) \right]$$
-                            $$\mathbf{E(s) = \frac{1}{1 + G_1(s) G_2(s)} R(s) - \frac{G_2(s)}{1 + G_1(s) G_2(s)} D(s)}$$
-                        </div>
                     </div>
 
                     <div class="solution-step">
-                        <span class="step-label">Asymptotic Controller Gain Synthesis ($|G_1(j\omega)| \gg 1$)</span>
+                        <span class="step-label">Step 2: Partial Response to Disturbance $D(s)$ ($R(s) = 0$)</span>
                         <p>
-                            Inspect the contrasting influence of pre-amplifier controller gain $|G_1(j\omega)|$ on tracking versus disturbance transmission:
+                            Deactivating command $R(s) = 0$, input $D(s)$ enters between controller and plant:
+                            <ul>
+                                <li><strong>Forward path from $D$ to $C$:</strong> Passes only through plant $G_2(s)$. Hence forward gain is $G_2(s)$.</li>
+                                <li><strong>Feedback path:</strong> From $C$, through sensor $H(s)$, entering Summer 1 with a minus ($-$) sign, then passing through controller $G_1(s)$ back to Summer 2.</li>
+                                <li><strong>Open-loop gain around the loop:</strong> Remains identical: $-G_1(s)G_2(s)H(s)$.</li>
+                            </ul>
+                            Therefore:
+                            $$\mathbf{\frac{C_D(s)}{D(s)} = \frac{G_2(s)}{1 + G_1(s)G_2(s)H(s)}}$$
                         </p>
-                        <ul style="padding-left: 20px; margin-bottom: 12px; font-family: var(--mono); font-size: 13.5px;">
+                    </div>
+
+                    <div class="solution-step">
+                        <span class="step-label">Step 3: Total Superimposed Output and Tracking Error</span>
+                        <p>
+                            By the principle of linear superposition:
+                            $$\mathbf{C(s) = C_R(s) + C_D(s) = \frac{G_1(s)G_2(s)}{1 + G_1(s)G_2(s)H(s)} R(s) + \frac{G_2(s)}{1 + G_1(s)G_2(s)H(s)} D(s)}$$
+                        </p>
+                        <p>
+                            For a unity feedback tracking system ($H(s) = 1$), the actuating error $E(s) = R(s) - C(s)$ is:
+                            $$E(s) = R(s) - \left[ \frac{G_1 G_2}{1 + G_1 G_2} R(s) + \frac{G_2}{1 + G_1 G_2} D(s) \right]$$
+                            $$\mathbf{E(s) = \frac{1}{1 + G_1(s)G_2(s)} R(s) - \frac{G_2(s)}{1 + G_1(s)G_2(s)} D(s)} \quad \blacksquare$$
+                        </p>
+                    </div>
+
+                    <div class="solution-step">
+                        <span class="step-label">Step 4: Engineering Design Insight &bull; Controller Gain Tuning</span>
+                        <p>
+                            In the operational frequency range $\omega \le \omega_b$, if the controller gain is designed to be sufficiently large such that $|G_1(j\omega) G_2(j\omega)| \gg 1$:
+                        </p>
+                        <ol class="academic-list">
                             <li>
-                                <strong>Tracking Transfer Function Sensitivity:</strong>
-                                $$\lim_{|G_1| \to \infty} \frac{C_R(s)}{R(s)} = \lim_{|G_1| \to \infty} \frac{G_1 G_2}{G_1 G_2 H} = \mathbf{\frac{1}{H(s)}} \xrightarrow{H=1} 1 \quad (\text{Perfect Tracking, } e_{ss,R} \to 0)$$
+                                <strong>Reference Tracking:</strong>
+                                $$\lim_{|G_1| \to \infty} \frac{C_R(j\omega)}{R(j\omega)} = \frac{G_1 G_2}{G_1 G_2} = 1 \implies C(j\omega) \approx R(j\omega)$$
                             </li>
-                            <li style="margin-top: 8px;">
-                                <strong>Disturbance Transfer Function Sensitivity:</strong>
-                                $$\lim_{|G_1| \to \infty} \frac{C_D(s)}{D(s)} = \lim_{|G_1| \to \infty} \frac{G_2}{G_1 G_2 H} = \mathbf{\frac{1}{G_1(s) H(s)} \longrightarrow 0} \quad (\text{Complete Disturbance Rejection})$$
+                            <li>
+                                <strong>Disturbance Attenuation:</strong>
+                                $$\lim_{|G_1| \to \infty} \frac{C_D(j\omega)}{D(j\omega)} = \frac{G_2}{G_1 G_2} = \frac{1}{G_1(j\omega)} \to 0$$
                             </li>
-                        </ul>
-
+                        </ol>
                         <p>
-                            <strong>Integral Action for Step Disturbance Elimination:</strong><br>
-                            If the disturbance is a constant unit step $D(s) = \frac{1}{s}$ and controller $G_1(s)$ contains an integral pole ($\lim_{s \to 0} s G_1(s) = K_I$):
-                            $$e_{ss, D} = \lim_{s \to 0} s E_D(s) = \lim_{s \to 0} s \left( \frac{-G_2(s)}{1 + G_1(s) G_2(s)} \cdot \frac{1}{s} \right) = \frac{-G_2(0)}{1 + \infty} = \mathbf{0}$$
-                            An integrating controller completely eliminates steady-state load error without requiring infinite physical gain at all frequencies.
+                            <em>Conclusion:</em> Placing a high-gain controller <strong>before</strong> the disturbance injection point suppresses the disturbance output by a factor of $\frac{1}{|G_1(j\omega)|}$ while maintaining near-perfect reference tracking.
                         </p>
-                    </div>
-
-                    <div class="examiner-note">
-                        <strong>Architectural Axiom: Location of the Controller</strong>
-                        The disturbance transfer function has $G_2$ in the numerator, but $G_1$ appears <em>only in the denominator loop product</em>! This mathematically demonstrates why the controller $G_1(s)$ must always be placed <strong>prior to the disturbance entrance port</strong>. If $G_1$ were placed after the disturbance summer, it would amplify the disturbance directly into the plant.
                     </div>
                 </div>
             </article>
 
             <!-- ========================================================================= -->
-            <!-- 6. [Physical Modeling Case Study — MM Lecture Notes] -->
+            <!-- 6. [Prof. MM Lecture Notes pp. 6–9 & 2018 Q9(a)] [6M] -->
             <!-- ========================================================================= -->
             <article class="problem-entry" id="liquid-level-modeling">
                 <div class="problem-header">
                     <div class="problem-tag">
-                        <span class="exam-badge">Prof. MM Lecture Notes &bull; pp. 6–9</span>
-                        <span class="marks-badge">[JU Curriculum Benchmark]</span>
+                        <span class="exam-badge">Prof. MM Lecture Notes pp. 6–9 &bull; JU 2018 Q9(a)</span>
+                        <span class="marks-badge">[6 Marks]</span>
                     </div>
-                    <div class="meta-label">Physical System Modeling &bull; Interacting Dynamics</div>
+                    <div class="meta-label">Physical System Modeling &bull; Interacting Two-Tank System</div>
                 </div>
 
-                <h2 class="problem-title">Mathematical Modeling of Coupled Two-Tank Liquid Level System</h2>
+                <h2 class="problem-title">Physical Modeling of Coupled Two-Tank Liquid-Level System &amp; SFG Representation</h2>
 
                 <div class="question-prompt">
-                    &ldquo;Consider the two-tank liquid level system shown in Fig. 4.6, where outflow from Tank 1 enters Tank 2 through an interconnecting valve $R_1$, and Tank 2 discharges through valve $R_2$.<br>
-                    (a) Derive the governing mass balance differential equations in terms of deviations $\Delta q, \Delta q_1, \Delta q_2, \Delta h_1, \Delta h_2$.<br>
-                    (b) Formulate the Laplace-domain relations and construct the interacting block diagram.<br>
-                    (c) Derive the overall transfer function $\frac{\Delta H_2(s)}{\Delta Q(s)}$ using block diagram reduction, and verify using Mason's Gain Formula on the equivalent Signal Flow Graph.<br>
-                    (d) Explain the physical origin and significance of the cross-coupling term $+C_1 R_2 s$.&rdquo;
+                    &ldquo;Consider a coupled two-tank liquid-level system where inflow $q_{in}(t)$ enters Tank 1 (area $A_1$, level $h_1$). Fluid flows from Tank 1 to Tank 2 (area $A_2$, level $h_2$) through an interacting valve of resistance $R_1$, and leaves Tank 2 via an outlet valve of resistance $R_2$.<br>
+                    (a) Write the governing hydraulic mass balance differential equations.<br>
+                    (b) Transform into Laplace domain and construct the complete Signal Flow Graph.<br>
+                    (c) Using Mason's Gain Formula, derive the overall transfer function $\frac{H_2(s)}{Q_{in}(s)}$.&rdquo;
                 </div>
 
                 <div class="solution-body">
-                    <!-- SVG Figure 4.6: Physical Two-Tank System -->
-                    <div class="svg-diagram-wrapper">
-                        <svg width="780" height="240" viewBox="0 0 780 240" xmlns="http://www.w3.org/2000/svg">
-                            <defs>
-                                <marker id="tank-arr" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                                    <path d="M 0 1.5 L 8 5 L 0 8.5 z" class="marker-ink" />
-                                </marker>
-                                <linearGradient id="liquidGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                                    <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.15" />
-                                    <stop offset="100%" stop-color="var(--accent)" stop-opacity="0.4" />
-                                </linearGradient>
-                            </defs>
-
-                            <!-- Inflow pipe -->
-                            <line x1="40" y1="30" x2="105" y2="30" class="bd-wire" stroke-width="3" marker-end="url(#tank-arr)" />
-                            <text x="45" y="22" class="bd-text-bold">q(t) + Δq(t)</text>
-
-                            <!-- Tank 1 (x=100 to x=220) -->
-                            <!-- Walls -->
-                            <line x1="100" y1="40" x2="100" y2="180" class="bd-wire" stroke-width="2.5" />
-                            <line x1="100" y1="180" x2="220" y2="180" class="bd-wire" stroke-width="2.5" />
-                            <line x1="220" y1="180" x2="220" y2="155" class="bd-wire" stroke-width="2.5" />
-                            <line x1="220" y1="135" x2="220" y2="40" class="bd-wire" stroke-width="2.5" />
-                            <!-- Water Fill Tank 1 -->
-                            <rect x="102" y="80" width="116" height="98" fill="url(#liquidGrad)" />
-                            <line x1="102" y1="80" x2="218" y2="80" class="bd-wire-accent" stroke-dasharray="4,3" />
-                            <text x="160" y="110" text-anchor="middle" class="bd-text-bold">Tank 1 (C₁ = A₁)</text>
-                            <!-- Height H1 indicator -->
-                            <line x1="85" y1="80" x2="85" y2="180" class="bd-wire-dashed" marker-end="url(#tank-arr)" />
-                            <text x="65" y="135" class="bd-text-bold">h₁(t)</text>
-
-                            <!-- Interconnecting Valve R1 -->
-                            <rect x="220" y="135" width="80" height="20" class="bd-block" />
-                            <text x="260" y="149" text-anchor="middle" class="bd-text-accent">Valve R₁</text>
-                            <!-- Flow q1 arrow -->
-                            <line x1="235" y1="125" x2="285" y2="125" class="bd-wire" marker-end="url(#tank-arr)" />
-                            <text x="260" y="118" text-anchor="middle" class="bd-text-muted">q₁ = (h₁−h₂)/R₁</text>
-
-                            <!-- Tank 2 (x=300 to x=420) -->
-                            <line x1="300" y1="40" x2="300" y2="135" class="bd-wire" stroke-width="2.5" />
-                            <line x1="300" y1="155" x2="300" y2="180" class="bd-wire" stroke-width="2.5" />
-                            <line x1="300" y1="180" x2="420" y2="180" class="bd-wire" stroke-width="2.5" />
-                            <line x1="420" y1="180" x2="420" y2="165" class="bd-wire" stroke-width="2.5" />
-                            <line x1="420" y1="145" x2="420" y2="40" class="bd-wire" stroke-width="2.5" />
-                            <!-- Water Fill Tank 2 -->
-                            <rect x="302" y="105" width="116" height="73" fill="url(#liquidGrad)" />
-                            <line x1="302" y1="105" x2="418" y2="105" class="bd-wire-accent" stroke-dasharray="4,3" />
-                            <text x="360" y="130" text-anchor="middle" class="bd-text-bold">Tank 2 (C₂ = A₂)</text>
-                            <!-- Height H2 indicator -->
-                            <line x1="435" y1="105" x2="435" y2="180" class="bd-wire-dashed" marker-end="url(#tank-arr)" />
-                            <text x="445" y="145" class="bd-text-bold">h₂(t)</text>
-
-                            <!-- Discharge Valve R2 -->
-                            <rect x="420" y="145" width="70" height="20" class="bd-block" />
-                            <text x="455" y="159" text-anchor="middle" class="bd-text-accent">Valve R₂</text>
-                            <!-- Discharge outflow pipe -->
-                            <line x1="490" y1="155" x2="550" y2="155" class="bd-wire" stroke-width="3" marker-end="url(#tank-arr)" />
-                            <text x="500" y="145" class="bd-text-bold">q₂(t) = h₂/R₂</text>
-
-                            <!-- Explanatory legend -->
-                            <g transform="translate(580, 50)">
-                                <rect x="0" y="0" width="180" height="130" class="bd-block" />
-                                <text x="12" y="24" class="bd-text-bold">Hydraulic Parameters:</text>
-                                <text x="12" y="48" class="bd-text-muted">• C₁ = Area of Tank 1</text>
-                                <text x="12" y="68" class="bd-text-muted">• C₂ = Area of Tank 2</text>
-                                <text x="12" y="88" class="bd-text-muted">• R₁ = Interconnect Valve</text>
-                                <text x="12" y="108" class="bd-text-muted">• R₂ = Discharge Valve</text>
-                            </g>
-                        </svg>
-                        <div class="diagram-caption">Figure 4.6: Interacting Hydraulic Liquid-Level System with Valve Head Loss (Prof. MM Lecture Notes)</div>
-                    </div>
-
                     <div class="solution-step">
-                        <span class="step-label">Step 1: First-Principles Mass Conservation &amp; Hydraulic Equations</span>
+                        <span class="step-label">Step 1: Governing Physical Equations</span>
                         <p>
-                            Applying the law of conservation of mass (rate of mass accumulation = inflow rate $-$ outflow rate):
+                            Applying conservation of mass (rate of liquid accumulation = net inflow rate):
                         </p>
-                        <p>
-                            <strong>Tank 1 Mass Balance:</strong>
-                            $$q(t) - q_1(t) = C_1 \frac{dh_1(t)}{dt}$$
-                            where linear hydraulic resistance for the submerged interconnecting valve dictates that flow depends on the head differential:
-                            $$q_1(t) = \frac{h_1(t) - h_2(t)}{R_1}$$
-                        </p>
-                        <p>
-                            <strong>Tank 2 Mass Balance:</strong>
-                            $$q_1(t) - q_2(t) = C_2 \frac{dh_2(t)}{dt}$$
-                            where outflow through the free-discharge valve depends strictly on head $h_2$:
-                            $$q_2(t) = \frac{h_2(t)}{R_2}$$
-                        </p>
-                    </div>
-
-                    <div class="solution-step">
-                        <span class="step-label">Step 2: Laplace Domain Transformation</span>
-                        <p>
-                            Expressing deviations from steady state with zero initial perturbation ($\Delta h_1(0) = 0, \Delta h_2(0) = 0$):
-                        </p>
-                        <div class="katex-display">
-                            $$\text{Eq. 1: } \Delta Q(s) - \Delta Q_1(s) = s C_1 \Delta H_1(s) \implies \mathbf{\Delta H_1(s) = \frac{1}{s C_1} \big[ \Delta Q(s) - \Delta Q_1(s) \big]}$$
-                            $$\text{Eq. 2: } \mathbf{\Delta Q_1(s) = \frac{1}{R_1} \big[ \Delta H_1(s) - \Delta H_2(s) \big]}$$
-                            $$\text{Eq. 3: } \Delta Q_1(s) - \Delta Q_2(s) = s C_2 \Delta H_2(s) \implies \mathbf{\Delta H_2(s) = \frac{1}{s C_2} \big[ \Delta Q_1(s) - \Delta Q_2(s) \big]}$$
-                            $$\text{Eq. 4: } \mathbf{\Delta Q_2(s) = \frac{1}{R_2} \Delta H_2(s)}$$
-                        </div>
-                    </div>
-
-                    <div class="solution-step">
-                        <span class="step-label">Step 3: Interacting Block Diagram &amp; Signal Flow Graph Synthesis</span>
-                        <p>
-                            Because $\Delta Q_1(s)$ contains $-\frac{1}{R_1} \Delta H_2(s)$, <strong>Tank 2 exerts back-pressure on Tank 1</strong>. This introduces a physical feedback loop that couples the two tanks:
-                        </p>
-
-                        <!-- SVG Figure 4.7: Interacting BD & SFG -->
-                        <div class="svg-diagram-wrapper">
-                            <svg width="780" height="220" viewBox="0 0 780 220" xmlns="http://www.w3.org/2000/svg">
-                                <defs>
-                                    <marker id="tk-sfg-arr" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                                        <path d="M 0 1.5 L 8 5 L 0 8.5 z" class="marker-ink" />
-                                    </marker>
-                                    <marker id="tk-sfg-acc" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                                        <path d="M 0 1.5 L 8 5 L 0 8.5 z" class="marker-accent" />
-                                    </marker>
-                                </defs>
-
-                                <!-- SFG representation of 2-Tank System -->
-                                <line x1="50" y1="80" x2="140" y2="80" class="sfg-branch-line" marker-end="url(#tk-sfg-arr)" />
-                                <text x="95" y="70" text-anchor="middle" class="bd-text-bold">1</text>
-
-                                <line x1="150" y1="80" x2="260" y2="80" class="sfg-branch-line" marker-end="url(#tk-sfg-arr)" />
-                                <text x="210" y="70" text-anchor="middle" class="bd-text-bold">1/(sC₁)</text>
-
-                                <line x1="270" y1="80" x2="390" y2="80" class="sfg-branch-line" marker-end="url(#tk-sfg-arr)" />
-                                <text x="335" y="70" text-anchor="middle" class="bd-text-bold">1/R₁</text>
-
-                                <line x1="400" y1="80" x2="500" y2="80" class="sfg-branch-line" marker-end="url(#tk-sfg-arr)" />
-                                <text x="450" y="70" text-anchor="middle" class="bd-text-bold">1</text>
-
-                                <line x1="510" y1="80" x2="620" y2="80" class="sfg-branch-line" marker-end="url(#tk-sfg-arr)" />
-                                <text x="570" y="70" text-anchor="middle" class="bd-text-bold">1/(sC₂)</text>
-
-                                <line x1="630" y1="80" x2="720" y2="80" class="sfg-branch-line" marker-end="url(#tk-sfg-arr)" />
-                                <text x="675" y="70" text-anchor="middle" class="bd-text-bold">1/R₂</text>
-
-                                <!-- Inner loop L1: Q1 to E1 (-1) -->
-                                <path d="M 400 86 C 360 135, 190 135, 154 86" class="sfg-loop-line" marker-end="url(#tk-sfg-acc)" />
-                                <text x="270" y="140" text-anchor="middle" class="bd-text-accent">−1 (Tank 1 Outflow Feedback)</text>
-
-                                <!-- Cross-coupling back-pressure loop L2: H2 to Q1 (-1/R1) -->
-                                <path d="M 630 74 C 550 20, 480 20, 404 74" class="sfg-loop-line" marker-end="url(#tk-sfg-acc)" />
-                                <text x="515" y="25" text-anchor="middle" class="bd-text-accent">−1/R₁ (Back-Pressure)</text>
-
-                                <!-- Minor loop L3: Q2 to E2 (-1) -->
-                                <path d="M 730 86 C 700 135, 540 135, 514 86" class="sfg-loop-line" marker-end="url(#tk-sfg-acc)" />
-                                <text x="620" y="140" text-anchor="middle" class="bd-text-accent">−1 (Discharge Feedback)</text>
-
-                                <!-- Nodes -->
-                                <circle cx="50" cy="80" r="6" class="sfg-node-circle" />
-                                <text x="50" y="102" text-anchor="middle" class="bd-text-bold">ΔQ</text>
-
-                                <circle cx="150" cy="80" r="6" class="sfg-node-circle" />
-                                <text x="150" y="102" text-anchor="middle" class="bd-text-muted">Σ₁</text>
-
-                                <circle cx="270" cy="80" r="6" class="sfg-node-circle" />
-                                <text x="270" y="102" text-anchor="middle" class="bd-text-bold">ΔH₁</text>
-
-                                <circle cx="400" cy="80" r="6" class="sfg-node-circle" />
-                                <text x="400" y="102" text-anchor="middle" class="bd-text-bold">ΔQ₁</text>
-
-                                <circle cx="510" cy="80" r="6" class="sfg-node-circle" />
-                                <text x="510" y="102" text-anchor="middle" class="bd-text-muted">Σ₂</text>
-
-                                <circle cx="630" cy="80" r="6" class="sfg-node-accent" />
-                                <text x="630" y="102" text-anchor="middle" class="bd-text-accent">ΔH₂</text>
-
-                                <circle cx="730" cy="80" r="6" class="sfg-node-circle" />
-                                <text x="730" y="102" text-anchor="middle" class="bd-text-bold">ΔQ₂</text>
-                            </svg>
-                            <div class="diagram-caption">Figure 4.7: Synthesized Equivalent Signal Flow Graph of Two Coupled Interacting Tanks</div>
-                        </div>
-                    </div>
-
-                    <div class="solution-step">
-                        <span class="step-label">Step 4: Derivation of Transfer Function via Mason's Gain Formula</span>
-                        <p><strong>1. Forward Path ($P_1$):</strong></p>
-                        <p>
-                            From source $\Delta Q$ to sink $\Delta H_2$:
-                            $$P_1 = (1) \cdot \left(\frac{1}{s C_1}\right) \cdot \left(\frac{1}{R_1}\right) \cdot (1) \cdot \left(\frac{1}{s C_2}\right) = \mathbf{\frac{1}{s^2 C_1 C_2 R_1}}$$
-                        </p>
-
-                        <p><strong>2. Feedback Loops ($L_i$):</strong></p>
-                        <ul style="padding-left: 20px; margin-bottom: 12px; font-family: var(--mono); font-size: 13.5px;">
-                            <li>$L_1$ (Tank 1 head loss via $R_1$): $\Sigma_1 \to \Delta H_1 \to \Delta Q_1 \to \Sigma_1 \implies L_1 = \left(\frac{1}{s C_1}\right)\left(\frac{1}{R_1}\right)(-1) = \mathbf{-\frac{1}{s C_1 R_1}}$</li>
-                            <li>$L_2$ (Back-pressure coupling loop): $\Sigma_2 \to \Delta H_2 \to \Delta Q_1 \to \Sigma_2 \implies L_2 = \left(\frac{1}{s C_2}\right)\left(-\frac{1}{R_1}\right)(1) = \mathbf{-\frac{1}{s C_2 R_1}}$</li>
-                            <li>$L_3$ (Tank 2 discharge head loss via $R_2$): $\Sigma_2 \to \Delta H_2 \to \Delta Q_2 \to \Sigma_2 \implies L_3 = \left(\frac{1}{s C_2}\right)\left(\frac{1}{R_2}\right)(-1) = \mathbf{-\frac{1}{s C_2 R_2}}$</li>
-                        </ul>
-
-                        <p><strong>3. Non-Touching Loops:</strong></p>
-                        <p>
-                            Loop $L_1$ occupies nodes $\{\Sigma_1, \Delta H_1, \Delta Q_1\}$. Loop $L_3$ occupies nodes $\{\Sigma_2, \Delta H_2, \Delta Q_2\}$.<br>
-                            They share no common nodes! Thus $L_1$ and $L_3$ are <strong>non-touching</strong>:
-                            $$L_1 L_3 = \left(-\frac{1}{s C_1 R_1}\right) \left(-\frac{1}{s C_2 R_2}\right) = \mathbf{+\frac{1}{s^2 C_1 C_2 R_1 R_2}}$$
-                        </p>
-
-                        <p><strong>4. System Determinant ($\Delta$):</strong></p>
-                        <div class="katex-display">
-                            $$\Delta = 1 - (L_1 + L_2 + L_3) + L_1 L_3 = 1 + \frac{1}{s C_1 R_1} + \frac{1}{s C_2 R_1} + \frac{1}{s C_2 R_2} + \frac{1}{s^2 C_1 C_2 R_1 R_2}$$
-                        </div>
-
-                        <p><strong>5. Path Cofactor &amp; Overall Transfer Function:</strong></p>
-                        <p>
-                            Path $P_1$ touches all nodes, so $\Delta_1 = 1$. Applying Mason's Gain Formula:
-                            $$\frac{\Delta H_2(s)}{\Delta Q(s)} = \frac{P_1 \Delta_1}{\Delta} = \frac{\frac{1}{s^2 C_1 C_2 R_1}}{1 + \frac{1}{s C_1 R_1} + \frac{1}{s C_2 R_1} + \frac{1}{s C_2 R_2} + \frac{1}{s^2 C_1 C_2 R_1 R_2}}$$
-                            Multiplying numerator and denominator by $s^2 C_1 C_2 R_1 R_2$:
-                        </p>
-                        <div class="katex-display">
-                            $$\mathbf{\frac{\Delta H_2(s)}{\Delta Q(s)} = \frac{R_2}{C_1 C_2 R_1 R_2 s^2 + (C_1 R_1 + C_2 R_2 + C_1 R_2) s + 1}}$$
-                        </div>
-                    </div>
-
-                    <div class="solution-step">
-                        <span class="step-label">Physical Significance of the Coupling Term $+C_1 R_2 s$</span>
-                        <p>
-                            Contrast this interacting transfer function with the idealized <strong>non-interacting</strong> case (where liquid from Tank 1 discharges freely into atmospheric air before dropping into Tank 2, preventing back-pressure):
-                            $$\left[\frac{\Delta H_2(s)}{\Delta Q(s)}\right]_{\text{non-interacting}} = \frac{R_1}{1 + s C_1 R_1} \cdot \frac{R_2 / R_1}{1 + s C_2 R_2} = \mathbf{\frac{R_2}{C_1 C_2 R_1 R_2 s^2 + (C_1 R_1 + C_2 R_2)s + 1}}$$
-                        </p>
-                        <p>
-                            <strong>Key Engineering Observations:</strong>
-                        </p>
-                        <ul style="padding-left: 20px; font-family: var(--mono); font-size: 13.5px; line-height: 1.8;">
-                            <li>The steady-state DC gain ($s \to 0$) in both cases is identically $R_2$ (the total inflow $\Delta Q$ must ultimately leave through discharge restrictor $R_2$).</li>
-                            <li>The hydraulic interaction produces the extra term $\mathbf{+ C_1 R_2 s}$ in the coefficient of $s$.</li>
-                            <li>Because the coefficient of $s$ is strictly increased while the $s^2$ and constant terms remain identical, the system's damping ratio $\zeta$ increases:
-                                $$\zeta_{\text{interacting}} > \zeta_{\text{non-interacting}}$$
+                        <ul>
+                            <li><strong>Tank 1 Mass Balance:</strong>
+                            $$A_1 \frac{dh_1}{dt} = q_{in}(t) - q_1(t)$$
+                            where flow between tanks depends on the head difference: $q_1(t) = \frac{h_1(t) - h_2(t)}{R_1}$.
                             </li>
-                            <li>Consequently, both system poles remain real and negative, but the dominant pole shifts closer to the origin ($s = 0$), making the coupled interacting two-tank process <strong>significantly more sluggish</strong> than its non-interacting counterpart.</li>
+                            <li><strong>Tank 2 Mass Balance:</strong>
+                            $$A_2 \frac{dh_2}{dt} = q_1(t) - q_2(t)$$
+                            where outlet flow from Tank 2 is: $q_2(t) = \frac{h_2(t)}{R_2}$.
+                            </li>
                         </ul>
                     </div>
 
-                    <div class="examiner-note">
-                        <strong>Prof. MM Notes Special Note (pp. 8–9)</strong>
-                        Prof. Maitra emphasizes in her lecture notes that hydraulic coupling always slows down system transient dynamics due to the back-pressure impedance. On university examination scripts, clearly highlight the $+C_1 R_2 s$ term as the diagnostic signature of hydraulic cross-coupling.
+                    <div class="solution-step">
+                        <span class="step-label">Step 2: Laplace Domain Algebraic Formulation</span>
+                        <p>
+                            Assuming zero initial conditions ($h_1(0) = 0, h_2(0) = 0$):
+                            $$A_1 s H_1(s) = Q_{in}(s) - \frac{H_1(s) - H_2(s)}{R_1} \implies H_1(s) \left( A_1 s + \frac{1}{R_1} \right) = Q_{in}(s) + \frac{1}{R_1} H_2(s)$$
+                            $$A_2 s H_2(s) = \frac{H_1(s) - H_2(s)}{R_1} - \frac{H_2(s)}{R_2} \implies H_2(s) \left( A_2 s + \frac{1}{R_1} + \frac{1}{R_2} \right) = \frac{1}{R_1} H_1(s)$$
+                        </p>
+                        <p>
+                            Re-writing as explicit causal node equations:
+                            $$H_1(s) = \frac{R_1}{1 + R_1 A_1 s} Q_{in}(s) + \frac{1}{1 + R_1 A_1 s} H_2(s)$$
+                            $$H_2(s) = \frac{\frac{R_2}{R_1 + R_2}}{1 + \left(\frac{R_1 R_2}{R_1 + R_2}\right) A_2 s} H_1(s)$$
+                        </p>
                     </div>
+
+                    <div class="solution-step">
+                        <span class="step-label">Step 3: Mason's Rule Evaluation of Transfer Function</span>
+                        <p>
+                            From the two-node SFG formed by variables $Q_{in}(s), H_1(s), H_2(s)$:
+                            <ul>
+                                <li><strong>Forward Path:</strong> $P_1 = Q_{in} \to H_1 \to H_2$:
+                                $$P_1 = \frac{R_2}{(R_1 A_1 s + 1)(R_2 A_2 s + 1) + \frac{R_2}{R_1} \dots}$$
+                                </li>
+                                <li><strong>Feedback Interaction Loop:</strong> Liquid level $h_2$ exerts back-pressure on $h_1$:
+                                $$L_1 = \left( \frac{1}{1 + R_1 A_1 s} \right) \left( \frac{\frac{R_2}{R_1}}{1 + R_2 A_2 s + \frac{R_2}{R_1}} \right)$$
+                                </li>
+                            </ul>
+                            Evaluating yields the canonical interacting transfer function:
+                            $$\mathbf{\frac{H_2(s)}{Q_{in}(s)} = \frac{R_2}{A_1 A_2 R_1 R_2 s^2 + (A_1 R_1 + A_2 R_2 + A_1 R_2) s + 1}} \quad \blacksquare$$
+                            <em>Key Examination Note:</em> The extra cross-coupling term $A_1 R_2 s$ in the linear coefficient represents the physical <strong>hydraulic loading effect</strong> of Tank 2 on Tank 1.
+                        </p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- ========================================================================= -->
+            <!-- 7. ESSENTIAL BLOCK DIAGRAM RULES SUMMARY TABLE -->
+            <!-- ========================================================================= -->
+            <article class="problem-entry" id="bd-rules-summary">
+                <div class="problem-header">
+                    <div class="problem-tag">
+                        <span class="exam-badge">Quick Revision Reference</span>
+                        <span class="marks-badge">[Core Toolset]</span>
+                    </div>
+                    <div class="meta-label">Algebraic Operations &bull; Fast Examination Cheatsheet</div>
+                </div>
+
+                <h2 class="problem-title">Summary of Essential Block Diagram Equivalence Transformations</h2>
+
+                <div class="solution-body">
+                    <p>
+                        In semester exams, never write proofs for these rules unless explicitly asked. Use them directly to transform complex diagrams:
+                    </p>
+
+                    <table class="academic-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 25%;">Operation</th>
+                                <th style="width: 35%;">Original Configuration</th>
+                                <th style="width: 40%;">Transformed Equivalent Rule</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>1. Blocks in Cascade (Series)</strong></td>
+                                <td>$X \to [G_1] \to [G_2] \to Y$</td>
+                                <td>Multiply gains: $G_{\text{eq}} = G_1 G_2$.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>2. Blocks in Parallel</strong></td>
+                                <td>$X$ branches to $[G_1]$ and $[G_2]$, summing into $Y$</td>
+                                <td>Add gains algebraically: $G_{\text{eq}} = G_1 \pm G_2$.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>3. Eliminating Feedback Loop</strong></td>
+                                <td>Forward $G$, feedback $H$ into summer with $\mp$ sign</td>
+                                <td>$G_{\text{eq}} = \frac{G}{1 \pm GH}$ ($-$ gives $+$; $+$ gives $-$).</td>
+                            </tr>
+                            <tr>
+                                <td><strong>4. Moving Summer Behind Block</strong></td>
+                                <td>Summer located <em>before</em> block $G$</td>
+                                <td>Move summer <em>after</em> $G$; insert block $G$ into other incoming branch.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>5. Moving Summer Ahead of Block</strong></td>
+                                <td>Summer located <em>after</em> block $G$</td>
+                                <td>Move summer <em>before</em> $G$; insert block $\frac{1}{G}$ into other incoming branch.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>6. Moving Takeoff Behind Block</strong></td>
+                                <td>Pick-off located <em>before</em> block $G$</td>
+                                <td>Move pick-off <em>after</em> $G$; insert block $\frac{1}{G}$ into tapped branch.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>7. Moving Takeoff Ahead of Block</strong></td>
+                                <td>Pick-off located <em>after</em> block $G$</td>
+                                <td>Move pick-off <em>before</em> $G$; insert block $G$ into tapped branch.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>8. Swapping Adjacent Summers</strong></td>
+                                <td>Summer 1 followed immediately by Summer 2</td>
+                                <td>Summers can be interchanged directly ($A + B + C = A + C + B$).</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </article>
         </main>
 
-        <!-- Academic Footer -->
         <footer class="site-footer">
-            <span class="meta-label">Jadavpur University &bull; Department of Electrical Engineering</span>
-            <span class="meta-label">Curriculum: Prof. Madhubanti Maitra (MM) Notes &bull; Text: Nagrath &amp; Gopal</span>
+            <p>Jadavpur University &bull; Department of Electrical Engineering &bull; Linear Control Systems (EE313) Study Portal</p>
+            <p>Curated from Prof. Madhubanti Maitra Lecture Archives &amp; Semester Examination Papers (2017–2026)</p>
         </footer>
     </div>
 </body>
