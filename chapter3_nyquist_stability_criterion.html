@@ -319,86 +319,249 @@
                 <h2 class="problem-title">Stability Analysis of $G(s)H(s) = \frac{-1}{2s(1 - 20s)}$ via Nyquist Plot</h2>
 
                 <div class="question-prompt">
-                    &ldquo;Sketch the Nyquist plot for a system with the following open-loop transfer function. Determine the stability of the system. (CO4)
-                    $$G(s)H(s) = \frac{-1}{2s(1 - 20s)}$$&rdquo;
+                    &ldquo;The open loop transfer function of a unity feedback control system is
+                    $$G(s) = \frac{-1}{2s(1 - 20s)}$$
+                    Using Nyquist Stability Criterion ascertain the stability of the system. (CO4)&rdquo;
+                </div>
+
+                <!-- SVG Diagram: Nyquist Contour in s-plane & Complete Nyquist Plot in GH-plane -->
+                <div class="svg-diagram-wrapper" style="margin: 20px 0 28px 0; background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; padding: 18px 12px; text-align: center;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 420" width="100%" height="auto" aria-label="Nyquist Plot for G(s) = -1 / [2s(1-20s)]">
+                        <defs>
+                            <marker id="arr-c1-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                <path d="M 0 1 L 10 5 L 0 9 z" fill="#3b82f6" />
+                            </marker>
+                            <marker id="arr-c3-purple" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                <path d="M 0 1 L 10 5 L 0 9 z" fill="#a855f7" />
+                            </marker>
+                            <marker id="arr-c4-orange" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                <path d="M 0 1 L 10 5 L 0 9 z" fill="#f97316" />
+                            </marker>
+                            <marker id="arr-cw-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                <path d="M 0 1 L 10 5 L 0 9 z" fill="#ef4444" />
+                            </marker>
+                        </defs>
+
+                        <!-- Panel 1: s-Plane Nyquist Contour -->
+                        <g transform="translate(10, 10)">
+                            <rect x="0" y="0" width="380" height="390" fill="#141413" stroke="#2a2926" rx="6" />
+                            <text x="190" y="28" text-anchor="middle" fill="#ecebe8" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="700" letter-spacing="1">INPUT DOMAIN: s-PLANE CONTOUR (&Gamma;&#8347;)</text>
+
+                            <!-- s-plane Axes -->
+                            <line x1="30" y1="200" x2="350" y2="200" stroke="#44423d" stroke-width="1.2" />
+                            <line x1="160" y1="360" x2="160" y2="45" stroke="#44423d" stroke-width="1.2" />
+                            <text x="345" y="192" fill="#8c8a7e" font-family="'JetBrains Mono', monospace" font-size="11">&sigma;</text>
+                            <text x="166" y="58" fill="#8c8a7e" font-family="'JetBrains Mono', monospace" font-size="11">j&omega;</text>
+
+                            <!-- Enclosed RHP Shading -->
+                            <path d="M 160 80 A 120 120 0 0 1 160 320 L 160 215 A 15 15 0 0 0 160 185 Z" fill="rgba(239, 68, 68, 0.08)" stroke="none" />
+
+                            <!-- Path C1: j*eps to j*R -->
+                            <line x1="160" y1="185" x2="160" y2="80" stroke="#3b82f6" stroke-width="2.5" />
+                            <path d="M 160 140 L 160 130" stroke="#3b82f6" stroke-width="2.5" marker-end="url(#arr-c1-blue)" />
+                            <text x="142" y="135" fill="#3b82f6" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="600">C&#8321;</text>
+
+                            <!-- Path C2: R*exp(j*th) -->
+                            <path d="M 160 80 A 120 120 0 0 1 160 320" fill="none" stroke="#64748b" stroke-width="2" stroke-dasharray="4,4" />
+                            <path d="M 280 200 L 280 206" stroke="#64748b" stroke-width="2" marker-end="url(#arr-c1-blue)" />
+                            <text x="286" y="195" fill="#64748b" font-family="'JetBrains Mono', monospace" font-size="10">C&#8322; (R &rarr; &infin;)</text>
+
+                            <!-- Path C3: -j*R to -j*eps -->
+                            <line x1="160" y1="320" x2="160" y2="215" stroke="#a855f7" stroke-width="2.5" />
+                            <path d="M 160 270 L 160 260" stroke="#a855f7" stroke-width="2.5" marker-end="url(#arr-c3-purple)" />
+                            <text x="142" y="270" fill="#a855f7" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="600">C&#8323;</text>
+
+                            <!-- Path C4: Origin Indentation into RHP -->
+                            <path d="M 160 215 A 15 15 0 0 0 160 185" fill="none" stroke="#f97316" stroke-width="2.5" />
+                            <path d="M 175 200 L 175 196" stroke="#f97316" stroke-width="2.5" marker-end="url(#arr-c4-orange)" />
+                            <text x="180" y="185" fill="#f97316" font-family="'JetBrains Mono', monospace" font-size="10">C&#8324; (&epsilon; &rarr; 0)</text>
+
+                            <!-- Open-loop Pole at Origin -->
+                            <text x="148" y="205" fill="#eab308" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="800">&times;</text>
+                            <text x="122" y="218" fill="#eab308" font-family="'JetBrains Mono', monospace" font-size="9.5">s = 0</text>
+
+                            <!-- Open-loop Pole in RHP: s = +0.05 -->
+                            <circle cx="215" cy="200" r="14" fill="rgba(239, 68, 68, 0.2)" stroke="#ef4444" stroke-width="1.2" stroke-dasharray="3,3" />
+                            <text x="210" y="205" fill="#ef4444" font-family="'JetBrains Mono', monospace" font-size="16" font-weight="800">&times;</text>
+                            <text x="200" y="230" fill="#ef4444" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="700">s = +0.05</text>
+                            <text x="200" y="244" fill="#ef4444" font-family="'JetBrains Mono', monospace" font-size="9.5">(P = 1 Enclosed!)</text>
+
+                            <!-- Direction Indicator -->
+                            <rect x="25" y="340" width="330" height="32" fill="#1b1a18" rx="4" stroke="#33312c" />
+                            <text x="190" y="360" text-anchor="middle" fill="#d97706" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="600">&Gamma;&#8347; Traversed CLOCKWISE around RHP &bull; P = 1</text>
+                        </g>
+
+                        <!-- Panel 2: GH-Plane Nyquist Plot -->
+                        <g transform="translate(410, 10)">
+                            <rect x="0" y="0" width="510" height="390" fill="#141413" stroke="#2a2926" rx="6" />
+                            <text x="255" y="28" text-anchor="middle" fill="#ecebe8" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="700" letter-spacing="1">OUTPUT DOMAIN: G(s)H(s)-PLANE NYQUIST PLOT</text>
+
+                            <!-- GH-plane Axes -->
+                            <!-- Re goes from -12 to +2. Origin at x = 440, y = 200. Scale: 32px per unit -->
+                            <!-- Re = -10 at x = 120 -->
+                            <!-- Re = -1 at x = 408 -->
+                            <!-- Re = 0 at x = 440 -->
+                            <line x1="25" y1="200" x2="490" y2="200" stroke="#44423d" stroke-width="1.2" />
+                            <line x1="440" y1="365" x2="440" y2="45" stroke="#44423d" stroke-width="1.2" />
+                            <text x="480" y="192" fill="#8c8a7e" font-family="'JetBrains Mono', monospace" font-size="11">Re</text>
+                            <text x="446" y="58" fill="#8c8a7e" font-family="'JetBrains Mono', monospace" font-size="11">jIm</text>
+                            <text x="446" y="215" fill="#8c8a7e" font-family="'JetBrains Mono', monospace" font-size="10">0</text>
+
+                            <!-- Vertical Asymptote Re = -10 at x = 120 -->
+                            <line x1="120" y1="45" x2="120" y2="355" stroke="#eab308" stroke-width="1.2" stroke-dasharray="5,4" />
+                            <text x="125" y="65" fill="#eab308" font-family="'JetBrains Mono', monospace" font-size="9.5">Asymptote: Re = &minus;10</text>
+
+                            <!-- Path C1 Curve: from (120, 50) sweeping down-right to (408, 175) and into (440, 200) -->
+                            <path d="M 120 50 Q 128 150, 260 170 T 408 178 Q 425 186, 440 200" fill="none" stroke="#3b82f6" stroke-width="2.5" />
+                            <!-- Direction arrow on C1 -->
+                            <path d="M 330 174 L 342 175" stroke="#3b82f6" stroke-width="2.5" marker-end="url(#arr-c1-blue)" />
+                            <text x="270" y="158" fill="#3b82f6" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="600">Path C&#8321; (&omega;: 0&#8314; &rarr; +&infin;)</text>
+
+                            <!-- Intersection at omega = 0.15 rad/s: (-1, +0.33) -> (408, 178) -->
+                            <circle cx="408" cy="178" r="3.5" fill="#3b82f6" />
+                            <text x="350" y="142" fill="#93c5fd" font-family="'JetBrains Mono', monospace" font-size="9">&omega; = 0.15 rad/s: (&minus;1, +j0.33)</text>
+                            <line x1="408" y1="146" x2="408" y2="174" stroke="#93c5fd" stroke-width="0.8" stroke-dasharray="2,2" />
+
+                            <!-- Path C3 Curve (Conjugate Mirror): from (440, 200) sweeping out down-left to (120, 350) -->
+                            <path d="M 440 200 Q 425 214, 408 222 T 260 230 Q 128 250, 120 350" fill="none" stroke="#a855f7" stroke-width="2.5" />
+                            <!-- Direction arrow on C3 -->
+                            <path d="M 342 225 L 330 226" stroke="#a855f7" stroke-width="2.5" marker-end="url(#arr-c3-purple)" />
+                            <text x="270" y="252" fill="#a855f7" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="600">Path C&#8323; (&omega;: &minus;&infin; &rarr; 0&#8315;)</text>
+
+                            <!-- Path C4: Infinite radius closure sweeping CW around left-half plane -->
+                            <path d="M 120 350 C 40 370, 30 270, 30 200 C 30 130, 40 30, 120 50" fill="none" stroke="#f97316" stroke-width="2" stroke-dasharray="5,4" />
+                            <path d="M 30 205 L 30 195" stroke="#f97316" stroke-width="2" marker-end="url(#arr-c4-orange)" />
+                            <text x="42" y="195" fill="#f97316" font-family="'JetBrains Mono', monospace" font-size="10">Path C&#8324; (R&infin; &rarr; &infin; sweep via &minus;&infin;)</text>
+
+                            <!-- Critical Point (-1 + j0) at x = 408, y = 200 -->
+                            <circle cx="408" cy="200" r="5" fill="#ef4444" stroke="#b91c1c" stroke-width="2" />
+                            <text x="408" y="215" text-anchor="middle" fill="#ef4444" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="800">&minus;1 + j0</text>
+                            <text x="408" y="226" text-anchor="middle" fill="#f87171" font-family="'JetBrains Mono', monospace" font-size="8.5">Critical Point</text>
+
+                            <!-- Highlight Encirclement Around (-1+j0) -->
+                            <path d="M 390 190 A 24 24 0 1 1 390 210" fill="none" stroke="#ef4444" stroke-width="1.8" stroke-dasharray="3,3" />
+                            <path d="M 414 176 L 420 178" stroke="#ef4444" stroke-width="1.8" marker-end="url(#arr-cw-red)" />
+                            <text x="430" y="162" fill="#ef4444" font-family="'JetBrains Mono', monospace" font-size="10.5" font-weight="700">1 CW Encirclement!</text>
+                            <text x="430" y="174" fill="#fca5a5" font-family="'JetBrains Mono', monospace" font-size="9">N_cw = +1 (N_ccw = &minus;1)</text>
+
+                            <!-- Result Summary Badge -->
+                            <rect x="25" y="338" width="460" height="36" fill="#1b1a18" rx="4" stroke="#33312c" />
+                            <text x="255" y="360" text-anchor="middle" fill="#ef4444" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700">N_cw = Z &minus; P &rArr; Z = N_cw + P = 1 + 1 = 2 &bull; SYSTEM IS UNSTABLE!</text>
+                        </g>
+                    </svg>
                 </div>
 
                 <div class="solution-body">
                     <div class="solution-step">
                         <span class="step-label">Step 1: Open-Loop Singularities &amp; RHP Pole Count ($P$)</span>
                         <p>
-                            The open-loop transfer function is:
+                            Express the open-loop transfer function in standard form:
                         </p>
                         $$G(s)H(s) = \frac{-1}{2s(1 - 20s)} = \frac{1}{2s(20s - 1)}$$
                         <ul style="margin: 8px 0 16px 24px;">
-                            <li>Open-loop pole at origin: $s = 0$.</li>
-                            <li>Open-loop pole from $(1 - 20s) = 0 \implies s = +\frac{1}{20} = +0.05$ (lies strictly in the open Right-Half Plane).</li>
+                            <li>Pole at the origin: $s = 0$ (lies on the imaginary axis boundary).</li>
+                            <li>Pole from $(1 - 20s) = 0 \implies 20s = 1 \implies s = +\frac{1}{20} = +0.05$ (lies strictly in the open Right-Half Plane).</li>
+                            <li>Finite zeros: None ($m = 0$).</li>
                         </ul>
                         <p>
-                            Therefore, the number of open-loop RHP poles is:
+                            Therefore, the count of open-loop poles in the open Right-Half Plane is:
                         </p>
                         $$\mathbf{P = 1}$$
                         <p>
-                            For closed-loop stability ($Z = 0$), the Nyquist plot must satisfy:
+                            According to the Nyquist Stability Criterion, the number of closed-loop poles in the open RHP ($Z$) is governed by:
                         </p>
-                        $$\mathbf{N_{\text{ccw}} = P - Z = 1 - 0 = +1}$$
+                        $$N_{\text{cw}} = Z - P \quad \iff \quad Z = P + N_{\text{cw}}$$
+                        <p>
+                            *(where $N_{\text{cw}}$ is the number of clockwise encirclements of the critical point $-1 + j0$, equivalent to $N_{\text{ccw}} = P - Z$ in counter-clockwise convention).*
+                        </p>
                     </div>
 
                     <div class="solution-step">
                         <span class="step-label">Step 2: Frequency Response Formulation Along Path $C_1$ ($s = j\omega, \omega: 0^+ \to +\infty$)</span>
                         <p>
-                            Substitute $s = j\omega$:
+                            Substitute $s = j\omega$ into $G(s)$:
                         </p>
-                        $$G(j\omega)H(j\omega) = \frac{-1}{2j\omega(1 - j20\omega)} = \frac{-1}{j2\omega + 40\omega^2} = \frac{-1}{40\omega^2 + j2\omega}$$
+                        $$G(j\omega)H(j\omega) = \frac{-1}{2j\omega(1 - j20\omega)} = \frac{-1}{40\omega^2 + j2\omega}$$
                         <p>
-                            Rationalizing the denominator:
+                            Rationalizing the denominator by multiplying numerator and denominator by $(40\omega^2 - j2\omega)$:
                         </p>
-                        $$G(j\omega)H(j\omega) = \frac{-(40\omega^2 - j2\omega)}{(40\omega^2)^2 + (2\omega)^2} = \frac{-40\omega^2 + j2\omega}{1600\omega^4 + 4\omega^2} = \frac{-40\omega^2 + j2\omega}{4\omega^2(400\omega^2 + 1)}$$
+                        $$G(j\omega)H(j\omega) = \frac{-(40\omega^2 - j2\omega)}{(40\omega^2)^2 + (2\omega)^2} = \frac{-40\omega^2 + j2\omega}{1600\omega^4 + 4\omega^2} = \frac{4\omega^2(-10 + j\frac{1}{2\omega})}{4\omega^2(400\omega^2 + 1)}$$
                         $$\mathbf{\text{Re}[G(j\omega)H(j\omega)] = \frac{-10}{400\omega^2 + 1}}$$
                         $$\mathbf{\text{Im}[G(j\omega)H(j\omega)] = \frac{1}{2\omega(400\omega^2 + 1)}}$$
                         <p>
-                            <strong>Key Deductions for $\omega &gt; 0$:</strong>
+                            <strong>Critical Analytical Deductions for $\omega &gt; 0$:</strong>
                         </p>
                         <ul style="margin: 8px 0 16px 24px;">
-                            <li>$\text{Re}[G(j\omega)H(j\omega)] &lt; 0$ for all $\omega &gt; 0$.</li>
-                            <li>$\text{Im}[G(j\omega)H(j\omega)] &gt; 0$ for all $\omega &gt; 0$.</li>
-                            <li>The polar curve lies <strong>strictly and entirely in the second quadrant</strong>!</li>
-                            <li>As $\omega \to 0^+$: $\lim_{\omega \to 0^+} \text{Re} = -10$ and $\lim_{\omega \to 0^+} \text{Im} = +\infty$. Thus, the locus approaches a vertical asymptote at $\mathbf{\text{Re} = -10}$.</li>
-                            <li>As $\omega \to +\infty$: $\text{Re} \to 0^-$ and $\text{Im} \to 0^+$. The locus enters the origin tangent to the positive imaginary axis ($+90^\circ$).</li>
+                            <li><strong>Sign of Coordinates:</strong> For all $\omega &gt; 0$, $\text{Re} &lt; 0$ and $\text{Im} &gt; 0$. Hence, Path $C_1$ lies <strong>strictly and entirely in the second quadrant</strong>!</li>
+                            <li><strong>Low-Frequency Limit ($\omega \to 0^+$):</strong>
+                                $$\lim_{\omega \to 0^+} \text{Re}[G(j\omega)] = -10, \quad \lim_{\omega \to 0^+} \text{Im}[G(j\omega)] = +\infty$$
+                                Thus, as $\omega \to 0^+$, the locus approaches a <strong>vertical asymptote at $\text{Re} = -10$</strong> with $\text{Im} \to +\infty$.
+                            </li>
+                            <li><strong>High-Frequency Limit ($\omega \to +\infty$):</strong>
+                                $$\lim_{\omega \to \infty} \text{Re}[G(j\omega)] = 0^-, \quad \lim_{\omega \to \infty} \text{Im}[G(j\omega)] = 0^+$$
+                                Furthermore, $\frac{\text{Im}}{\text{Re}} = \frac{1}{-20\omega} \to 0^-$, meaning the locus enters the origin at $\angle 180^\circ$ (tangent to the negative real axis).
+                            </li>
+                            <li><strong>Crossing above Critical Point Coordinate:</strong>
+                                Set $\text{Re}[G(j\omega)] = -1$:
+                                $$\frac{-10}{400\omega^2 + 1} = -1 \implies 400\omega^2 + 1 = 10 \implies \omega = \frac{3}{20} = 0.15 \text{ rad/s}$$
+                                At $\omega = 0.15\text{ rad/s}$:
+                                $$\text{Im}[G(j 0.15)] = \frac{1}{2(0.15)(10)} = +\frac{1}{3} \approx +0.3333$$
+                                The locus passes through coordinate $(-1.0, +j0.3333)$ heading from left to right towards the origin.
+                            </li>
                         </ul>
                     </div>
 
                     <div class="solution-step">
-                        <span class="step-label">Step 3: Indentation Around Origin on Path $C_4$ ($s = \varepsilon e^{j\theta}, \theta: -90^\circ \to +90^\circ$)</span>
+                        <span class="step-label">Step 3: Indentation Mapping on Path $C_4$ ($s = \varepsilon e^{j\theta}, \theta: -90^\circ \to +90^\circ$)</span>
                         <p>
-                            Near $s = 0$, with $\varepsilon \to 0$:
+                            To bypass the pole at the origin, the Nyquist contour indents into the RHP via a small semicircle $s = \varepsilon e^{j\theta}$ with $\varepsilon \to 0$:
                         </p>
-                        $$G(s)H(s) \approx \frac{-1}{2(\varepsilon e^{j\theta})(1 - 0)} = \frac{-1}{2\varepsilon e^{j\theta}} = \frac{1}{2\varepsilon} e^{j(180^\circ - \theta)}$$
+                        $$G(s)H(s) \approx \frac{-1}{2(\varepsilon e^{j\theta})(1 - 0)} = \frac{e^{j180^\circ}}{2\varepsilon e^{j\theta}} = \frac{1}{2\varepsilon} e^{j(180^\circ - \theta)}$$
                         <p>
-                            As $\theta$ sweeps from $-90^\circ \to 0^\circ \to +90^\circ$:
+                            As $\theta$ sweeps from $-90^\circ \to 0^\circ \to +90^\circ$ (clockwise along the boundary of the enclosed RHP):
                         </p>
-                        $$\text{Angle sweeps: } 180^\circ - (-90^\circ) = +270^\circ \longrightarrow 180^\circ \longrightarrow +90^\circ$$
+                        $$\text{Phase sweeps: } 180^\circ - (-90^\circ) = +270^\circ \longrightarrow 180^\circ \longrightarrow +90^\circ$$
                         <p>
-                            This describes a circular arc of infinite radius ($R_\infty = \frac{1}{2\varepsilon} \to \infty$) sweeping clockwise by $180^\circ$ through the left-half plane, connecting $-10 - j\infty$ (end of $C_3$) to $-10 + j\infty$ (start of $C_1$) via $(-\infty, 0)$.
+                            This describes an arc of infinite radius ($R_\infty = \frac{1}{2\varepsilon} \to \infty$) sweeping <strong>clockwise by $180^\circ$ through the left-half plane</strong>, connecting $-10 - j\infty$ (end of Path $C_3$) to $-10 + j\infty$ (start of Path $C_1$) around $-\infty$.
                         </p>
                     </div>
 
                     <div class="solution-step">
-                        <span class="step-label">Step 4: Encirclement Analysis &amp; Closed-Loop Stability</span>
+                        <span class="step-label">Step 4: Complete Encirclement Analysis &amp; Stability Conclusion</span>
                         <p>
-                            The closed contour is bounded by the vertical asymptote at $\text{Re} = -10$ and the infinite left-half plane closure arc.
+                            Now trace the entire closed contour in the $G(s)H(s)$-plane relative to the critical point $(-1 + j0)$:
                         </p>
+                        <ul style="margin: 8px 0 16px 24px;">
+                            <li><strong>Top Boundary ($C_1$):</strong> Passes directly above the critical point at $(-1.0, +j0.3333)$ moving from <strong>left to right</strong> toward $(0, 0)$.</li>
+                            <li><strong>Right Boundary ($C_1 \to C_2 \to C_3$):</strong> Enters and leaves the origin $(0, 0)$, transitioning from quadrant 2 to quadrant 3 (moving downward).</li>
+                            <li><strong>Bottom Boundary ($C_3$):</strong> Passes directly below the critical point at $(-1.0, -j0.3333)$ moving from <strong>right to left</strong> toward $-10 - j\infty$.</li>
+                            <li><strong>Left Boundary ($C_4$):</strong> Sweeps upward through $-\infty$ from bottom to top, closing the loop.</li>
+                        </ul>
                         <p>
-                            The critical point is $\mathbf{-1 + j0}$. Since $\text{Re} = -1 &gt; -10$, the critical point lies to the right of the vertical asymptote and inside the closed loop formed by $C_1$, $C_3$, and $C_4$. Tracing the loop reveals that the critical point $(-1 + j0)$ is encircled <strong>once in the counter-clockwise (CCW) direction</strong>:
+                            Following the directional arrows ($\text{Left} \to \text{Right} \to \text{Down} \to \text{Left} \to \text{Up}$), the critical point $(-1 + j0)$ is enclosed inside the loop and encircled <strong>exactly once in the CLOCKWISE (CW) direction</strong>:
                         </p>
-                        $$\mathbf{N_{\text{ccw}} = +1}$$
+                        $$\mathbf{N_{\text{cw}} = +1} \quad \left(\text{or } N_{\text{ccw}} = -1\right)$$
                         <p>
-                            Applying the Nyquist Stability Criterion:
+                            Applying Cauchy's Nyquist Stability Criterion:
                         </p>
-                        $$Z = P - N_{\text{ccw}} = 1 - 1 = \mathbf{0}$$
+                        $$Z = P + N_{\text{cw}} = 1 + 1 = \mathbf{2}$$
+                        $$\left(\text{or equivalently: } Z = P - N_{\text{ccw}} = 1 - (-1) = \mathbf{2}\right)$$
+
                         <div class="examiner-note">
-                            <strong>Conclusion:</strong>
-                            Because $Z = 0$, all closed-loop poles lie in the left-half $s$-plane. The closed-loop system is strictly <strong>STABLE</strong>.
+                            <strong>Official Examination Conclusion:</strong>
+                            <br>Because $\mathbf{Z = 2 \ne 0}$, the closed-loop system has <strong>two closed-loop poles in the open Right-Half Plane (RHP)</strong>.
+                            <br>Therefore, the closed-loop control system is strictly <strong>UNSTABLE</strong>.
+                        </div>
+
+                        <div style="margin-top: 16px; padding: 12px 16px; background: rgba(59, 130, 246, 0.08); border-left: 3px solid #3b82f6; border-radius: 4px;">
+                            <strong style="color: #60a5fa; font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.05em;">Direct Analytical Cross-Verification (Routh-Hurwitz):</strong>
+                            <p style="margin: 6px 0 0 0; font-size: 13.5px; color: var(--text);">
+                                The closed-loop characteristic equation is:
+                                $$1 + G(s) = 0 \implies 1 + \frac{-1}{2s(1 - 20s)} = 0 \implies 40s^2 - 2s + 1 = 0$$
+                                By the quadratic formula:
+                                $$s = \frac{2 \pm \sqrt{(-2)^2 - 4(40)(1)}}{80} = \frac{2 \pm j\sqrt{156}}{80} = \mathbf{+0.025 \pm j0.1561}$$
+                                Since both closed-loop roots have a strictly positive real part ($\sigma = +0.025 &gt; 0$), there are precisely <strong>$Z = 2$ unstable RHP roots</strong>, confirming the Nyquist derivation with 100% algebraic exactness!
+                            </p>
                         </div>
                     </div>
                 </div>
